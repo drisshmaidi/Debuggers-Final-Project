@@ -4,7 +4,7 @@ import { useState,useEffect } from "react";
 const CreateEvent = ({ UID })=>{
 
 const[userType, setUserType] = useState("Loading...");
-
+// check the user's type
 		useEffect(() => {
 			fetch("/api/addNewEvent", {
 				method: "POST",
@@ -20,13 +20,13 @@ const[userType, setUserType] = useState("Loading...");
 					throw new Error(res.statusText);
 				}
 				return res.json();
-                })
-				.then((body) => {
-					setUserType(body[0].type);
-				})
-				.catch((err) => {
-					console.error(err);
-				});
+            })
+			.then((body) => {
+				setUserType(body[0].type);
+			})
+			.catch((err) => {
+                console.error(err);
+			});
 		});
     return (
 			<div>
