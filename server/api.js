@@ -12,7 +12,7 @@ router.get("/", (_, res) => {
 });
 
 router.post("/addNewEvent",(req,res)=>{
-	const userId = req.body.userID;
+	const userId = req.body.userId;
 	logger.debug(userId);
 	db.query(
 		"SELECT ut.type FROM users u JOIN users_type ut ON u.type_id = ut.id WHERE u.id = $1",[userId]

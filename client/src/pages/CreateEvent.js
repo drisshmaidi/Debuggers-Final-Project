@@ -1,30 +1,37 @@
 import AddEvent from "../components/eventSection/AddEvent.js";
+import { useState,useEffect } from "react";
 
-const CreateEvent = async({ UID })=>{
-let userType;
-    try {
-      const res = await fetch("/api/addNewEvent", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          userID: UID,
-        }),
-      });
-       userType = await res.json();
-console.log(userType[0].type === "Admin");
+const CreateEvent = ({ UID })=>{
 
-    } catch (e) {
-      console.log(e);
-    }
+const[userType, setUserType] = useState("Loading...");
+
+		useEffect(() => {
+			fetch("/api/addNewEvent", {
+				method: "POST",
+				headers: {
+					Accept: "application/json",
+					"Content-type": "application/json",
+				},
+				body: JSON.stringify({
+					userId: UID,
+				}),
+			}).then((res)=>{
+                if (!res.ok) {
+					throw new Error(res.statusText);
+				}
+				return res.json();
+                })
+				.then((body) => {
+					setUserType(body[0].type);
+				})
+				.catch((err) => {
+					console.error(err);
+				});
+		});
     return (
 			<div>
 				{/* <Header></Header> */}
-                <AddEvent />
-				{userType[0].type === "Admin"?<AddEvent />:"Unauthorized access"}
-
+                {userType === "Admin"?<AddEvent />:"Unauthorized Access"}
 				{/* <Footer></Footer> */}
 			</div>
 		);
