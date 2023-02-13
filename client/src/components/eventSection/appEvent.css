@@ -1,0 +1,11 @@
+.event {
+  text-align: center;
+  background-color: rgb(201, 234, 228);
+  /* background: linear-gradient(90deg, rgb(115, 155, 230) 0%, rgb(241, 233, 190) 35%, rgb(169, 215, 224) 100%); */
+margin: 0rem 20rem;
+font-size: 1.5rem;
+}
+
+.descriptionEvent {
+    font-size: 1.5rem;
+}
