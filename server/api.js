@@ -1,12 +1,12 @@
 import { Router } from "express";
-
-import logger from "./utils/logger";
+import bookingsRouter from "./bookings";
+import eventsRouter from "./events";
+import traineesRouter from "./trainees";
 
 const router = Router();
 
-router.get("/", (_, res) => {
-	logger.debug("Welcoming everyone...");
-	res.json({ message: "Hello, world!" });
-});
+router.use(bookingsRouter);
+router.use(eventsRouter);
+router.use(traineesRouter);
 
 export default router;
