@@ -1,10 +1,13 @@
+DROP TABLE IF EXISTS events;
+
 CREATE TABLE events (
     id serial primary key,
     title VARCHAR (250) UNIQUE NOT NULL,
     img VARCHAR(3000) NOT NULL,
-    description VARCHAR(250) date DATE NOT NULL,
+    description VARCHAR(250),
+    date DATE NOT NULL,
     location VARCHAR(250),
-    url VARCHAR (250) NOT NULL,
+    url VARCHAR (250) NOT NULL
 );
 
 INSERT INTO
