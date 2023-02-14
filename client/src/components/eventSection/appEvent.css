@@ -10,7 +10,7 @@ padding: 2rem 2rem 2rem 2rem;
 .allEvents {
     font-size: 3rem;
      text-align: center;
-     background-color: rgb(149, 192, 184);
+     background-color: rgb(174, 203, 197);
      /* background: linear-gradient(90deg, rgb(77, 132, 122) 0%, rgb(218, 242, 250) 35%, rgb(161, 202, 210) 100%); */
 color: rgb(9, 31, 34);
     } 
@@ -32,5 +32,12 @@ color: rgb(9, 31, 34);
 }
 
 .wholePage {
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(228, 218, 184);
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
 }
