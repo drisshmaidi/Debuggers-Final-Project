@@ -1,0 +1,10 @@
+.event {
+  text-align: center;
+  background-color: rgb(201, 234, 228);
+margin: 0rem 20rem;
+font-size: 1.5rem;
+}
+
+.descriptionEvent {
+    font-size: 1.5rem;
+}
