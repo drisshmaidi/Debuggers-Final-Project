@@ -8,10 +8,23 @@ const AddEvent =()=>{
 
 	const { register,handleSubmit,formState: { errors },reset } = useForm();
   	const [successMsg, setSuccessMsg] = useState("");
-const onSubmit = (data) =>{
-console.log(data);
-setSuccessMsg("Events saved successfully");
-reset();
+
+	const onSubmit = (data) =>{
+		const formData = new FormData();
+		console.log(data.eventPic[0])
+		formData.append("eventPic",data.eventPic[0]);
+
+	fetch("/api/addNewEvent", {
+		method: "POST",
+		headers: {
+			Accept: "application/json",
+			"Content-type": "application/json",
+		},
+		body: formData,
+	});
+
+	setSuccessMsg("Events saved successfully");
+	//reset();
 };
 
 
@@ -21,14 +34,14 @@ return (
 	<div>
 		<h1>Hello from Admin</h1>
 		<form onSubmit={handleSubmit(onSubmit)}>
-			{successMsg && <p>{successMsg}</p>}
+			{successMsg && <p className="success-msg">{successMsg}</p>}
 			<div className="form-control">
 				<label>Event Title*</label>
 				<input
 					type="text"
 					placeholder="Event Title"
 					{...register("title", {
-						required: "Event Title is required.",
+						//required: "Event Title is required.",
 					})}
 				/>
 				{errors.title && <p className="errorMsg">{errors.title.message}</p>}
@@ -40,7 +53,7 @@ return (
 					type="text"
 					placeholder="Event Description"
 					{...register("desc", {
-						required: "Event description is required",
+						//required: "Event description is required",
 					})}
 				/>
 				{errors.desc && <p className="errorMsg">{errors.desc.message}</p>}
@@ -51,7 +64,7 @@ return (
 				<input
 					type="date"
 					{...register("startDate", {
-						required: "Events start date is required.",
+						//required: "Events start date is required.",
 					})}
 				/>
 				{errors.startDate && (
@@ -70,11 +83,11 @@ return (
 					type="text"
 					placeholder="Email"
 					{...register("email", {
-						required: "Email is required.",
-						pattern: {
-							value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
-							message: "Email is not valid.",
-						},
+						//required: "Email is required.",
+						// pattern: {
+						// 	value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+						// 	message: "Email is not valid.",
+						// },
 					})}
 				/>
 				{errors.email && <p className="errorMsg">{errors.email.message}</p>}
@@ -86,10 +99,10 @@ return (
 					type="tel"
 					placeholder="Mobile"
 					{...register("mobile", {
-						pattern: {
-							value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
-							message: "Mobile is not valid.",
-						},
+						// pattern: {
+						// 	value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+						// 	message: "Mobile is not valid.",
+						// },
 					})}
 				/>
 				{errors.mobile && <p className="errorMsg">{errors.mobile.message}</p>}
@@ -100,15 +113,16 @@ return (
 				<input
 					type="file"
 					accept="image/png, image/jpeg"
-					placeholder="upload image"
-					{...register("file", {
+					{...register("eventPic", {
 						validate: {
 							lessThan10MB: (files) =>
 								files[0]?.size < 1000000 || "Max size  1mb",
 						},
 					})}
 				/>
-				{errors.file && <p className="errorMsg">{errors.file.message}</p>}
+				{errors.eventPic && (
+					<p className="errorMsg">{errors.eventPic.message}</p>
+				)}
 			</div>
 
 			<div className="form-control">
@@ -116,7 +130,7 @@ return (
 				<textarea
 					placeholder="Enter event location"
 					{...register("location", {
-						required: "Event location is required",
+						//required: "Event location is required",
 					})}
 				/>
 				{errors.location && (

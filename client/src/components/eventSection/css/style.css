@@ -29,13 +29,12 @@ body {
 }
 
 .form-control label {
-    width: 30%;
+    width: 60%;
     padding-right: 20px;
     margin-bottom: 5px;
 }
 
-.form-control input[type="text"],
-.form-control input[type="password"] {
+.form-control input[type="text"] {
     width: 40%;
     padding: 5px;
 }

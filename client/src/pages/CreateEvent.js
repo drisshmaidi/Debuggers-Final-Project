@@ -6,7 +6,7 @@ const CreateEvent = ({ UID })=>{
 const[userType, setUserType] = useState("Loading...");
 // check the user's type
 		useEffect(() => {
-			fetch("/api/addNewEvent", {
+			fetch("/api/checkUserTpe", {
 				method: "POST",
 				headers: {
 					Accept: "application/json",
@@ -15,18 +15,19 @@ const[userType, setUserType] = useState("Loading...");
 				body: JSON.stringify({
 					userId: UID,
 				}),
-			}).then((res)=>{
-                if (!res.ok) {
-					throw new Error(res.statusText);
-				}
-				return res.json();
-            })
-			.then((body) => {
-				setUserType(body[0].type);
 			})
-			.catch((err) => {
-                console.error(err);
-			});
+				.then((res) => {
+					if (!res.ok) {
+						throw new Error(res.statusText);
+					}
+					return res.json();
+				})
+				.then((body) => {
+					setUserType(body[0].type);
+				})
+				.catch((err) => {
+					console.error(err);
+				});
 		});
     return (
 			<div>
