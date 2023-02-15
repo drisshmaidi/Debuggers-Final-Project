@@ -1,38 +1,48 @@
-import { useState,useEffect } from "react";
+
+
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import "./css/style.css";
 
 
 const AddEvent =()=>{
+	const [successMsg, setSuccessMsg] = useState("");
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm();
 
-	const { register,handleSubmit,formState: { errors },reset } = useForm();
-  	const [successMsg, setSuccessMsg] = useState("");
+	const onSubmit = (data) => {
+		console.log(data);
 
-	const onSubmit = (data) =>{
-		const formData = new FormData();
-		console.log(data.eventPic[0])
-		formData.append("eventPic",data.eventPic[0]);
-
-	fetch("/api/addNewEvent", {
-		method: "POST",
-		headers: {
-			Accept: "application/json",
-			"Content-type": "application/json",
-		},
-		body: formData,
-	});
-
-	setSuccessMsg("Events saved successfully");
-	//reset();
-};
+		//Sends form field values to server via fetch.
+		let fd = new FormData();
 
 
+		fd.append("title", data.title);
+		fd.append("description", data.desc);
+		fd.append("startDate", data.startDate);
+
+		fd.append("endDate", data.endDate);
+		fd.append("email",data.email);
+		fd.append("mobile",data.mobile);
+
+		fd.append("eventPic", data.eventPic[0]);
+		fd.append("location",data.location);
 
 
+		fetch("/api/addNewEvent", { method: "POST", body: fd })
+			.then((res) => res.json())
+			.then((data) => {
+
+				setSuccessMsg(data.message);
+			});
+
+	};
 return (
 	<div>
-		<h1>Hello from Admin</h1>
 		<form onSubmit={handleSubmit(onSubmit)}>
 			{successMsg && <p className="success-msg">{successMsg}</p>}
 			<div className="form-control">
