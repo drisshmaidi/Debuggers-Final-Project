@@ -1,29 +1,46 @@
 import React, { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 
-const BookingModal = () => {
+const BookingModal = ({ eventId }) => {
 	const [show, setShow] = useState(false);
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
+	const [date, setDate] = useState("");
+	const [error, setError] = useState(null);
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
-	const handleSubmit = (event) => {
+	const handleSubmit = async (event) => {
 		event.preventDefault();
 		const emailRegex =
 			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 		if (!emailRegex.test(email)) {
-			alert("Invalid email format!");
+			setError("Invalid email format!");
 			return;
 		}
 
-		console.log(`Name: ${name}, Email: ${email}`);
-		// logic for booking event and sending confirmation email
+		const response = await fetch(`/api/events/${eventId}/bookings`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ name, email, date }),
+		});
+
+		if (!response.ok) {
+			setError("Failed to add booking!");
+			return;
+		}
+
+		const data = await response.json();
+
+		console.log(`Added booking with id ${data.id}`);
 
 		setName("");
 		setEmail("");
+		setDate("");
 		setShow(false);
 	};
 
@@ -48,6 +65,7 @@ const BookingModal = () => {
 					<Modal.Title>Book Event</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
+					{error && <div className="alert alert-danger">{error}</div>}
 					<Form onSubmit={handleSubmit}>
 						<Form.Group controlId="formBasicName">
 							<Form.Label>Name</Form.Label>
@@ -69,6 +87,16 @@ const BookingModal = () => {
 								required
 							/>
 						</Form.Group>
+						<Form.Group controlId="formBasicBookingDate">
+							<Form.Label>Booking Date</Form.Label>
+							<Form.Control
+								type="date"
+								placeholder="Enter booking date"
+								value={date}
+								onChange={(event) => setDate(event.target.value)}
+								required
+							/>
+						</Form.Group>
 						<Button variant="primary" type="submit">
 							Book
 						</Button>{" "}
@@ -83,3 +111,5 @@ const BookingModal = () => {
 };
 
 export default BookingModal;
+
+

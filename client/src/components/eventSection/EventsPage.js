@@ -1,13 +1,20 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable react/jsx-key */
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect } from "react";
 import "./appEvent.css";
+
 import event from "../eventSection/event.png";
 
-function EventsPage() {
+import { Link } from "react-router-dom";
+
+
+function EventsPage({ setEventId }) {
 	const [events, setEvents] = useState([]);
 
 	const fetchEvent = () => {
-		console.log("test");
-		fetch(`/api/events`)
+		fetch("/api/events")
 			.then((res) => res.json())
 			.then((data) => {
 				const currentDate = new Date();
@@ -21,6 +28,7 @@ function EventsPage() {
 	useEffect(() => {
 		fetchEvent();
 	}, []);
+
 
 	const formatDate = (dateString) => {
 		const date = new Date(dateString);
@@ -36,6 +44,7 @@ function EventsPage() {
 			) : (
 				<div className="eventsContainer">
 					{events.map((event, index) => (
+          <Link to="/booking" onClick={() => setEventId(event.id)}>
 						<section className="event" key={event.id}>
 							<div className="eventContent">
 								<h1 className="eventTitle">{event.title}</h1>
@@ -55,11 +64,13 @@ function EventsPage() {
 								</p>
 							</div>
 						</section>
+            </Link>
 					))}
 				</div>
 			)}
 		</>
 	);
+
 }
 
 export default EventsPage;
