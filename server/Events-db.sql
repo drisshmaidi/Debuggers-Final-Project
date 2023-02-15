@@ -48,4 +48,40 @@ values
         '2023-06-24',
         'Nottingham, NG2 6AT',
         'https://www.eventbrite.co.uk/e/english-functional-skills-west-bridgford-library-adult-learning-tickets-405535647037?aff=ebdssbdestsearch'
+    ),
+    (
+        5,
+        'Manchester Language Exchange',
+        'https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F309942549%2F614297308833%2F1%2Foriginal.20220127-202927?w=940&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C252%2C2016%2C1008&s=d40646db6314186b50329cfb1bce809c',
+        'Manchester Language Exchange, every Thursday in the city centre! Come to practise new languages, and also to share your native language skills - we are all teachers and students.',
+        '2023-07-23',
+        'Manchester',
+        'https://www.eventbrite.co.uk/e/manchester-language-exchange-tickets-257242759017?aff=ebdssbdestsearch'
+    ),
+    (
+        6,
+        'Hustle Club Networking: Female Only Connection & Coaching',
+        'https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F434820799%2F715669430983%2F1%2Foriginal.20230130-111107?w=940&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C60%2C1920%2C960&s=f9cc26d13039bae94f2a7487b3a014f4',
+        'Each month on the 2nd Thursday we invite members of The Harmonious Hustle Club and non members to connect at The Exchange in their cellar venue from 6pm - 8pm at a female only networking event.',
+        '2023-07-13',
+        'Leicester',
+        'https://www.eventbrite.co.uk/e/the-harmonious-hustle-club-networking-female-only-connection-coaching-tickets-492791030237?aff=ebdssbdestsearch'
+    ),
+    (
+        7,
+        'Birmingham International Speakers Club',
+        'https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F146117397%2F515258876959%2F1%2Foriginal.20210831-131950?w=940&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C200%2C800%2C400&s=952eada09e898efff359de88863f2044',
+        'Being able to speak in public is a skill that can help you to accomplish so much in life which is why, with our coaching, our members have gone on to achieve great things they never thought possible.',
+        '2023-06-28',
+        'Birmingham',
+        'https://www.eventbrite.co.uk/e/birmingham-international-speakers-club-moseley-birmingham-tickets-165645202259?aff=ebdssbdestsearch'
+    ),
+    (
+        8,
+        'Language Exchange English/Spanish',
+        'https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F442413559%2F815911467523%2F1%2Foriginal.20230208-235341?w=940&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C59%2C1640%2C820&s=fda399b328a69527b44ccdbf1f6764a1',
+        'A fun, friendly, and open environment for cultural exchange, practising your language skills, making new friends, and supporting local businesses.',
+        '2023-03-07',
+        'Wilmslow',
+        'https://www.eventbrite.co.uk/e/language-exchange-englishspanish-wilmslow-tickets-539833104347?aff=ebdssbdestsearch'
     );
