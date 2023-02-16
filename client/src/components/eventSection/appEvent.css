@@ -47,6 +47,7 @@ color: rgb(9, 31, 34);
 
 .eventTitle {
     font-size: 2rem;
+
 }
 
 .eventButton {
@@ -86,4 +87,9 @@ color: rgb(9, 31, 34);
     border-radius: 5px;
     padding: 10px;
     cursor: pointer;
+}
+
+.descriptionEvent{
+    font-size: 1.3rem;
+    color: rgb(82, 82, 82);
 }
