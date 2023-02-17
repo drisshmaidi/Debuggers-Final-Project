@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Modal, Form } from "react-bootstrap";
+import { Button, Modal, Form, Col } from "react-bootstrap";
 
 const BookingModal = ({ eventId }) => {
 	const [show, setShow] = useState(false);
@@ -20,45 +20,54 @@ const BookingModal = ({ eventId }) => {
 			setError("Invalid email format!");
 			return;
 		}
+		try {
+			const response = await fetch("/api/bookings", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ eventId, name, email, date }),
+			});
 
-		const response = await fetch(`/api/events/${eventId}/bookings`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ name, email, date }),
-		});
+			if (!response.ok) {
+				throw new Error("Failed to add booking!");
+			}
 
-		if (!response.ok) {
-			setError("Failed to add booking!");
-			return;
+			const data = await response.json();
+
+			console.log(`Added booking with id ${data.id}`);
+
+			setName("");
+			setEmail("");
+			setDate("");
+			setShow(false);
+		} catch (error) {
+			setError(error.message);
 		}
-
-		const data = await response.json();
-
-		console.log(`Added booking with id ${data.id}`);
-
-		setName("");
-		setEmail("");
-		setDate("");
-		setShow(false);
 	};
 
 	return (
 		<>
-			<div className="mb-3">
-				<Button variant="primary" onClick={handleShow}>
+			<Col
+				md
+				style={{ marginBottom: "40%", marginLeft: "20%", marginRight: "5%" }}
+			>
+				<Button
+					className="rounded shadow"
+					variant="primary"
+					onClick={handleShow}
+				>
 					Book Event
 				</Button>
-			</div>
-			<div>
+			</Col>
+			<Col md style={{ marginBottom: "40%", paddingRight: "20px" }}>
 				<button
-					className="btn btn-primary"
+					className="btn btn-primary rounded shadow"
 					onClick={() => window.history.back()}
 				>
-					Go Back
+					Back to Event
 				</button>
-			</div>
+			</Col>
 
 			<Modal show={show} onHide={handleClose}>
 				<Modal.Header closeButton>
