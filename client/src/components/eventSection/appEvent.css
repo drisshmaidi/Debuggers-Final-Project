@@ -10,7 +10,7 @@ padding: 2rem 2rem 2rem 2rem;
 .allEvents {
     font-size: 3rem;
      text-align: center;
-     background-color: rgb(174, 203, 197);
+     background-color: rgb(203, 203, 203);
      /* background: linear-gradient(90deg, rgb(77, 132, 122) 0%, rgb(218, 242, 250) 35%, rgb(161, 202, 210) 100%); */
 color: rgb(9, 31, 34);
     } 
@@ -24,11 +24,13 @@ color: rgb(9, 31, 34);
 }
 
 .eventContent {
- background: linear-gradient(90deg, rgb(77, 132, 122) 0%, rgb(218, 242, 250) 35%, rgb(161, 202, 210) 100%);
-     /* background-color: rgb(158, 200, 192); */
+ /* background: linear-gradient(90deg, rgb(77, 132, 122) 0%, rgb(218, 242, 250) 35%, rgb(161, 202, 210) 100%); */
+     background-color: rgb(251, 255, 254);
  padding: 20px;
     text-align: center;
     margin: 2rem;
+        border: 5px solid rgb(191, 190, 190);
+    border-radius: 5px;
 }
 
 .wholePage {
@@ -38,6 +40,50 @@ color: rgb(9, 31, 34);
 .center {
   display: block;
   margin-left: auto;
-  margin-right: auto;
+  margin-right: 10rem;
+  margin-top:2rem;
 
+}
+
+.eventTitle {
+    font-size: 2rem;
+}
+
+.eventButton {
+    display: inline-block;
+    background-color: red;
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.searchBar {
+    display: flex;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-left: 40px;
+    margin-right: 400px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.searchBar input {
+    flex: 1;
+    margin-right: 20px;
+    border: none;
+}
+
+.searchBar button {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
 }
