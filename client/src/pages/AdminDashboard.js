@@ -1,20 +1,25 @@
 import AddEvent from "../components/eventSection/AddEvent.js";
 import { useState,useEffect } from "react";
 
-const CreateEvent = ({ UID })=>{
+//import "bootstrap/dist/css/bootstrap.min.css";
+
+
+const AdminDashboard = ({ UID })=>{
 
 const[userType, setUserType] = useState("Loading...");
-// check the user's type
+// checking the user's type
+
+
 		useEffect(() => {
-			fetch("/api/checkUserTpe", {
+
+			fetch("/api/checkUserType", {
 				method: "POST",
 				headers: {
 					Accept: "application/json",
 					"Content-type": "application/json",
 				},
-				body: JSON.stringify({
-					userId: UID,
-				}),
+				body: JSON.stringify({ "userId":UID }),
+
 			})
 				.then((res) => {
 					if (!res.ok) {
@@ -23,7 +28,9 @@ const[userType, setUserType] = useState("Loading...");
 					return res.json();
 				})
 				.then((body) => {
+					console.log(body);
 					setUserType(body[0].type);
+
 				})
 				.catch((err) => {
 					console.error(err);
@@ -31,11 +38,12 @@ const[userType, setUserType] = useState("Loading...");
 		});
     return (
 			<div>
+
 				{/* <Header></Header> */}
-                {userType === "Admin"?<AddEvent />:"Unauthorized Access"}
+				{userType === "Admin"?<AddEvent UID={UID} />:"Unauthorized Access"}
 				{/* <Footer></Footer> */}
 			</div>
 		);
 };
 
-export default CreateEvent;
+export default AdminDashboard;

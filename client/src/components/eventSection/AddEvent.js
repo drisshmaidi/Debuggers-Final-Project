@@ -6,39 +6,42 @@ import { useForm } from "react-hook-form";
 import "./css/style.css";
 
 
-const AddEvent =()=>{
+const AddEvent =({ UID })=>{
 	const [successMsg, setSuccessMsg] = useState("");
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
+		reset,
 	} = useForm();
 
 	const onSubmit = (data) => {
 		console.log(data);
 
 		//Sends form field values to server via fetch.
-		let fd = new FormData();
+		let formData = new FormData();
 
 
-		fd.append("title", data.title);
-		fd.append("description", data.desc);
-		fd.append("startDate", data.startDate);
+		formData.append("title", data.title);
+		formData.append("description", data.desc);
+		formData.append("startDate", data.startDate);
+		formData.append("time",data.time);
 
-		fd.append("endDate", data.endDate);
-		fd.append("email",data.email);
-		fd.append("mobile",data.mobile);
+		formData.append("endDate", data.endDate);
+		formData.append("email",data.email);
+		formData.append("mobile",data.mobile);
 
-		fd.append("eventPic", data.eventPic[0]);
-		fd.append("location",data.location);
+		formData.append("eventPic", data.eventPic[0]);
+		formData.append("location",data.location);
+		formData.append("UID",UID);
 
 
-		fetch("/api/addNewEvent", { method: "POST", body: fd })
+		fetch("/api/addNewEvent", { method: "POST", body: formData })
 			.then((res) => res.json())
 			.then((data) => {
-
 				setSuccessMsg(data.message);
 			});
+			reset();
 
 	};
 return (
@@ -51,7 +54,7 @@ return (
 					type="text"
 					placeholder="Event Title"
 					{...register("title", {
-						//required: "Event Title is required.",
+						required: "Event Title is required.",
 					})}
 				/>
 				{errors.title && <p className="errorMsg">{errors.title.message}</p>}
@@ -63,7 +66,7 @@ return (
 					type="text"
 					placeholder="Event Description"
 					{...register("desc", {
-						//required: "Event description is required",
+						required: "Event description is required",
 					})}
 				/>
 				{errors.desc && <p className="errorMsg">{errors.desc.message}</p>}
@@ -74,7 +77,7 @@ return (
 				<input
 					type="date"
 					{...register("startDate", {
-						//required: "Events start date is required.",
+						required: "Events start date is required.",
 					})}
 				/>
 				{errors.startDate && (
@@ -83,7 +86,20 @@ return (
 			</div>
 
 			<div className="form-control">
-				<label>Event end date*</label>
+				<label>Event Time</label>
+				<input
+					type="time"
+					{...register("time", {
+						required: "Events start time is required.",
+					})}
+				/>
+				{errors.time && (
+					<p className="errorMsg">{errors.time.message}</p>
+				)}
+			</div>
+
+			<div className="form-control">
+				<label>Event end date</label>
 				<input type="date" {...register("endDate")} />
 			</div>
 
@@ -93,33 +109,33 @@ return (
 					type="text"
 					placeholder="Email"
 					{...register("email", {
-						//required: "Email is required.",
-						// pattern: {
-						// 	value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
-						// 	message: "Email is not valid.",
-						// },
+						required: "Email is required.",
+						pattern: {
+							value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+							message: "Email is not valid.",
+						},
 					})}
 				/>
 				{errors.email && <p className="errorMsg">{errors.email.message}</p>}
 			</div>
 
 			<div className="form-control">
-				<label>Mobile*</label>
+				<label>Mobile</label>
 				<input
 					type="tel"
 					placeholder="Mobile"
 					{...register("mobile", {
-						// pattern: {
-						// 	value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
-						// 	message: "Mobile is not valid.",
-						// },
+						pattern: {
+							value: /^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/,
+							message: "Mobile is not valid.",
+						},
 					})}
 				/>
 				{errors.mobile && <p className="errorMsg">{errors.mobile.message}</p>}
 			</div>
 
 			<div className="form-control">
-				<label>Upload events poster</label>
+				<label>Upload event poster*</label>
 				<input
 					type="file"
 					accept="image/png, image/jpeg"
@@ -136,11 +152,11 @@ return (
 			</div>
 
 			<div className="form-control">
-				<label>Event's location</label>
+				<label>Event's location*</label>
 				<textarea
 					placeholder="Enter event location"
 					{...register("location", {
-						//required: "Event location is required",
+						required: "Event location is required",
 					})}
 				/>
 				{errors.location && (
