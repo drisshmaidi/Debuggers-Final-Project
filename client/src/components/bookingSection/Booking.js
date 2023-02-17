@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import BookingModal from "./BookingModal";
 import "./Booking.css";
+import { Card, Col, Container, Row } from "react-bootstrap";
 
 function Booking({ eventId }) {
 	const [event, setEvent] = useState(null);
@@ -18,31 +19,43 @@ function Booking({ eventId }) {
 	}
 
 	return (
-		<div className="d-flex flex-column h-100  bg-light gray">
-			<main>
-				<div className="container my-5">
-					<div className="text-center">
-						<img
-							src={event[0].img}
-							alt={event[0].title}
-							className="mx-auto d-block mb-5 rounded shadow"
-							style={{ width: "500px", height: "200px" }}
-						/>
-					</div>
-					<div className="d-flex justify-content-center">
-						<div className="col-md-4">
-							<h3 className="text-primary">{event[0].title}</h3>
+		<Container
+			className="d-flex justify-content-center align-items-center h-100"
+			style={{ marginTop: "5%" }}
+		>
+			<Card className="rounded shadow" style={{ width: "900px" }}>
+				<Card.Img
+					variant="top"
+					src={event[0].img}
+					className="example-class-name rounded shadow"
+					style={{
+						height: "300px",
+						width: "95%",
+						margin: "2.5%",
+						objectFit: "cover",
+					}}
+				/>
+
+				<Card.Body>
+					<Row>
+						<h3
+							className="text-primary"
+							style={{ paddingLeft: "30px", fontSize: "22px" }}
+						>
+							{event[0].title}
+						</h3>
+						<Col md style={{ paddingLeft: "30px", fontSize: "20px" }}>
 							<p className="descriptionEvent">{event[0].description}</p>
 							<p>Event time: {event[0].time}</p>
 							<p>Event location: {event[0].location}</p>
-						</div>
-						<div className="col-md-4">
+						</Col>
+						<Col md className="d-flex align-items-end justify-content-end">
 							<BookingModal eventId={eventId} />
-						</div>
-					</div>
-				</div>
-			</main>
-		</div>
+						</Col>
+					</Row>
+				</Card.Body>
+			</Card>
+		</Container>
 	);
 }
 

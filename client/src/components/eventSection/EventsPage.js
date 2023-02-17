@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/jsx-key */
@@ -34,6 +35,7 @@ function EventsPage({ setEventId }) {
 		return event.title.toLowerCase().includes(searchTerm.toLowerCase());
 	});
 
+
 	const formatDate = (dateString) => {
 		const date = new Date(dateString);
 		return date.toLocaleDateString();
@@ -42,6 +44,7 @@ function EventsPage({ setEventId }) {
 	return (
 		<>
 			<h1 className="allEvents">All Events</h1>
+
 
 			<img src={event} alt="" width="1300px" height="550px" class="center" />
 			<div className="searchBar">
@@ -53,10 +56,12 @@ function EventsPage({ setEventId }) {
 				/>
 				<button>Search</button>
 			</div>
+
 			{events.length === 0 ? (
 				<p>There are no events planned.</p>
 			) : (
 				<div className="eventsContainer">
+
 					{filteredEvents.map((event, index) => (
 						<section className="event" key={event.id}>
 							<div className="eventContent">
@@ -84,6 +89,7 @@ function EventsPage({ setEventId }) {
 								</Link>
 							</div>
 						</section>
+
 					))}
 				</div>
 			)}
