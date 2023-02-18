@@ -1,0 +1,25 @@
+ 
+.navbar {
+		background-color: blue;
+        font-size: 25px;
+        font-weight: 500;
+	}
+	.nav-item.active {
+		background-color: white;
+		/* color: blue; */
+		border-radius: 25px;
+        padding: 0 20px;
+	}
+	footer {
+		/* background-color: blue; */
+		color: white;
+		text-align: center;
+		padding: 1rem;
+	}
+	.shadow {
+  box-shadow: 0px 0px 10px 0px #333;
+}
+Booking {
+	background-color: light-gray;
+}
+    
