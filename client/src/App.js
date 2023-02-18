@@ -4,6 +4,7 @@ import Events from "./components/eventSection/EventsPage";
 import About from "./pages/About";
 import Booking from "./components/bookingSection/Booking";
 import Home from "./pages/Home";
+import RegistrationForm from "./components/registration/RegistrationForm";
 
 const App = () => {
 	const [eventId, setEventId] = useState();
@@ -14,6 +15,7 @@ const App = () => {
 			<Route path="/about/this/site" element={<About />} />
 			<Route path="/events" element={<Events setEventId={setEventId} />} />
 			<Route path="/booking" element={<Booking eventId={eventId} />} />
+			<Route path="/register" element={<RegistrationForm/>} />
 		</Routes>
 	);
 };
