@@ -62,7 +62,7 @@ return (
 
 			<div className="form-control">
 				<lable> Event Description*</lable>
-				<input
+				<textarea
 					type="text"
 					placeholder="Event Description"
 					{...register("desc", {
