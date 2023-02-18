@@ -74,6 +74,7 @@
 	"dependencies": {
 		"@babel/runtime": "^7.20.13",
 		"@hookform/error-message": "^2.0.1",
+		"bootstrap": "^5.2.3",
 		"dotenv": "^16.0.3",
 		"express": "^4.18.2",
 		"express-fileupload": "^1.4.0",
