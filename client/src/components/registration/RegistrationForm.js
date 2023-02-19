@@ -1,77 +1,83 @@
 import React, { useState } from "react";
+import axios from "axios";
 
-function RegistrationForm() {
-	const [firstName, setFirstName] = useState("");
-	const [lastName, setLastName] = useState("");
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const [confirmPassword, setConfirmPassword] = useState("");
-	const [error, setError] = useState("");
+const RegistrationForm = () => {
+	const [formData, setFormData] = useState({
+		firstName: "",
+		lastName: "",
+		email: "",
+		password: "",
+		isAdmin: false,
+	});
 
-	const handleSubmit = (e) => {
+	const handleInputChange = (e) => {
+		const { name, value } = e.target;
+		setFormData({ ...formData, [name]: value });
+	};
+
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log({ firstName, lastName, email, password });
+
+		try {
+			//sending to the user data to the backend to create a new user
+			const res = await axios.post("/register", formData);
+
+			//Redirecting to the login page
+			window.location.href = "/login";
+		} catch (err) {
+			console.error(err);
+		}
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<label>
-				First Name:
-				<input
-					type="text"
-					value={firstName}
-					onChange={(e) => setFirstName(e.target.value)}
-					required
-				/>
-			</label>
-			<br />
+		<div>
+			<h1>Register</h1>
+			<form onSubmit={handleSubmit}>
+				<div>
+					<label htmlFor="firstName">First Name:</label>
+					<input
+						type="text"
+						name="firstName"
+						onChange={handleInputChange}
+						required
+					/>
+				</div>
+				<div>
+					<label htmlFor="lastName">Last Name:</label>
+					<input
+						type="text"
+						name="lastName"
+						onChange={handleInputChange}
+						required
+					/>
+				</div>
+				<div>
+					<label htmlFor="email">Email:</label>
+					<input
+						type="email"
+						name="email"
+						onChange={handleInputChange}
+						required
+					/>
+				</div>
+				<div>
+					<label htmlFor="password">Password:</label>
+					<input
+						type="password"
+						name="password"
+						onChange={handleInputChange}
+						required
+					/>
+				</div>
 
-			<label>
-				Last Name:
-				<input
-					type="text"
-					value={lastName}
-					onChange={(e) => setLastName(e.target.value)}
-					required
-				/>
-			</label>
-			<br />
-
-			<label>
-				Email:
-				<input
-					type="email"
-					value={email}
-					onChange={(e) => setEmail(e.target.value)}
-					required
-				/>
-			</label>
-			<br />
-
-			<label>
-				Password:
-				<input
-					type="password"
-					value={password}
-					onChange={(e) => setPassword(e.target.value)}
-					required
-				/>
-			</label>
-			<br />
-
-			<label>
-				Confirm Password:
-				<input
-					type="password"
-					value={confirmPassword}
-					onChange={(e) => setConfirmPassword(e.target.value)}
-					required
-				/>
-			</label>
-			<br />
-			<button type="submit">Register</button>
-		</form>
+				<div>
+					<label htmlFor="isAdmin">Admin: </label>
+					<input type="checkbox" name="isAdmin" onChange={handleInputChange} />
+				</div>
+				<button type="submit">Register</button>
+			</form>
+		</div>
 	);
-}
+};
 
 export default RegistrationForm;
