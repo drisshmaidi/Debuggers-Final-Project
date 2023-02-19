@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import LoginPage from "../components/loggingSection/LoginPage";
 
 import "./Home.css";
 import logo from "./logo.svg";
@@ -37,6 +38,8 @@ export function Home() {
 				</h1>
 				<Link to="/about/this/site">About</Link>
 				{/* <Link to="/booking">Booking</Link> */}
+				<Link to="/logging">Log In</Link>
+
 			</div>
 		</main>
 	);
