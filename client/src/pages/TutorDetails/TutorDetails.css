@@ -1,0 +1,86 @@
+.card {
+   display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 5px;
+  position: relative;
+
+
+}
+
+.tutor-image {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 100px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.tutor-name {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+
+ 
+  
+}
+
+.tutor-details {
+  margin-bottom: 10px;
+}
+
+.tutor-origin, .tutor-language {
+  font-size: 16px;
+  margin-right: 10px;
+  font-style: italic;
+}
+
+.book-trial-button {
+  background-color: red;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+ 
+}
+
+.tutor-list {
+ display: flex;
+ margin-top: 50px;
+ gap: 20px;
+justify-content: center;
+ text-align: center;
+position: relative;
+
+
+
+
+
+ 
+
+
+  }
+
+.tutor-intro, .tutor-interests {
+  font-size: 18px;
+}
+
+
