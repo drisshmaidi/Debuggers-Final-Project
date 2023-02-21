@@ -1,0 +1,48 @@
+.home {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.text-container h1 {
+  margin: 0;
+    font-size: 100px;
+  font-weight: bold;
+  font-family: "primary";
+  line-height: 120%;
+  letter-spacing: -0.05em;
+  margin-bottom: 2px;
+  color: red;
+   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.text-container p {
+  margin: 0;
+  font-size: 1.5rem;
+  font-size: 40px;
+margin-bottom: 4px;
+font-family: "primary";
+color: black;
+font-style: italic;
+text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 fff, 1px 1px 0 fff;
+  
+}
+
+.image-container {
+  margin-left: 5.5rem;
+
+}
+
+.image-container img {
+
+  width: auto;
+  height: 700px;
+  border-radius: 10px;
+}
