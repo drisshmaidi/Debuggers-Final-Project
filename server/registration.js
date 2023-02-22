@@ -2,12 +2,12 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const db = require("./db");
 const logger = require("./utils/logger");
-const jwt = require("jsonwebtoken");
+
 
 const router = express.Router();
 
 router.get("/register", (_, res) => {
-	logger.debug("Message");
+	// logger.debug("Message");
 	res.json({ message: "Users registration" });
 });
 
