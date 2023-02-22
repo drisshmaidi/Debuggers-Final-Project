@@ -46,7 +46,7 @@ const AddEvent =({ UID })=>{
 			reset();
 	};
 return (
-	<div>
+	<div className="event">
 		<form onSubmit={handleSubmit(onSubmit)}>
 			{successMsg && <p className="success-msg">{successMsg}</p>}
 			<div className="form-control">

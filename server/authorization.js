@@ -15,13 +15,16 @@ const authorization = (req, res, next) => {
 				token.split(" ")[1],process.env.JWT_SECRET
 			);
 			req.body.isAdmin = isAdmin;
+			req.body.status = 200;
             req.body.username=username;
 		} else {
             req.body.authMsg = "Invalid Token";
+			req.body.status = 498;
         }
 	} catch (err) {
         //return error if token or secret key is invalid
 		req.body.authMsg = "Invalid signature";
+		req.body.status = 401;
 	}
 	next();
 };

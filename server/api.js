@@ -40,8 +40,10 @@ router.post("/checkUserType",(req,res)=>{
 
 router.post("/addNewEvent",(req,res)=>{
 
-
-
+	if(!req.body.isAdmin) {
+		res.status(req.body.status).json({ message: req.body.authMsg });
+		return;
+	}
 try{
 	const {
 		title,
