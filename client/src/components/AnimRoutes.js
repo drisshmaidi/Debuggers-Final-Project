@@ -7,6 +7,7 @@ import SignIn from "../pages/SignIn/SignIn";
 import TutorDetails from "../pages/TutorDetails/TutorDetails";
 import Booking from "../components/bookingSection/Booking";
 import AdminPortal from "../pages/AdminDashboard";
+import LoginPage from "./loginSection/LoginPage";
 
 
 // import routes route & useLocation hook
@@ -26,6 +27,7 @@ const AnimRoutes = () => {
 				<Route path="/booking" element={<Booking eventId={eventId} />} />
 				<Route path="/signin" element={<SignIn />} />
 				<Route path="/tutors" element={<TutorDetails />} />
+				<Route path="/login" element={<LoginPage />} />
 				<Route
 					path="/events/createNewEvents"
 					element={<AdminPortal UID={userId} />}

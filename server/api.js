@@ -6,6 +6,7 @@ import logger from "./utils/logger";
 import bookingsRouter from "./bookings";
 import eventsRouter from "./events";
 import traineesRouter from "./trainees";
+import loginRouter from "./login";
 
 
 const router = Router();
@@ -16,6 +17,7 @@ router.use(fileUpload());
 router.use(bookingsRouter);
 router.use(eventsRouter);
 router.use(traineesRouter);
+router.use(loginRouter);
 
 router.post("/checkUserType",(req,res)=>{
 
