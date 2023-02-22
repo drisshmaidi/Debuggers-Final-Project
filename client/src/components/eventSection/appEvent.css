@@ -8,88 +8,93 @@ padding: 2rem 2rem 2rem 2rem;
 }  */
 
 .allEvents {
-    font-size: 3rem;
-     text-align: center;
-     background-color: rgb(203, 203, 203);
-     /* background: linear-gradient(90deg, rgb(77, 132, 122) 0%, rgb(218, 242, 250) 35%, rgb(161, 202, 210) 100%); */
-color: rgb(9, 31, 34);
-    } 
+	font-size: 3rem;
+	text-align: center;
+	background-color: rgb(203, 203, 203);
+	/* background: linear-gradient(90deg, rgb(77, 132, 122) 0%, rgb(218, 242, 250) 35%, rgb(161, 202, 210) 100%); */
+	color: rgb(9, 31, 34);
+}
 
 .eventsContainer {
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
-    grid-template-rows: repeat(2,1fr);
-    grid-gap:20px;
-    color: rgb(9, 31, 34);
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(2, 1fr);
+	/* grid-gap:1px;  */
+	color: rgb(9, 31, 34);
 }
 
 .eventContent {
- /* background: linear-gradient(90deg, rgb(77, 132, 122) 0%, rgb(218, 242, 250) 35%, rgb(161, 202, 210) 100%); */
-     background-color: rgb(251, 255, 254);
- padding: 20px;
-    text-align: center;
-    margin: 2rem;
-        border: 5px solid rgb(191, 190, 190);
-    border-radius: 5px;
+	/* background: linear-gradient(90deg, rgb(77, 132, 122) 0%, rgb(218, 242, 250) 35%, rgb(161, 202, 210) 100%); */
+	background-color: rgb(251, 255, 254);
+	padding: 15px;
+	text-align: center;
+	margin: 1rem;
+	border: 1px solid rgb(191, 190, 190);
+	border-radius: 5px;
 }
 
 .wholePage {
-    background-color: rgb(228, 218, 184);
+	background-color: rgb(228, 218, 184);
 }
 
 .center {
-  display: block;
-  margin-left: auto;
-  margin-right: 10rem;
-  margin-top:2rem;
-
+	display: block;
+	margin-left: auto;
+	margin-right: 10rem;
+	margin-top: 2rem;
 }
 
 .eventTitle {
-    font-size: 2rem;
+	font-size: 2rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
 
 }
 
+.eventLocation {
+    font-size: 2rem;
+    margin-top: 1rem;
+}
 .eventButton {
-    display: inline-block;
-    background-color: red;
-    border: none;
-    color: white;
-    padding: 12px 24px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
+	display: inline-block;
+	background-color: red;
+	border: none;
+	color: white;
+	padding: 12px 24px;
+	text-align: center;
+	text-decoration: none;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
 }
 
 .searchBar {
-    display: flex;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    margin-left: 40px;
-    margin-right: 400px;
-    padding: 10px;
-    border: 1px solid black;
-    border-radius: 5px;
+	display: flex;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	/* margin-left: 40px; */
+	/* margin-right: 400px; */
+	padding: 10px;
+	border: 1px solid black;
+	border-radius: 5px;
 }
 
 .searchBar input {
-    flex: 1;
-    margin-right: 20px;
-    border: none;
+	flex: 1;
+	margin-right: 20px;
+	border: none;
 }
 
 .searchBar button {
-    background-color: red;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px;
-    cursor: pointer;
+	background-color: red;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	padding: 10px;
+	cursor: pointer;
 }
 
-.descriptionEvent{
-    font-size: 1.3rem;
-    color: rgb(82, 82, 82);
+.descriptionEvent {
+	font-size: 1rem;
+	color: rgb(82, 82, 82);
 }

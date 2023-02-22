@@ -43,10 +43,10 @@ function EventsPage({ setEventId }) {
 
 	return (
 		<>
-			<h1 className="allEvents">All Events</h1>
+			{/* <h1 className="allEvents">All Events</h1> */}
 
 
-			<img src={event} alt="" width="1300px" height="550px" class="center" />
+			<img src={event} alt="" width="1100px" height="450px" class="center" />
 			<div className="searchBar">
 				<input
 					type="text"
@@ -67,12 +67,13 @@ function EventsPage({ setEventId }) {
 							<div className="eventContent">
 								<h1 className="eventTitle">{event.title}</h1>
 								<img
-									width="500"
-									height="300"
+								className = "event-image"
+									width="400"
+									height="200"
 									src={event.img}
 									title="Event Title"
 								/>
-								<h2>{event.location}</h2>
+								<h2 className="eventLocation">{event.location}</h2>
 								<h2>{formatDate(event.date)}</h2>
 								<p className="descriptionEvent">{event.description}</p>
 								<p>
