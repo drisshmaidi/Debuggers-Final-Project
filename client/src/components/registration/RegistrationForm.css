@@ -1,0 +1,32 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5rem 30rem 2rem 30rem;
+    padding: 10rem;
+    background-color: white;
+    border: 25px solid rgb(159, 159, 159);
+    background-color:rgb(223, 223, 223) ;
+}
+
+input {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.RegisterButton {
+    display: inline-block;
+    background-color: red;
+    border: none;
+    border-radius: 2rem;
+    color: white;
+    padding: 12px 24px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+
+}
