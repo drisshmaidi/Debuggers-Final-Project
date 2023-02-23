@@ -1,7 +1,8 @@
 import AddEvent from "../components/eventSection/AddEvent.js";
 import { useState,useEffect } from "react";
 import EventsTable from "../components/eventSection/EventsTable.js";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Logout from "../components/logout/Logout";
 
 
 //import "bootstrap/dist/css/bootstrap.min.css";
@@ -14,6 +15,7 @@ const AdminDashboard = ()=>{
 const[isAdmin, setIsAdmin] = useState(false);
 const[username,setUserName]=useState(null);
 const [eventData, setEventData] = useState(null);
+const navigate = useNavigate();
 
 
 localStorage.setItem(
@@ -25,7 +27,8 @@ localStorage.setItem("Token","");
 
 const handleLougout = () =>{
 	localStorage.setItem("Token","");
-	Navigate("/");
+	console.log(localStorage.getItem("Token"));
+	navigate("/");
 };
 //get token from local storage
 const token = localStorage.getItem("Token");
@@ -65,7 +68,7 @@ const token = localStorage.getItem("Token");
 				) : (
 					<div>Unauthorized Access</div>
 				)}
-				<button onClick={handleLougout}>logout</button>
+				<Logout />
 			</div>
 		);
 };
