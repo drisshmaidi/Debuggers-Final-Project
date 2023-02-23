@@ -19,7 +19,9 @@ function SignIn() {
 				<div className="button-group">
 					<button className="button">Trainee Login</button>
 					<button className="button">Admin Login</button>
-					<button className="button">Create Account</button>
+					<Link to="/register">
+						<button className="button">Create Account</button>
+					</Link>
 				</div>
 			</div>
 			<img src={logo} alt="Logo" className="image" />

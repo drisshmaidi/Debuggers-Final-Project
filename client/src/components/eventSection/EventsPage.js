@@ -88,6 +88,8 @@ function EventsPage({ setEventId }) {
 								>
 									Book Now
 								</Link>
+
+								
 							</div>
 						</section>
 

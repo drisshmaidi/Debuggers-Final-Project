@@ -40,7 +40,6 @@ const RegistrationForm = () => {
 	};
 
 	return (
-		
 		<div className="form-container">
 			<h1>Register</h1>
 			<form onSubmit={handleSubmit}>
@@ -85,10 +84,11 @@ const RegistrationForm = () => {
 					<label htmlFor="isAdmin">Admin: </label>
 					<input type="checkbox" name="isAdmin" onChange={handleInputChange} />
 				</div>
-				<button className="RegisterButton" 
-                type="submit">
-					Register
-				</button>
+				
+					<button className="RegisterButton" type="submit">
+						Register
+					</button>
+				
 			</form>
 		</div>
 	);
