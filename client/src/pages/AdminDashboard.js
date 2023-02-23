@@ -1,5 +1,6 @@
 import AddEvent from "../components/eventSection/AddEvent.js";
 import { useState,useEffect } from "react";
+import EventsTable from "../components/eventSection/EventsTable.js";
 
 
 //import "bootstrap/dist/css/bootstrap.min.css";
@@ -11,6 +12,8 @@ const AdminDashboard = ()=>{
 	//store userid and it's role
 const[isAdmin, setIsAdmin] = useState(false);
 const[username,setUserName]=useState(null);
+const [eventData, setEventData] = useState(null);
+
 
 localStorage.setItem(
 	"Token",
@@ -36,6 +39,7 @@ const token = localStorage.getItem("Token");
 					return res.json();
 				})
 				.then((data) => {
+
 					setIsAdmin(data.isAdmin);
 					setUserName(data.username);
 				})
@@ -45,10 +49,15 @@ const token = localStorage.getItem("Token");
 		});
     return (
 			<div>
-
-				{/* <Header></Header> */}
-				{isAdmin?<AddEvent UID={username}  />:"Unauthorized Access"}
-				{/* <Footer></Footer> */}
+				<button className={`btn ${!eventData?"btn-primary":"btn-danger"}`} onClick={()=>setEventData(!eventData)} >{!eventData?"Add Event":"Close Form"}</button>
+				{isAdmin ? (
+					<div>
+						{eventData ? <AddEvent eventData={eventData} UID={username} /> : ""}
+						<EventsTable event={setEventData} />
+					</div>
+				) : (
+					<div>Unauthorized Access</div>
+				)}
 			</div>
 		);
 };

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import AnimRoutes from "./components/AnimRoutes";
 import { motion } from "framer-motion";
 import { CursorContext } from "./components/context/CursorContext";

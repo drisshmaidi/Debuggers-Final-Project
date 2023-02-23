@@ -4,9 +4,7 @@ import jwt from "jsonwebtoken";
 const authorization = (req, res, next) => {
     //get token
     req.body.isAdmin = true;
-
 	const token = req.headers.authorization;
-    req.body.testMsg = "Hello from Authorization";
 	try {
         //if token exist
 		if (token) {
@@ -14,17 +12,15 @@ const authorization = (req, res, next) => {
 			const { username, isAdmin } = jwt.verify(
 				token.split(" ")[1],process.env.JWT_SECRET
 			);
-			req.body.isAdmin = isAdmin;
-			req.body.status = 200;
-            req.body.username=username;
+			req.body.authorization = { isAdmin:isAdmin,status:200,username:username,authMsg:"Token is valid" };
 		} else {
-            req.body.authMsg = "Invalid Token";
-			req.body.status = 498;
+			req.body.authorization={ staus:498,authMsg:"Token not found" };
+
         }
 	} catch (err) {
         //return error if token or secret key is invalid
-		req.body.authMsg = "Invalid signature";
-		req.body.status = 401;
+		req.body.authorization = { staus: 498, authMsg: "Invalid token" };
+
 	}
 	next();
 };

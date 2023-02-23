@@ -11,8 +11,19 @@ import authorization from "./authorization";
 const router = Router();
 router.use(fileUpload());
 
-//Authorization
-//checking for token
+//Authorization middleware
+//checks for token
+//return status codes and messages (200 token is valid,498 token is invalid)
+// to access authorization middleware output
+//-----------------------------------------------------
+// -- req.body.authorization.status  - to access the status codes
+// -- req.body.authorization.authMsg  - to access the Authorization message
+// -- req.body.authorization.isAdmin  - to access the user's role
+// -- req.body.authorization.username  - to access the user's name
+// -- req.body.authorization.userId  - to access the user's id
+//----------------------------------------------------------
+//you can access above results only from backend
+
 router.use(authorization);
 router.use(bookingsRouter);
 router.use(eventsRouter);
@@ -25,7 +36,8 @@ router.use(traineesRouter);
 // });
 
 router.post("/checkUserType",(req,res)=>{
-	res.status(200).json({ isAdmin:req.body.isAdmin,username:req.body.username });
+
+	res.status(200).json({ isAdmin:req.body.authorization.isAdmin,username:req.body.authorization.username });
 	// logger.debug(req.body.testMsg);
 	// const userId = req.body.userId;
 	// db.query(
@@ -37,6 +49,56 @@ router.post("/checkUserType",(req,res)=>{
 });
 
 //insert new event into database
+
+
+
+router.put("/updateEvent", (req, res) => {
+	if (!req.body.authorization.isAdmin) {
+		res.status(req.body.authorization.status).json({ message: req.body.authorization.authMsg });
+		return;
+	}
+	try {
+		const {
+			title,
+			description,
+			startDate,
+			time,
+			endDate,
+			email,
+			mobile,
+			location,
+			UID,
+			eventId,
+		} = req.body;
+		logger.debug(eventId);
+		const image = saveEventPictures(req.files, res);
+		logger.debug(endDate && "null");
+		db.query(
+			"UPDATE events SET title = $1, description = $2, image = $3, start_date = $4, end_date = $5, time = $6, location = $7, email = $8, mobile = $9, user_id = $10 WHERE id = $11",
+			[
+				title,
+				description,
+				image,
+				startDate,
+				endDate ? endDate : null,
+				time,
+				location,
+				email,
+				mobile ? mobile : null,
+				UID,
+				eventId,
+			]
+		)
+			.then(() => res.status(200).json({ message: "Event Updated Successfully" }))
+			.catch((err) => {
+				logger.debug(err);
+				res.status(500).json("An error occurred in the server.");
+			});
+	} catch (err) {
+		logger.debug(err);
+	}
+});
+
 
 router.post("/addNewEvent",(req,res)=>{
 
@@ -83,6 +145,19 @@ logger.debug(endDate&&"null");
 } catch(err){
 	logger.debug(err);
 }
+});
+
+router.get("/events/search/:term", (req, res) => {
+	const searchValue = req.params.term;
+	// db.query(
+	// 	"SELECT * FROM events WHERE id like $1 OR title like $1 OR description like $1",
+	// 	[`%${searchValue}%`]
+	// )
+	// 	.then((result) => res.status(200).json(result.rows))
+	// 	.catch((error) => {
+	// 		logger.error(error);
+	// 		res.status(500).json(error);
+	// 	});
 });
 
 const saveEventPictures = (file, res) => {
