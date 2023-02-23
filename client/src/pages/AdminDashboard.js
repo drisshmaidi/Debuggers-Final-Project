@@ -1,6 +1,7 @@
 import AddEvent from "../components/eventSection/AddEvent.js";
 import { useState,useEffect } from "react";
 import EventsTable from "../components/eventSection/EventsTable.js";
+import { Navigate } from "react-router-dom";
 
 
 //import "bootstrap/dist/css/bootstrap.min.css";
@@ -20,6 +21,12 @@ localStorage.setItem(
 	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjEiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2NzcwMTI0NzIsImV4cCI6MTY3NzYxNzI3Mn0.S5Ekh2yYqI-qSb0uEt_KFJJoyMBgYG2FQLE26h8n3D4"
 );
 
+localStorage.setItem("Token","");
+
+const handleLougout = () =>{
+	localStorage.setItem("Token","");
+	Navigate("/");
+};
 //get token from local storage
 const token = localStorage.getItem("Token");
 
@@ -58,6 +65,7 @@ const token = localStorage.getItem("Token");
 				) : (
 					<div>Unauthorized Access</div>
 				)}
+				<button onClick={handleLougout}>logout</button>
 			</div>
 		);
 };
