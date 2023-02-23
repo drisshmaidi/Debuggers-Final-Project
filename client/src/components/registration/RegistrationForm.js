@@ -40,6 +40,7 @@ const RegistrationForm = () => {
 	};
 
 	return (
+		
 		<div className="form-container">
 			<h1>Register</h1>
 			<form onSubmit={handleSubmit}>
