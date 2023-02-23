@@ -9,10 +9,10 @@ const authorization = (req, res, next) => {
         //if token exist
 		if (token) {
             //verify token
-			const { username, isAdmin } = jwt.verify(
+			const { isAdmin } = jwt.verify(
 				token.split(" ")[1],process.env.JWT_SECRET
 			);
-			req.body.authorization = { isAdmin:isAdmin,status:200,username:username,authMsg:"Token is valid" };
+			req.body.authorization = { isAdmin:isAdmin,status:200,authMsg:"Token is valid" };
 		} else {
 			req.body.authorization={ staus:498,authMsg:"Token not found" };
 
