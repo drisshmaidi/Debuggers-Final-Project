@@ -16,7 +16,7 @@ const AddEvent =({ UID })=>{
 	} = useForm();
 
 	const onSubmit = (data) => {
-		console.log(data);
+
 
 		//Sends form field values to server via fetch.
 		let formData = new FormData();
@@ -36,13 +36,14 @@ const AddEvent =({ UID })=>{
 		formData.append("UID",UID);
 
 
+
+
 		fetch("/api/addNewEvent", { method: "POST", body: formData })
 			.then((res) => res.json())
 			.then((data) => {
 				setSuccessMsg(data.message);
 			});
 			reset();
-
 	};
 return (
 	<div>
@@ -63,7 +64,7 @@ return (
 			<div className="form-control">
 				<lable> Event Description*</lable>
 				<textarea
-					type="text"
+
 					placeholder="Event Description"
 					{...register("desc", {
 						required: "Event description is required",

@@ -1,25 +1,33 @@
 import AddEvent from "../components/eventSection/AddEvent.js";
 import { useState,useEffect } from "react";
 
+
 //import "bootstrap/dist/css/bootstrap.min.css";
 
+//admin token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjEiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2NzcwMTI0NzIsImV4cCI6MTY3NzYxNzI3Mn0.S5Ekh2yYqI-qSb0uEt_KFJJoyMBgYG2FQLE26h8n3D4
 
-const AdminDashboard = ({ UID })=>{
+const AdminDashboard = ()=>{
 
-const[userType, setUserType] = useState("Loading...");
-// checking the user's type
+	//store userid and it's role
+const[isAdmin, setIsAdmin] = useState(false);
+const[username,setUserName]=useState(null);
 
+localStorage.setItem(
+	"Token",
+	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjEiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2NzcwMTI0NzIsImV4cCI6MTY3NzYxNzI3Mn0.S5Ekh2yYqI-qSb0uEt_KFJJoyMBgYG2FQLE26h8n3D4"
+);
+
+//get token from local storage
+const token = localStorage.getItem("Token");
+
+// checking the user's role from token
 
 		useEffect(() => {
-
 			fetch("/api/checkUserType", {
 				method: "POST",
 				headers: {
-					Accept: "application/json",
-					"Content-type": "application/json",
+					Authorization: `Bearer ${token}`,
 				},
-				body: JSON.stringify({ "userId":UID }),
-
 			})
 				.then((res) => {
 					if (!res.ok) {
@@ -27,10 +35,9 @@ const[userType, setUserType] = useState("Loading...");
 					}
 					return res.json();
 				})
-				.then((body) => {
-					console.log(body);
-					setUserType(body[0].type);
-
+				.then((data) => {
+					setIsAdmin(data.isAdmin);
+					setUserName(data.username);
 				})
 				.catch((err) => {
 					console.error(err);
@@ -40,7 +47,7 @@ const[userType, setUserType] = useState("Loading...");
 			<div>
 
 				{/* <Header></Header> */}
-				{userType === "Admin"?<AddEvent UID={UID} />:"Unauthorized Access"}
+				{isAdmin?<AddEvent UID={username}  />:"Unauthorized Access"}
 				{/* <Footer></Footer> */}
 			</div>
 		);
