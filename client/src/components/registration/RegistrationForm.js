@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-// import axios from "axios";
+
+
 import "./RegistrationForm.css";
 
 const RegistrationForm = () => {
 	const [formData, setFormData] = useState([]);
+
 
 
     	const fetchRegister = () => {
@@ -28,25 +30,31 @@ const RegistrationForm = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		// try {
-		// 	//sending to the user data to the backend to create a new user
-		// 	const res = await axios.post("/register", formData);
-
-		// 	//Redirecting to the login page
-		// 	window.location.href = "/login";
-		// } catch (err) {
-		// 	console.error(err);
-		// }
-	};
+	//send form data to backend 
+fetch('/register', {
+	method: 'POST',
+	headers: {
+		'Content-Type': 'application/json'
+	},
+	body: JSON.stringify(formData)
+}).then(() => {
+	//Redirect to login page
+	window.location.href ="/login";
+}).catch((err) => {
+	console.error(err);
+})
+};
 
 	return (
 		<div className="form-container">
-			<h1>Register</h1>
+			<h1 className="titleRegister">Create your account</h1>
+
 			<form onSubmit={handleSubmit}>
 				<div style={{ marginBottom: "10px" }}>
 					<label htmlFor="firstName">First Name:</label>
 					<input
 						type="text"
+						placeholder="First Name"
 						name="firstName"
 						onChange={handleInputChange}
 						required
@@ -56,6 +64,7 @@ const RegistrationForm = () => {
 					<label htmlFor="lastName">Last Name:</label>
 					<input
 						type="text"
+						placeholder="Last Name"
 						name="lastName"
 						onChange={handleInputChange}
 						required
@@ -65,6 +74,7 @@ const RegistrationForm = () => {
 					<label htmlFor="email">Email:</label>
 					<input
 						type="email"
+						placeholder="Enter email"
 						name="email"
 						onChange={handleInputChange}
 						required
@@ -74,6 +84,7 @@ const RegistrationForm = () => {
 					<label htmlFor="password">Password:</label>
 					<input
 						type="password"
+						placeholder="Password"
 						name="password"
 						onChange={handleInputChange}
 						required
@@ -84,8 +95,8 @@ const RegistrationForm = () => {
 					<label htmlFor="isAdmin">Admin: </label>
 					<input type="checkbox" name="isAdmin" onChange={handleInputChange} />
 				</div>
-				<button className="RegisterButton" 
-                type="submit">
+
+				<button className="RegisterButton" type="submit">
 					Register
 				</button>
 			</form>
