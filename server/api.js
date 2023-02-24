@@ -7,6 +7,7 @@ import bookingsRouter from "./bookings";
 import eventsRouter from "./events";
 import traineesRouter from "./trainees";
 import authorization from "./authorization";
+
 const router = Router();
 router.use(fileUpload());
 
@@ -41,8 +42,8 @@ router.use(traineesRouter);
 // });
 
 router.post("/checkUserType",(req,res)=>{
-
-	res.status(200).json({ isAdmin:req.body.authorization.isAdmin,username:req.body.authorization.username });
+	//logger.debug(req.body.authorization.isAdmin);
+	res.status(200).json({ isAdmin:req.body.authorization.isAdmin,userId:req.body.authentication.userId });
 	// logger.debug(req.body.testMsg);
 	// const userId = req.body.userId;
 	// db.query(
@@ -154,15 +155,13 @@ logger.debug(endDate&&"null");
 
 router.get("/events/search/:term", (req, res) => {
 	const searchValue = req.params.term;
-	// db.query(
-	// 	"SELECT * FROM events WHERE id like $1 OR title like $1 OR description like $1",
-	// 	[`%${searchValue}%`]
-	// )
-	// 	.then((result) => res.status(200).json(result.rows))
-	// 	.catch((error) => {
-	// 		logger.error(error);
-	// 		res.status(500).json(error);
-	// 	});
+
+	db.query("SELECT id, title, description FROM events WHERE id::text like $1 OR title like $1 OR description like $1",[`%${searchValue}%`])
+		.then((result) => res.status(200).json(result.rows))
+		.catch((error) => {
+			logger.error(error);
+			res.status(500).json(error);
+		});
 });
 
 const saveEventPictures = (file, res) => {

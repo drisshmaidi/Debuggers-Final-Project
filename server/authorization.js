@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken";
+import logger from "./utils/logger";
 
 //Authorization Middleware
 const authorization = (req, res, next) => {
     //get token
-    req.body.isAdmin = true;
 	const token = req.headers.authorization;
 	try {
         //if token exist
@@ -12,6 +12,7 @@ const authorization = (req, res, next) => {
 			const { isAdmin } = jwt.verify(
 				token.split(" ")[1],process.env.JWT_SECRET
 			);
+			logger.debug(isAdmin);
 			req.body.authorization = { isAdmin:isAdmin,status:200,authMsg:"Token is valid" };
 		} else {
 			req.body.authorization={ staus:498,authMsg:"Token not found" };

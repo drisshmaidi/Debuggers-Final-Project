@@ -13,7 +13,7 @@ const AdminDashboard = ()=>{
 
 	//store userid and it's role
 const[isAdmin, setIsAdmin] = useState(false);
-const[username,setUserName]=useState(null);
+const[userId,setUserId]=useState(null);
 const [eventData, setEventData] = useState(null);
 
 
@@ -23,7 +23,6 @@ localStorage.setItem(
 	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImluZm9AZ21haWwuY29tIiwiaXNBZG1pbiI6dHJ1ZSwidXNlcklkIjoiMSIsImlhdCI6MTY3NzE4NzI0MCwiZXhwIjoxNjc3NzkyMDQwfQ.mhh9rmwJ68FpztWm8nIhb-yrUG_LndLqbxPdKqfjo1Q"
 );
 
-localStorage.setItem("Token","");
 
 
 //get token from local storage
@@ -47,7 +46,8 @@ const token = localStorage.getItem("Token");
 				.then((data) => {
 
 					setIsAdmin(data.isAdmin);
-					setUserName(data.username);
+					setUserId(data.userId);
+
 				})
 				.catch((err) => {
 					console.error(err);
@@ -58,7 +58,7 @@ const token = localStorage.getItem("Token");
 				<button className={`btn ${!eventData?"btn-primary":"btn-danger"}`} onClick={()=>setEventData(!eventData)} >{!eventData?"Add Event":"Close Form"}</button>
 				{isAdmin ? (
 					<div>
-						{eventData ? <AddEvent eventData={eventData} UID={username} /> : ""}
+						{eventData ? <AddEvent eventData={eventData} UID={userId} /> : ""}
 						<EventsTable event={setEventData} />
 					</div>
 				) : (
