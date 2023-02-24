@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 //Authorization Middleware
 const authorization = (req, res, next) => {
     //get token
-    req.body.isAdmin = true;
+
 
 	const token = req.headers.authorization;
     req.body.testMsg = "Hello from Authorization";
