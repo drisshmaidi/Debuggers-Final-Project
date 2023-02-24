@@ -49,6 +49,7 @@ function EventsPage({ setEventId }) {
 			<img src={event} alt="" width="1100px" height="450px" class="center" />
 			<div className="searchBar">
 				<input
+				className="inputEvents"
 					type="text"
 					placeholder="Search events by name"
 					value={searchTerm}
