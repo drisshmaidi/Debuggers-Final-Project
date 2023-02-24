@@ -12,4 +12,5 @@ const Logout = () =>{
     return(<button onClick={handleLogout} className="btn btn-primary">Logout</button>);
 
 };
+
 export default Logout;

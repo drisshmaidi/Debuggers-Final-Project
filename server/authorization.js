@@ -1,27 +1,27 @@
 import jwt from "jsonwebtoken";
+import logger from "./utils/logger";
 
 //Authorization Middleware
 const authorization = (req, res, next) => {
     //get token
-
-
 	const token = req.headers.authorization;
-    req.body.testMsg = "Hello from Authorization";
 	try {
         //if token exist
 		if (token) {
             //verify token
-			const { username, isAdmin } = jwt.verify(
+			const { isAdmin } = jwt.verify(
 				token.split(" ")[1],process.env.JWT_SECRET
 			);
-			req.body.isAdmin = isAdmin;
-            req.body.username=username;
+			logger.debug(isAdmin);
+			req.body.authorization = { isAdmin:isAdmin,status:200,authMsg:"Token is valid" };
 		} else {
-            req.body.authMsg = "Invalid Token";
+			req.body.authorization={ staus:498,authMsg:"Token not found" };
+
         }
 	} catch (err) {
         //return error if token or secret key is invalid
-		req.body.authMsg = "Invalid signature";
+		req.body.authorization = { staus: 498, authMsg: "Invalid token" };
+
 	}
 	next();
 };

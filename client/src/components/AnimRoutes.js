@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 // import pages
 import Home from "../pages/Home/Home";
 import Events from "../components/eventSection/EventsPage";
@@ -19,7 +19,6 @@ import { AnimatePresence } from "framer-motion";
 
 const AnimRoutes = () => {
   const [eventId, setEventId] = useState();
-  const userId = 1;
   const location = useLocation();
   return (
 		<AnimatePresence initial={true} mode="wait">
@@ -33,7 +32,7 @@ const AnimRoutes = () => {
 				<Route path="/login" element={<LoginPage />} />
 				<Route
 					path="/events/createNewEvents"
-					element={<AdminPortal UID={userId} />}
+					element={<AdminPortal />}
 				/>
 				<Route path="/register" element={<RegistrationForm />} />
 			</Routes>
