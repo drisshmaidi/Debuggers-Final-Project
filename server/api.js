@@ -7,7 +7,6 @@ import bookingsRouter from "./bookings";
 import eventsRouter from "./events";
 import traineesRouter from "./trainees";
 import authorization from "./authorization";
-
 const router = Router();
 router.use(fileUpload());
 
@@ -19,10 +18,16 @@ router.use(fileUpload());
 // -- req.body.authorization.status  - to access the status codes
 // -- req.body.authorization.authMsg  - to access the Authorization message
 // -- req.body.authorization.isAdmin  - to access the user's role
-// -- req.body.authorization.username  - to access the user's name
-// -- req.body.authorization.userId  - to access the user's id
 //----------------------------------------------------------
-//you can access above results only from backend
+// authentication middleware access to outcome
+//----------------------------------------------------------
+// -- req.body.authentication.status  - to access the status codes
+// -- req.body.authentication.authMsg  - to access the Authorization message
+// -- req.body.authentication.username  - to access the user's name
+// -- req.body.authentication.userId  - to access the user's id
+//----------------------------------------------------------
+
+//you can access above requests only from backend
 
 router.use(authorization);
 router.use(bookingsRouter);
