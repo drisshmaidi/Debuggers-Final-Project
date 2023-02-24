@@ -53,8 +53,8 @@ const BookingModal = ({ eventId }) => {
 				style={{ marginBottom: "40%", marginLeft: "20%", marginRight: "5%" }}
 			>
 				<Button
-					className="rounded shadow"
-					variant="primary"
+					className="btn rounded shadow"
+					style={{ background: "red" }}
 					onClick={handleShow}
 				>
 					Book Event
@@ -62,7 +62,8 @@ const BookingModal = ({ eventId }) => {
 			</Col>
 			<Col md style={{ marginBottom: "40%", paddingRight: "20px" }}>
 				<button
-					className="btn btn-primary rounded shadow"
+					className="btn rounded shadow"
+					style={{ background: "red", color: "white" }}
 					onClick={() => window.history.back()}
 				>
 					Back to Event
@@ -106,10 +107,10 @@ const BookingModal = ({ eventId }) => {
 								required
 							/>
 						</Form.Group>
-						<Button variant="primary" type="submit">
+						<Button style={{ background: "red" }} type="submit">
 							Book
 						</Button>{" "}
-						<Button variant="secondary" onClick={handleClose}>
+						<Button style={{ background: "red" }} onClick={handleClose}>
 							Cancel
 						</Button>
 					</Form>

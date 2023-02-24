@@ -6,6 +6,7 @@ import logger from "./utils/logger";
 import bookingsRouter from "./bookings";
 import eventsRouter from "./events";
 import traineesRouter from "./trainees";
+import loginRouter from "./login";
 
 import registrationRouter from "./registration";
 
@@ -22,7 +23,9 @@ router.use(authorization);
 router.use(bookingsRouter);
 router.use(eventsRouter);
 router.use(traineesRouter);
+router.use(loginRouter);
 router.use(registrationRouter);
+ 
 
 
 

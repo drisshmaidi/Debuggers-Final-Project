@@ -17,7 +17,9 @@ function SignIn() {
 					Sign In To Connect With Language Tutors
 				</p>
 				<div className="button-group">
-					<button className="button">Trainee Login</button>
+					<button className="button">
+						<Link to="/login">Trainee Login</Link>
+					</button>
 					<button className="button">Admin Login</button>
 					<Link to="/register">
 						<button className="button">Create Account</button>

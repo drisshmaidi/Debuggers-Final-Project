@@ -7,7 +7,11 @@ import SignIn from "../pages/SignIn/SignIn";
 import TutorDetails from "../pages/TutorDetails/TutorDetails";
 import Booking from "../components/bookingSection/Booking";
 import AdminPortal from "../pages/AdminDashboard";
+
 import RegistrationForm from "../components/registration/RegistrationForm";
+
+import LoginPage from "./loginSection/LoginPage";
+
 
 // import routes route & useLocation hook
 import { Routes, Route, useLocation } from "react-router-dom";
@@ -26,6 +30,7 @@ const AnimRoutes = () => {
 				<Route path="/booking" element={<Booking eventId={eventId} />} />
 				<Route path="/signin" element={<SignIn />} />
 				<Route path="/tutors" element={<TutorDetails />} />
+				<Route path="/login" element={<LoginPage />} />
 				<Route
 					path="/events/createNewEvents"
 					element={<AdminPortal UID={userId} />}
