@@ -47,12 +47,14 @@ fetch('/register', {
 
 	return (
 		<div className="form-container">
-			<h1>Register</h1>
+			<h1 className="titleRegister">Create your account</h1>
+
 			<form onSubmit={handleSubmit}>
 				<div style={{ marginBottom: "10px" }}>
 					<label htmlFor="firstName">First Name:</label>
 					<input
 						type="text"
+						placeholder="First Name"
 						name="firstName"
 						onChange={handleInputChange}
 						required
@@ -62,6 +64,7 @@ fetch('/register', {
 					<label htmlFor="lastName">Last Name:</label>
 					<input
 						type="text"
+						placeholder="Last Name"
 						name="lastName"
 						onChange={handleInputChange}
 						required
@@ -71,6 +74,7 @@ fetch('/register', {
 					<label htmlFor="email">Email:</label>
 					<input
 						type="email"
+						placeholder="Enter email"
 						name="email"
 						onChange={handleInputChange}
 						required
@@ -80,6 +84,7 @@ fetch('/register', {
 					<label htmlFor="password">Password:</label>
 					<input
 						type="password"
+						placeholder="Password"
 						name="password"
 						onChange={handleInputChange}
 						required
@@ -90,11 +95,10 @@ fetch('/register', {
 					<label htmlFor="isAdmin">Admin: </label>
 					<input type="checkbox" name="isAdmin" onChange={handleInputChange} />
 				</div>
-				
-					<button className="RegisterButton" type="submit">
-						Register
-					</button>
-				
+
+				<button className="RegisterButton" type="submit">
+					Register
+				</button>
 			</form>
 		</div>
 	);
