@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-// import axios from "axios";
+
+
 import "./RegistrationForm.css";
 
 const RegistrationForm = () => {
 	const [formData, setFormData] = useState([]);
+
 
 
     	const fetchRegister = () => {
@@ -28,16 +30,20 @@ const RegistrationForm = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		// try {
-		// 	//sending to the user data to the backend to create a new user
-		// 	const res = await axios.post("/register", formData);
-
-		// 	//Redirecting to the login page
-		// 	window.location.href = "/login";
-		// } catch (err) {
-		// 	console.error(err);
-		// }
-	};
+	//send form data to backend 
+fetch('/register', {
+	method: 'POST',
+	headers: {
+		'Content-Type': 'application/json'
+	},
+	body: JSON.stringify(formData)
+}).then(() => {
+	//Redirect to login page
+	window.location.href ="/login";
+}).catch((err) => {
+	console.error(err);
+})
+};
 
 	return (
 		<div className="form-container">
