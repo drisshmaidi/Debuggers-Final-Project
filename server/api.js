@@ -6,7 +6,13 @@ import logger from "./utils/logger";
 import bookingsRouter from "./bookings";
 import eventsRouter from "./events";
 import traineesRouter from "./trainees";
+import loginRouter from "./login";
+
+import registrationRouter from "./registration";
+
+
 import authorization from "./authorization";
+
 
 const router = Router();
 router.use(fileUpload());
@@ -34,6 +40,10 @@ router.use(authorization);
 router.use(bookingsRouter);
 router.use(eventsRouter);
 router.use(traineesRouter);
+router.use(loginRouter);
+router.use(registrationRouter);
+ 
+
 
 
 // router.post("/auth",(req,res)=>{

@@ -1,0 +1,69 @@
+.form-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	/* margin: 5rem 5rem 5rem 5rem; */
+
+	padding: 7rem;
+	border: 1px sold #ccc;
+	border-radius: 0.5rem;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	/* background-color: white;
+    border: 5px solid rgb(159, 159, 159);
+    background-color:rgb(223, 223, 223) ; */
+}
+
+form {
+	width: 100%;
+	max-width: 400px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+	width: 100%;
+	padding: 0.5rem;
+	margin-bottom: 1rem;
+	border: 1px solid #ccc;
+	border-radius: 0.5rem;
+	font-size: 1rem;
+	outline: none;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+input [type="checkbox"] {
+	margin-right: 0.5rem;
+}
+
+label {
+	display: block;
+	font-size: 1rem;
+	font-weight: bold;
+	margin-bottom: 0.5rem;
+}
+
+.RegisterButton {
+	display: inline-block;
+	background-color: red;
+	border-radius: 1rem;
+	color: white;
+	padding: 12px 24px;
+	text-align: center;
+	text-decoration: none;
+	font-size: 20px;
+    font-weight: bold;
+	cursor: pointer;
+}
+
+.titleRegister {
+	font-size: 60px;
+	font-weight: bold;
+	font-family: "primary";
+	/* line-height: 120%; */
+	/* letter-spacing: -0.05em; */
+	margin-bottom: 30px;
+	color: red;
+	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+		1px 1px 0 #000;
+	justify-content: center;
+	align-items: center;
+}
