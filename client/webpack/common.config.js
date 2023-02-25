@@ -5,6 +5,10 @@ module.exports = {
 	module: {
 		rules: [
 			{
+				test: /\.mp4$/,
+				use: "file-loader",
+			},
+			{
 				test: /\.js$/,
 				exclude: /node_modules/,
 				use: {
