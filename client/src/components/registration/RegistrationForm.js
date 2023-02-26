@@ -1,26 +1,22 @@
 import React, { useState, useEffect } from "react";
 
-
 import "./RegistrationForm.css";
 
 const RegistrationForm = () => {
 	const [formData, setFormData] = useState([]);
 
-
-
-    	const fetchRegister = () => {
-				console.log("test");
-				fetch(`/api/register`)
-					.then((res) => res.json())
-					.then((data) => {
-						console.log(data);
-						setFormData(data);
-					});
-			};
-			useEffect(() => {
-				fetchRegister();
-			}, []);
-
+	// const fetchRegister = () => {
+	//      console.log("test");
+	//      fetch("/api/register")
+	//          .then((res) => res.json())
+	//          .then((data) => {
+	//              console.log(data);
+	//              setFormData(data);
+	//          });
+	//  };
+	//  useEffect(() => {
+	//      fetchRegister();
+	//  }, []);
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
@@ -30,20 +26,24 @@ const RegistrationForm = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-	//send form data to backend 
-fetch('/register', {
-	method: 'POST',
-	headers: {
-		'Content-Type': 'application/json'
-	},
-	body: JSON.stringify(formData)
-}).then(() => {
-	//Redirect to login page
-	window.location.href ="/login";
-}).catch((err) => {
-	console.error(err);
-})
-};
+		//send form data to backend
+		fetch("/api/register", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(formData),
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				console.log(data.message);
+				alert(data.message);
+				// window.location.href = "/login";
+			})
+			.catch((err) => {
+				console.error(err);
+			});
+	};
 
 	return (
 		<div className="form-container">
@@ -105,4 +105,3 @@ fetch('/register', {
 };
 
 export default RegistrationForm;
-

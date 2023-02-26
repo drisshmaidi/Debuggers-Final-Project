@@ -42,8 +42,8 @@ function EventsPage({ setEventId }) {
 	return (
 		<>
 			{/* <h1 className="allEvents">All Events</h1> */}
-			<div className="home">
-				<div className="text-container">
+			<div className="home-event">
+				<div className="text-containerEvent ">
 					<h1>All Upcoming Events</h1>
 				</div>
 				<div>
