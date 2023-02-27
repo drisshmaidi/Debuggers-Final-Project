@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 function LoginPage() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [errorMessage, setErrorMessage] = useState("");
 	const navigate = useNavigate();
 
 	const handleEmailChange = (event) => setEmail(event.target.value);
@@ -32,7 +32,7 @@ function LoginPage() {
 			navigate("/");
 		} else {
 			// If the response is unsuccessful, show an error message
-			alert("Invalid email or password");
+			setErrorMessage("Invalid email or password");
 		}
 	};
 
@@ -64,35 +64,27 @@ function LoginPage() {
 							/>
 						</Form.Group>
 
+						<div style={{ marginTop: "10px" }}>
+							{errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+						</div>
+
 						<Button
-							// variant="danger"
 							type="submit"
 							block
 							style={{
 								marginTop: "20px",
-								marginRight: "20px",
 								boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
 								background: "red",
+								width: "100%",
+								maxWidth: "none",
 							}}
 						>
 							Log in
 						</Button>
 
-						<Button
-							// variant="danger"
-							block
-							style={{
-								marginTop: "20px",
-								boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-								background: "red",
-							}}
-						>
-							<i className="fa fa-google fa-fw"></i> Log in with G
-						</Button>
-
 						<div className="mt-2 text-center">
 							<span className="text-muted">Don't have an account? </span>
-							<Link to="/signup">Sign up</Link>
+							<Link to="/register">Sign up</Link>
 						</div>
 					</Form>
 				</div>
