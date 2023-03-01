@@ -7,11 +7,14 @@ import bookingsRouter from "./bookings";
 import eventsRouter from "./events";
 import traineesRouter from "./trainees";
 import loginRouter from "./login";
+import bcrypt from "bcrypt";
+import  Jwt  from "jsonwebtoken";
 
 import registrationRouter from "./registration";
 
 
 import authorization from "./authorization";
+import authentication from "./authentication";
 
 
 const router = Router();
@@ -37,12 +40,13 @@ router.use(fileUpload());
 //you can access above requests only from backend
 
 router.use(authorization);
+router.use(authentication);
 router.use(bookingsRouter);
 router.use(eventsRouter);
 router.use(traineesRouter);
 router.use(loginRouter);
 router.use(registrationRouter);
- 
+
 
 
 
@@ -51,7 +55,7 @@ router.use(registrationRouter);
 // 	res.status(200).send("Ok");
 // });
 
-router.post("/checkUserType",(req,res)=>{
+router.post("/checkUser",(req,res)=>{
 	//logger.debug(req.body.authorization.isAdmin);
 	res.status(200).json({ isAdmin:req.body.authorization.isAdmin,userId:req.body.authentication.userId });
 	// logger.debug(req.body.testMsg);
@@ -166,13 +170,74 @@ logger.debug(endDate&&"null");
 router.get("/events/search/:term", (req, res) => {
 	const searchValue = req.params.term;
 
-	db.query("SELECT id, title, description FROM events WHERE id::text like $1 OR title like $1 OR description like $1",[`%${searchValue}%`])
+	db.query("SELECT id, title, description FROM events WHERE id::text like $1 OR LOWER(title) like $1 OR LOWER(description) like $1",[`%${searchValue.toLowerCase()}%`])
 		.then((result) => res.status(200).json(result.rows))
 		.catch((error) => {
 			logger.error(error);
 			res.status(500).json(error);
 		});
 });
+
+//login user as Admin
+
+router.post("/adminLogin", (req, res) => {
+	const email = req.body.email;
+	const pass = req.body.password;
+
+	//check email exist
+
+	db.query("SELECT * FROM users WHERE email = $1",[email])
+	.then((result) => {
+		if(result.rows.length === 1) {
+			const { id, email,password,isAdmin } = result.rows[0];
+
+			//check for password if user exist
+			bcrypt.compare(pass, password,(err,isMatch)=>{
+				if(err) {
+					res.status(422).json({ msg: "Invalid password please try again" });
+					return;
+				}
+
+				//check users role
+				if(isMatch) {
+					if(!isAdmin) {
+
+						res.status(401).json({ msg:"Unauthorized Access" });
+						return;
+					}
+
+				const token = Jwt.sign(
+				{
+					userId: id,
+					username: email,
+					isAdmin:isAdmin,
+				},
+				process.env.JWT_SECRET || "ThisIsMySecretKey",
+				{
+					expiresIn: "7d",
+				}
+				);
+					res.status(200).json({ token: token });
+				}else{
+					res.status(422).json({ msg: "Invalid password please try again" });
+				}
+
+			});
+
+
+		} else {
+			res.status(422).json({ msg:"Invalid email please try again" });
+		}
+	})
+	.catch((err)=> {
+		logger.debug(err);
+		res.status(500).json({ msg:"Server error, please contact admin." });
+	});
+
+});
+
+
+//save picture function
 
 const saveEventPictures = (file, res) => {
 	if (!file || Object.keys(file).length === 0) {

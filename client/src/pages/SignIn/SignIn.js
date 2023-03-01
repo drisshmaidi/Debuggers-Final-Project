@@ -20,7 +20,9 @@ function SignIn() {
 					<button className="button">
 						<Link to="/login">Trainee Login</Link>
 					</button>
-					<button className="button">Admin Login</button>
+					<button className="button">
+						<Link to="/AdminLogin">Admin Login</Link>
+					</button>
 					<Link to="/register">
 						<button className="button">Create Account</button>
 					</Link>

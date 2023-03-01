@@ -6,6 +6,7 @@ import About from "../pages/About";
 import SignIn from "../pages/SignIn/SignIn";
 import TutorDetails from "../pages/TutorDetails/TutorDetails";
 import Booking from "../components/bookingSection/Booking";
+import AdminLogin from "./loginSection/Adminlogin/Login";
 import AdminPortal from "../pages/AdminDashboard";
 
 import RegistrationForm from "../components/registration/RegistrationForm";
@@ -30,10 +31,8 @@ const AnimRoutes = () => {
 				<Route path="/signin" element={<SignIn />} />
 				<Route path="/tutors" element={<TutorDetails />} />
 				<Route path="/login" element={<LoginPage />} />
-				<Route
-					path="/events/createNewEvents"
-					element={<AdminPortal />}
-				/>
+				<Route path="/Adminlogin" element={<AdminLogin />} />
+				<Route path="/events/AdminDashboard" element={<AdminPortal />} />
 				<Route path="/register" element={<RegistrationForm />} />
 			</Routes>
 		</AnimatePresence>
