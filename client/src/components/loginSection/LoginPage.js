@@ -29,7 +29,7 @@ function LoginPage() {
 			localStorage.setItem("token", data.token);
 			// localStorage.setItem("isAdmin", data.isAdmin);
 			// Navigate to the main page
-			navigate("/");
+			navigate("/user");
 		} else {
 			// If the response is unsuccessful, show an error message
 			setErrorMessage("Invalid email or password");

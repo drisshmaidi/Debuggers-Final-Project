@@ -9,36 +9,32 @@ router.get("/bookings", (_, res) => {
 	res.json({ message: "Hello, trainees!" });
 });
 
-router.post("/bookings", async (req, res) => {
-	const bookingData = req.body;
+router.get("/events/:id", (req, res) => {
+	const eventId = req.params.id;
+	db.query("SELECT * FROM events WHERE id = $1", [eventId])
+		.then((result) => res.json(result.rows))
+		.catch((error) => {
+			logger.error(error);
+			res.status(200).json(error);
+		});
+});
 
-	if (
-		!bookingData.eventId ||
-		!bookingData.name ||
-		!bookingData.email ||
-		!bookingData.date
-	) {
-		return res
-			.status(400)
-			.json({ message: "Name, email and date fields are required" });
-	}
+router.post("/events/:eventId/book", (req, res) => {
+	const eventId = req.params.eventId;
+	const { userId } = req.body;
 
-	try {
-		await db.query(
-			"INSERT INTO bookings (event_id, name, email, date) VALUES ($1, $2, $3, $4)",
-			[
-				bookingData.eventId,
-				bookingData.name,
-				bookingData.email,
-				bookingData.date,
-			]
-		);
-
-		res.json({ message: "Booking created successfully" });
-	} catch (error) {
-		logger.error(error);
-		res.status(500).json({ message: "Failed to add booking" });
-	}
+	db.query(
+		"INSERT INTO bookings(event_id, user_id, name, email, date) SELECT $1, $2, name, email, date FROM events WHERE id=$1",
+		[eventId, userId]
+	)
+		.then(() => {
+			logger.info(`User ${userId} booked event ${eventId}`);
+			res.status(200).json({ message: "Booking successful" });
+		})
+		.catch((error) => {
+			logger.error(error);
+			res.status(500).json({ error: "Booking failed" });
+		});
 });
 
 router.delete("/bookings/:id", async (req, res) => {

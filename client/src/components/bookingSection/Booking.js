@@ -60,3 +60,4 @@ console.log(eventId);
 }
 
 export default Booking;
+

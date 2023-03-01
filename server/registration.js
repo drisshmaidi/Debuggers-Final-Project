@@ -14,7 +14,6 @@ router.get("/register", (_, res) => {
 
 router.post("/register", (req, res) => {
 	const { firstName, lastName, email, password, isAdmin } = req.body;
-
 	//Validate
 	if (!firstName || !lastName || !email || !password) {
 		return res

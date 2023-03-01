@@ -1,125 +1,74 @@
 import React, { useState } from "react";
-import { Button, Modal, Form, Col } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
+import axios from "axios";
 
-const BookingModal = ({ eventId }) => {
-	const [show, setShow] = useState(false);
-	const [name, setName] = useState("");
-	const [email, setEmail] = useState("");
-	const [date, setDate] = useState("");
-	const [error, setError] = useState(null);
+const BookingModal = ({ eventId, loggedIn }) => {
+	const [errorMessage, setErrorMessage] = useState(null);
 
-	const handleClose = () => setShow(false);
-	const handleShow = () => setShow(true);
-
-	const handleSubmit = async (event) => {
-		event.preventDefault();
-		const emailRegex =
-			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-		if (!emailRegex.test(email)) {
-			setError("Invalid email format!");
-			return;
-		}
-		try {
-			const response = await fetch("/api/bookings", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ eventId, name, email, date }),
-			});
-
-			if (!response.ok) {
-				throw new Error("Failed to add booking!");
-			}
-
-			const data = await response.json();
-
-			console.log(`Added booking with id ${data.id}`);
-
-			setName("");
-			setEmail("");
-			setDate("");
-			setShow(false);
-		} catch (error) {
-			setError(error.message);
+	const handleBookEvent = () => {
+		if (!loggedIn) {
+			setErrorMessage(
+				<p>
+					You need to{" "}
+					<span style={{ textDecoration: "none" }}>
+						<a href="/login" style={{ color: "blue", textDecoration: "none" }}>
+							Sign In
+						</a>
+					</span>{" "}
+					first!
+				</p>
+			);
+		} else {
+			axios
+				.post(`/api/events/${eventId}/book`, {})
+				.then(() => {
+					setErrorMessage(
+						<p style={{ color: "green" }}>You have successfully booked!</p>
+					);
+					// Handle booking event
+					console.log("Booking event...");
+				})
+				.catch((error) => {
+					console.log(error);
+				});
 		}
 	};
 
 	return (
-		<>
-			<Col
-				md
-				style={{ marginBottom: "40%", marginLeft: "20%", marginRight: "5%" }}
-			>
-				<Button
-					className="btn rounded shadow"
-					style={{ background: "red" }}
-					onClick={handleShow}
+		<Card
+			style={{
+				marginBottom: "60px",
+				marginRight: "50px",
+				boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.1)",
+			}}
+		>
+			<Card.Body>
+				<div
+					className="d-flex flex-wrap justify-content-center justify-content-md-between"
+					style={{ gap: "10px" }}
 				>
-					Book Event
-				</Button>
-			</Col>
-			<Col md style={{ marginBottom: "40%", paddingRight: "20px" }}>
-				<button
-					className="btn rounded shadow"
-					style={{ background: "red", color: "white" }}
-					onClick={() => window.history.back()}
-				>
-					Back to Event
-				</button>
-			</Col>
-
-			<Modal show={show} onHide={handleClose}>
-				<Modal.Header closeButton>
-					<Modal.Title>Book Event</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>
-					{error && <div className="alert alert-danger">{error}</div>}
-					<Form onSubmit={handleSubmit}>
-						<Form.Group controlId="formBasicName">
-							<Form.Label>Name</Form.Label>
-							<Form.Control
-								type="text"
-								placeholder="Enter your name"
-								value={name}
-								onChange={(event) => setName(event.target.value)}
-								required
-							/>
-						</Form.Group>
-						<Form.Group controlId="formBasicEmail">
-							<Form.Label>Email address</Form.Label>
-							<Form.Control
-								type="email"
-								placeholder="Enter your email"
-								value={email}
-								onChange={(event) => setEmail(event.target.value)}
-								required
-							/>
-						</Form.Group>
-						<Form.Group controlId="formBasicBookingDate">
-							<Form.Label>Booking Date</Form.Label>
-							<Form.Control
-								type="date"
-								placeholder="Enter booking date"
-								value={date}
-								onChange={(event) => setDate(event.target.value)}
-								required
-							/>
-						</Form.Group>
-						<Button style={{ background: "red" }} type="submit">
-							Book
-						</Button>{" "}
-						<Button style={{ background: "red" }} onClick={handleClose}>
-							Cancel
-						</Button>
-					</Form>
-				</Modal.Body>
-			</Modal>
-		</>
+					<Button
+						className="btn rounded shadow"
+						style={{ background: "red" }}
+						onClick={handleBookEvent}
+					>
+						Book Event
+					</Button>
+					<Button
+						className="btn rounded shadow"
+						style={{
+							background: "red",
+							color: "white",
+						}}
+						onClick={() => window.history.back()}
+					>
+						Back to Event
+					</Button>
+				</div>
+				<div style={{ marginTop: "10px" }}>{errorMessage}</div>
+			</Card.Body>
+		</Card>
 	);
 };
 
 export default BookingModal;
-
-

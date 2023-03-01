@@ -3,5 +3,6 @@ CREATE TABLE bookings (
     name VARCHAR (250) NOT NULL,
     email VARCHAR (250) NOT NULL,
     date DATE NOT NULL,
-    event_id INTEGER REFERENCES events(id)
+    event_id INTEGER REFERENCES events(id),
+    user_id INTEGER REFERENCES users(id)
 );
