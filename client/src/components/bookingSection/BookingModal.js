@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Modal, Form, Col } from "react-bootstrap";
 
 const BookingModal = ({ eventId }) => {
@@ -7,6 +7,7 @@ const BookingModal = ({ eventId }) => {
 	const [email, setEmail] = useState("");
 	const [date, setDate] = useState("");
 	const [error, setError] = useState(null);
+	const [loggedIn, setLoggedIn] = useState(false);
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
@@ -25,6 +26,7 @@ const BookingModal = ({ eventId }) => {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
+					Authorization: `Bearer ${localStorage.getItem(`token`)}`,
 				},
 				body: JSON.stringify({ eventId, name, email, date }),
 			});
@@ -46,6 +48,25 @@ const BookingModal = ({ eventId }) => {
 		}
 	};
 
+	useEffect(() => {
+		const token = localStorage.getItem("token");
+		if (token) {
+			setLoggedIn(true);
+		} else {
+			setLoggedIn(false);
+		}
+	}, []);
+
+	const handleBookingClick = () => {
+		event.preventDefault();
+
+		if (loggedIn) {
+			handleShow();
+		} else {
+			return <Redirect to = "/login"/>;
+		}
+	};
+
 	return (
 		<>
 			<Col
@@ -55,10 +76,15 @@ const BookingModal = ({ eventId }) => {
 				<Button
 					className="btn rounded shadow"
 					style={{ background: "red" }}
-					onClick={handleShow}
+					onClick={handleBookingClick}
 				>
 					Book Event
 				</Button>
+				{!loggedIn && (
+					<div className="mt-2" style={{ color: "red" }}>
+						You need to log in to book an event
+					</div>
+				)}
 			</Col>
 			<Col md style={{ marginBottom: "40%", paddingRight: "20px" }}>
 				<button
@@ -121,5 +147,3 @@ const BookingModal = ({ eventId }) => {
 };
 
 export default BookingModal;
-
-

@@ -24,6 +24,11 @@ router.post("/bookings", async (req, res) => {
 	}
 
 	try {
+		//Ensure the user is authenticated
+		if (!req.user) {
+			return res.status(401).send({ error: "You need to log in to book an event"});
+		}
+
 		await db.query(
 			"INSERT INTO bookings (event_id, name, email, date) VALUES ($1, $2, $3, $4)",
 			[

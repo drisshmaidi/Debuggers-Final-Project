@@ -50,7 +50,7 @@ label {
 	text-align: center;
 	text-decoration: none;
 	font-size: 20px;
-    font-weight: bold;
+	font-weight: bold;
 	cursor: pointer;
 }
 
@@ -66,4 +66,31 @@ label {
 		1px 1px 0 #000;
 	justify-content: center;
 	align-items: center;
+}
+
+/* 
+.checkbox {
+	margin-right: 5px;
+}
+
+.checkbox-label {
+	display: inline-block;
+	margin-right:10px;
+} */
+
+.languages-container {
+	/* display: flex;
+	flex-wrap: wrap;
+	text-align: center;
+	 */
+
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-gap: 10px;
+	text-align: center;
+}
+
+.languages-container > div {
+	margin-right: 40px;
+	margin-bottom: 10px;
 }

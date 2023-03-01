@@ -92,6 +92,85 @@ const RegistrationForm = () => {
 				</div>
 
 				<div style={{ marginBottom: "10px" }}>
+					<label htmlFor="languages">
+						What languages would you like to learn?
+					</label>
+					<div className="languages-container">
+						<div>
+							<input
+								type="checkbox"
+								id="english"
+								name="english"
+								className="checkBox"
+							/>
+							<label htmlFor="english" className="checkbox-label">
+								🇬🇧 English
+							</label>
+						</div>
+
+						<div>
+							<input
+								type="checkbox"
+								id="spanish"
+								name="spanish"
+								className="checkBox"
+							/>
+							<label htmlFor="spanish" className="checkbox-label">
+								🇪🇸 Spanish
+							</label>
+						</div>
+
+						<div>
+							<input
+								type="checkbox"
+								id="german"
+								name="german"
+								className="checkBox"
+							/>
+							<label htmlFor="german" className="checkbox-label">
+								🇩🇪 German
+							</label>
+						</div>
+
+						<div>
+							<input
+								type="checkbox"
+								id="italian"
+								name="italian"
+								className="checkBox"
+							/>
+							<label htmlFor="italian" className="checkbox-label">
+								🇮🇹 Italian
+							</label>
+						</div>
+
+						<div>
+							<input
+								type="checkbox"
+								id="indian"
+								name="indian"
+								className="checkBox"
+							/>
+							<label htmlFor="indian" className="checkbox-label">
+								🇮🇳 Indian
+							</label>
+						</div>
+
+						<div>
+							<input
+								type="checkbox"
+								id="chinese"
+								name="chinese"
+								className="checkBox"
+							/>
+							<label htmlFor="chinese" className="checkbox-label">
+								🇨🇳 Chinese
+							</label>
+						</div>
+					</div>
+				</div>
+
+				<div style={{ marginBottom: "10px" }}>
 					<label htmlFor="isAdmin">Admin: </label>
 					<input type="checkbox" name="isAdmin" onChange={handleInputChange} />
 				</div>
