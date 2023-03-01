@@ -47,7 +47,7 @@ fetch('/register', {
 
 	return (
 		<div className="form-container">
-			<h1 className="titleRegister">Create your account</h1>
+			<h1 className="titleRegister">Create Account</h1>
 
 			<form onSubmit={handleSubmit}>
 				<div style={{ marginBottom: "10px" }}>
