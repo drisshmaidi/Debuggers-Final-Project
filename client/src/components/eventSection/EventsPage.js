@@ -16,6 +16,11 @@ function EventsPage({ setEventId }) {
 
 	const fetchEvent = () => {
 		fetch("/api/events")
+			// 		{
+			// 			headers: {
+			// 				Authorization: `Bearer ${localStorage.getItem("token")}`,
+			// 			},
+			// 		}
 			.then((res) => res.json())
 			.then((data) => {
 				const currentDate = new Date();
@@ -25,6 +30,7 @@ function EventsPage({ setEventId }) {
 				setEvents(futureEvents);
 			});
 	};
+
 
 	useEffect(() => {
 		fetchEvent();
