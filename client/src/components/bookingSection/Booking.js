@@ -6,7 +6,7 @@ import { Card, Col, Container, Row } from "react-bootstrap";
 
 function Booking({ eventId }) {
 	const [event, setEvent] = useState(null);
-
+console.log(eventId);
 	useEffect(() => {
 		fetch(`/api/events/${eventId}`)
 			.then((res) => res.json())

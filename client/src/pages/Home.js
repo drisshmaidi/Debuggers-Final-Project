@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import LoginPage from "../components/loggingSection/LoginPage";
 
@@ -46,3 +46,4 @@ export function Home() {
 }
 
 export default Home;
+ 

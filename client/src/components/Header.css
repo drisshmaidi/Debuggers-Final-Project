@@ -1,0 +1,40 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+ 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  
+}
+
+.img {
+  max-width: 350px;
+}
+
+.logo {
+  margin-right: 2rem;
+  size: 10px;
+}
+
+.nav ul {
+  display: flex;
+  list-style: none;
+}
+
+.nav li {
+  margin-right: 1.5rem;
+}
+
+.nav a {
+  text-decoration: none;
+ color: red;
+  font-weight: bold;
+}
+
+.nav a:hover {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
