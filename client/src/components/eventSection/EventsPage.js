@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from "react";
 import "./appEvent.css";
 
-import event from "../eventSection/event.png";
+import event from "../eventSection/event2.jpg";
 
 import { Link } from "react-router-dom";
 
@@ -30,11 +30,9 @@ function EventsPage({ setEventId }) {
 		fetchEvent();
 	}, []);
 
-
 	const filteredEvents = events.filter((event) => {
 		return event.title.toLowerCase().includes(searchTerm.toLowerCase());
 	});
-
 
 	const formatDate = (dateString) => {
 		const date = new Date(dateString);
@@ -44,12 +42,24 @@ function EventsPage({ setEventId }) {
 	return (
 		<>
 			{/* <h1 className="allEvents">All Events</h1> */}
+			<div className="home-event">
+				<div className="text-containerEvent ">
+					<h1>All Upcoming Events</h1>
+				</div>
+				<div>
+					<img
+						src={event}
+						alt=""
+						width="550px"
+						height="300px"
+						className="eventsImage"
+					/>
+				</div>
+			</div>
 
-
-			<img src={event} alt="" width="1100px" height="450px" class="center" />
 			<div className="searchBar">
 				<input
-				className="inputEvents"
+					className="inputEvents"
 					type="text"
 					placeholder="Search events by name"
 					value={searchTerm}
@@ -62,26 +72,29 @@ function EventsPage({ setEventId }) {
 				<p>There are no events planned.</p>
 			) : (
 				<div className="eventsContainer">
-
 					{filteredEvents.map((event, index) => (
-						<section className="event" key={event.id}>
-							<div className="eventContent">
-								<h1 className="eventTitle">{event.title}</h1>
-								<img
-								className = "event-image"
-									width="400"
-									height="200"
-									src={event.img}
-									title="Event Title"
-								/>
-								<h2 className="eventLocation">{event.location}</h2>
-								<h2>{formatDate(event.date)}</h2>
+						<div className="card" key={event.id}>
+							<img
+								width="270px"
+								heigh="240px"
+								src={event.img}
+								title="Event Title"
+							/>
+							<div className="card-content2">
+								<h2 className="eventTitle">{event.title}</h2>
+								<span className="locationEvents">🌎 {event.location}</span>
+								<span className="dataEvents"> 🗓️ {formatDate(event.date)}</span>
 								<p className="descriptionEvent">{event.description}</p>
-								<p>
-									<a href={event.url} target="_blank">
+								{/* <p>
+									<a
+										href={event.url}
+										target="_blank"
+										rel="noopener noreferrer"
+										className="see-details-button"
+									>
 										See details
 									</a>
-								</p>
+								</p> */}
 								<Link
 									to="/booking"
 									onClick={() => setEventId(event.id)}
@@ -89,11 +102,8 @@ function EventsPage({ setEventId }) {
 								>
 									Book Now
 								</Link>
-
-								
 							</div>
-						</section>
-
+						</div>
 					))}
 				</div>
 			)}
