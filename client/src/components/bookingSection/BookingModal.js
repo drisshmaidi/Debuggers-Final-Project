@@ -1,3 +1,4 @@
+// import { response } from "express";
 import React, { useEffect, useState } from "react";
 import { Button, Modal, Form, Col } from "react-bootstrap";
 
@@ -8,6 +9,7 @@ const BookingModal = ({ eventId }) => {
 	const [date, setDate] = useState("");
 	const [error, setError] = useState(null);
 	const [loggedIn, setLoggedIn] = useState(false);
+	const [isBooked, setIsBooked] = useState(false);
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
@@ -43,6 +45,7 @@ const BookingModal = ({ eventId }) => {
 			setEmail("");
 			setDate("");
 			setShow(false);
+			setIsBooked(true);
 		} catch (error) {
 			setError(error.message);
 		}
@@ -57,11 +60,50 @@ const BookingModal = ({ eventId }) => {
 		}
 	}, []);
 
-	const handleBookingClick = () => {
-		event.preventDefault();
+
+
+
+	useEffect(() => {
+		//Check if the user is already booked for this event
+		const checkBooking = async () => {
+			try {
+				const response = await fetch(`/api/bookings?eventId=${eventId}`, {
+					method: "GET",
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem(`token`)}`,
+					},
+				});
+	
+			if (!response.ok) {
+				throw new Error("Failed to get bookings!");
+			}
+
+			const data = await response.json();
+
+			if (data.length > 0) {
+				setIsBooked(true);
+			} else {
+				setIsBooked(false);
+			} 
+		} catch (error) {
+				console.log(error);
+			}
+		};
 
 		if (loggedIn) {
+			checkBooking();
+		} else {
+			setIsBooked(false);
+		} 
+	}, [eventId, loggedIn]);
+
+
+	const handleBookingClick = () => {
+		// event.preventDefault();
+		if (loggedIn && !isBooked) {
 			handleShow();
+		} else if (loggedIn && isBooked) {
+			setError("You have already booked this event!");
 		} else {
 			return <Redirect to = "/login"/>;
 		}
@@ -80,6 +122,11 @@ const BookingModal = ({ eventId }) => {
 				>
 					Book Event
 				</Button>
+				{isBooked && (
+					<div className="mt-2" style={{ color: "red"}}>
+						You have already booked this event
+					</div>
+				)}
 				{!loggedIn && (
 					<div className="mt-2" style={{ color: "red" }}>
 						You need to log in to book an event
