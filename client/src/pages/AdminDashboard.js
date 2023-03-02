@@ -16,17 +16,10 @@ const [isAdmin, setIsAdmin] = useState(false);
 const [eventData, setEventData] = useState(null);
 const navigate = useNavigate();
 
-
-// localStorage.setItem(
-// 	"Token",
-// 	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImluZm9AZ21haWwuY29tIiwiaXNBZG1pbiI6dHJ1ZSwidXNlcklkIjoiMSIsImlhdCI6MTY3NzE4NzI0MCwiZXhwIjoxNjc3NzkyMDQwfQ.mhh9rmwJ68FpztWm8nIhb-yrUG_LndLqbxPdKqfjo1Q"
-// );
-
 //get token from local storage
 const token = localStorage.getItem("Token");
 
 // checking the user's role from token
-
 		useEffect(() => {
 			fetch("/api/checkUser", {
 				method: "POST",
@@ -47,7 +40,6 @@ const token = localStorage.getItem("Token");
 					console.error(err);
 				});
 		},[]);
-
     return (
 			<div>
 				<button className={`btn ${!eventData?"btn-primary":"btn-danger"}`} onClick={()=>setEventData(!eventData)} >{!eventData?"Add Event":"Close Form"}</button>

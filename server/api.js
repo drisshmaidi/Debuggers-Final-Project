@@ -22,25 +22,19 @@ router.use(fileUpload());
 
 //Authorization middleware
 //checks for token
-//return status codes and messages (200 token is valid,498 token is invalid)
+//return status codes and messages (200 token is valid,401 token is invalid)
 // to access authorization middleware output
 //-----------------------------------------------------
-// -- req.body.authorization.status  - to access the status codes
-// -- req.body.authorization.authMsg  - to access the Authorization message
-// -- req.body.authorization.isAdmin  - to access the user's role
+// -- req.authorization.isAdmin  - to access the user's role
 //----------------------------------------------------------
 // authentication middleware access to outcome
 //----------------------------------------------------------
-// -- req.body.authentication.status  - to access the status codes
-// -- req.body.authentication.authMsg  - to access the Authorization message
-// -- req.body.authentication.username  - to access the user's name
-// -- req.body.authentication.userId  - to access the user's id
+// -- req.authentication.username  - to access the user's name
+// -- req.authentication.userId  - to access the user's id
 //----------------------------------------------------------
 
-//you can access above requests only from backend
+//you can access above data call middleware functions in your requests.
 
-// router.use(authorization);
-// router.use(authentication);
 router.use(bookingsRouter);
 router.use(eventsRouter);
 router.use(traineesRouter);
