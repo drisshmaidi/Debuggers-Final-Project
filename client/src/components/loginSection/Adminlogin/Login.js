@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 
-function LoginPage() {
+const LoginPage = ()=> {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [logMsg,setLogMsg] = useState(null);
@@ -17,31 +17,63 @@ function LoginPage() {
     const token = localStorage.getItem("Token");
 
 		// checking the user's role from token
-
-		useEffect(() => {
+		useEffect( () => {
 			fetch("/api/checkUser", {
 				method: "POST",
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
 			})
-				.then((res) => {
-					if (!res.ok) {
-
-						throw new Error(res.statusText);
-					}
-					return res.json();
-				})
+				.then((res) => res.json())
 				.then((data) => {
-					data.isAdmin && data.userId
-						? navigate("/events/AdminDashBoard")
-						: navigate("/AdminLogin");
-                    //alert(data.userId);
+					if(data.isAdmin && data.userId) {
+						navigate("/AdminDashBoard");
+					}
 				})
 				.catch((err) => {
 					console.error(err);
 				});
-		},[]);
+
+			// 	try {
+			// 	const res = fetch("/api/checkUser", {
+			// 		method: "POST",
+			// 			headers: {
+			// 				Authorization: `Bearer ${token}`,
+			// 			},
+			// 	});
+			// 	if (!res.ok) {
+			// 		throw new Error("Invalid token");
+			// 	}
+			// 	const data =  res.json();
+			// 	const { isAdmin, userId }=data;
+			// 	if(isAdmin && userId) {
+			// 		navigate("/events/AdminDashBoard");
+			// 	}
+			// } catch (error) {
+			// 	console.log(error);
+			// }
+		}, []);
+
+
+				// .then((res) => {
+				// 	if (!res.ok) {
+				// 		throw new Error(res.statusText);
+				// 	}
+				// 	return res.json();
+				// })
+				// .then((data) => {
+				// 	data.isAdmin && data.userId
+				// 		? navigate("/events/AdminDashBoard")
+				// 		: navigate("/AdminLogin");
+				// 	//alert(data.userId);
+				// })
+				// .catch((err) => {
+				// 	console.error(err);
+				// });
+
+
+
+
 
 	const handleEmailChange = (event) => setEmail(event.target.value);
 	const handlePasswordChange = (event) => setPassword(event.target.value);
@@ -61,7 +93,7 @@ function LoginPage() {
 			const token = data.token;
 			if(token) {
 				localStorage.setItem("Token",token);
-				navigate("/events/AdminDashboard");
+				navigate("/AdminDashboard");
 			} else {
 				setLogMsg(data.msg);
 			}
@@ -133,6 +165,6 @@ function LoginPage() {
 			</div>
 		</div>
 	);
-}
+};
 
 export default LoginPage;

@@ -6,7 +6,7 @@ const Logout = () =>{
 
     const handleLogout = ()=>{
         localStorage.setItem("Token","");
-        navigate("/");
+        navigate("/AdminLogin");
     };
 
     return(<button onClick={handleLogout} className="btn btn-primary">Logout</button>);

@@ -4,29 +4,29 @@ import logger from "./utils/logger";
 //Authorization Middleware
 const authentication = (req, res, next) => {
 	//get token
-	const token = req.headers.authorization;
-
+	let token = req.headers.authorization;
+	token = token.split(" ")[1];
 	try {
 		//if token exist
 		if (token) {
 			//verify token
-			const { username, userId } = jwt.verify(
-				token.split(" ")[1],
-				process.env.JWT_SECRET
-			);
+			const { username, userId } = jwt.verify(token, process.env.JWT_SECRET);
 
-			req.body.authentication = {
+			req.authentication = {
 				username: username,
-				userId:userId,
-				status: 200,
-				authMsg: "Token is valid",
+				userId: userId,
 			};
+			logger.debug("userid"+userId);
 		} else {
-			req.body.authentication = { status: 498, authMsg: "Token not found" };
+			res.status(401).json({ message: "Token not found" });
+			return;
+			//req.body.authentication = { status: 498, authMsg: "Token not found" };
 		}
 	} catch (err) {
 		//return error if token or secret key is invalid
-		req.body.authentication = { status: 498, authMsg: "Invalid token" };
+		// req.body.authentication = { status: 498, authMsg: "Invalid token" };
+		res.status(401).json({ message: "Invalid token" });
+		return;
 	}
 
 	next();

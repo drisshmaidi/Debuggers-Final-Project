@@ -6,7 +6,7 @@ import moment from "moment";
 
 import "./css/style.css";
 
-const AddEvent = ({ UID, eventData }) => {
+const AddEvent = ({ eventData }) => {
 	const [successMsg, setSuccessMsg] = useState("");
 	const {
 		register,
@@ -35,14 +35,13 @@ const eventId = eventData[0]?.id;
 
 		formData.append("eventPic", data.eventPic[0]);
 		formData.append("location", data.location);
-		formData.append("UID", UID);
 
 		if (eventId) {
 			formData.append("eventId", eventId);
 			fetch("/api/updateEvent", { method: "PUT",headers:header, body: formData })
 				.then((res) => res.json())
 				.then((data) => {
-					console.log(data);
+					console.log(data.message);
 					setSuccessMsg(data.message);
 				});
 		} else {
@@ -52,12 +51,13 @@ const eventId = eventData[0]?.id;
 					setSuccessMsg(data.message);
 				});
 		}
-		reset();
+		setTimeout(() => window.location.reload(), 3000);
+
+
 	};
 	return (
 		<div className="event">
 			<form onSubmit={handleSubmit(onSubmit)}>
-				{successMsg && <p className="success-msg">{successMsg}</p>}
 				<div className="form-control">
 					<label>Event Title*</label>
 					<input
@@ -153,7 +153,7 @@ const eventId = eventData[0]?.id;
 						placeholder="Mobile"
 						{...register("mobile", {
 							pattern: {
-								value: /^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/,    ///regex for validating mobile
+								value: /^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/, ///regex for validating mobile
 								message: "Mobile is not valid.",
 							},
 						})}
@@ -193,7 +193,12 @@ const eventId = eventData[0]?.id;
 				</div>
 
 				<div className="form-control">
-					<input type="submit" className="btn btn-info" value={eventId ? "Update" : "Submit"} />
+					<input
+						type="submit"
+						className="btn btn-info"
+						value={eventId ? "Update" : "Submit"}
+					/>
+					{successMsg && <p className="success-msg">{successMsg}</p>}
 				</div>
 			</form>
 		</div>
