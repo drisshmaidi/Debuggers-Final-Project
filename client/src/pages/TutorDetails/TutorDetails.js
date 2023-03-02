@@ -26,7 +26,8 @@ const FirstTutorCard = () => {
 					In my free time, I love hiking, cooking, and reading novels. Let's
 					book a free trial and learn Spanish together!
 				</p>
-				<button className="book-trial-button">Book a Class</button>
+				<button className="book-trial-button">LinkedIn</button>
+				<button className="book-trial-button">Slack</button>
 			</div>
 		</div>
 	);
@@ -50,7 +51,8 @@ const SecondTutorCard = () => {
 					In my free time, I love hiking, cooking, and reading novels. Let's
 					book a free trial and learn Spanish together!
 				</p>
-				<button className="book-trial-button">Book a Class</button>
+				<button className="book-trial-button">LinkedIn</button>
+				<button className="book-trial-button">Slack</button>
 			</div>
 		</div>
 	);
@@ -74,7 +76,8 @@ const ThirdTutorCard = () => {
 					In my free time, I love hiking, cooking, and reading novels. Let's
 					book a free trial and learn Spanish together!
 				</p>
-				<button className="book-trial-button">Book a Class</button>
+				<button className="book-trial-button">LinkedIn</button>
+				<button className="book-trial-button">Slack</button>
 			</div>
 		</div>
 	);
@@ -98,7 +101,8 @@ const FourthTutorCard = () => {
 					In my free time, I love hiking, cooking, and reading novels. Let's
 					book a free trial and learn Spanish together!
 				</p>
-				<button className="book-trial-button">Book a Class</button>
+				<button className="book-trial-button">LinkedIn</button>
+				<button className="book-trial-button">Slack</button>
 			</div>
 		</div>
 	);
