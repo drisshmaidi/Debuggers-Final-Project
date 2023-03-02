@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 
 const EventsTable = ({ event }) => {
 	const [events, setEvents] = useState(null);
-	const [searchInput,setSearchInput]=useState(null);
 
 
 	useEffect(() => {
@@ -21,17 +20,17 @@ const EventsTable = ({ event }) => {
 
 	const handleSearch = (e) => {
 		let searchValue = e.target.value;
+
 		const url = !searchValue
 			? "/api/events"
 			: `/api/events/search/${searchValue}`;
-		console.log(searchValue);
 		fetch(url)
 			.then((res) => res.json())
 			.then((data) => setEvents(data));
 	};
 	return (
 		<div>
-			<div><input type="text" value={searchInput} onInput={handleSearch} placeholder="Search...." /></div>
+			<div><input type="text" onInput={handleSearch} placeholder="Search...." /></div>
 			<table className="table">
 				<thead className="thead-dark">
 					<tr>
@@ -46,7 +45,7 @@ const EventsTable = ({ event }) => {
 					{events?.map((e, k) => {
 						return (
 							<tr key={k}>
-								<th scope="row">{e.id}</th>
+								<th scope="row" key={k}>{e.id}</th>
 								<td>{e.title}</td>
 								<td>{e.description}</td>
 								<td>

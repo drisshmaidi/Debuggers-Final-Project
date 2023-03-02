@@ -1,9 +1,11 @@
 import jwt from "jsonwebtoken";
+import logger from "./utils/logger";
 
 //Authorization Middleware
-const authorization = (req, res, next) => {
+const authentication = (req, res, next) => {
 	//get token
-	const token = req.headers.authentication;
+	const token = req.headers.authorization;
+
 	try {
 		//if token exist
 		if (token) {
@@ -12,20 +14,22 @@ const authorization = (req, res, next) => {
 				token.split(" ")[1],
 				process.env.JWT_SECRET
 			);
+
 			req.body.authentication = {
 				username: username,
-                userId: userId,
+				userId:userId,
 				status: 200,
 				authMsg: "Token is valid",
 			};
 		} else {
-			req.body.authentication = { staus: 498, authMsg: "Token not found" };
+			req.body.authentication = { status: 498, authMsg: "Token not found" };
 		}
 	} catch (err) {
 		//return error if token or secret key is invalid
-		req.body.authentication = { staus: 498, authMsg: "Invalid token" };
+		req.body.authentication = { status: 498, authMsg: "Invalid token" };
 	}
+
 	next();
 };
 
-module.exports = authorization;
+module.exports = authentication;
