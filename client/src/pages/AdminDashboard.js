@@ -12,8 +12,7 @@ import Logout from "../components/logout/Logout";
 const AdminDashboard = ()=>{
 
 	//store userid and it's role
-const[isAdmin, setIsAdmin] = useState(false);
-const[userId,setUserId]=useState(null);
+const [isAdmin, setIsAdmin] = useState(false);
 const [eventData, setEventData] = useState(null);
 const navigate = useNavigate();
 
@@ -37,28 +36,24 @@ const token = localStorage.getItem("Token");
 			})
 				.then((res) => {
 					if (!res.ok) {
-						throw new Error(res.statusText);
+						navigate("/AdminLogin");
 					}
 					return res.json();
 				})
 				.then((data) => {
 					setIsAdmin(data.isAdmin);
-					setUserId(data.userId);
-
-					if(!data.isAdmin && !data.userId) {
-						navigate("/AdminLogin");
-					}
 				})
 				.catch((err) => {
 					console.error(err);
 				});
-		});
+		},[]);
+
     return (
 			<div>
 				<button className={`btn ${!eventData?"btn-primary":"btn-danger"}`} onClick={()=>setEventData(!eventData)} >{!eventData?"Add Event":"Close Form"}</button>
 				{isAdmin ? (
 					<div>
-						{eventData ? <AddEvent eventData={eventData} UID={userId} /> : ""}
+						{eventData ? <AddEvent eventData={eventData} /> : ""}
 						<EventsTable event={setEventData} />
 					</div>
 				) : (

@@ -39,25 +39,27 @@ router.use(fileUpload());
 
 //you can access above requests only from backend
 
-router.use(authorization);
-router.use(authentication);
+// router.use(authorization);
+// router.use(authentication);
 router.use(bookingsRouter);
 router.use(eventsRouter);
 router.use(traineesRouter);
 router.use(loginRouter);
 router.use(registrationRouter);
 
-
-
-
 // router.post("/auth",(req,res)=>{
 // 	logger.debug(req.body.testMsg);
 // 	res.status(200).send("Ok");
 // });
 
-router.post("/checkUser",(req,res)=>{
-	//logger.debug(req.body.authorization.isAdmin);
-	res.status(200).json({ isAdmin:req.body.authorization.isAdmin,userId:req.body.authentication.userId });
+router.post("/checkUser",authentication,authorization,(req,res)=>{
+
+	res
+		.status(200)
+		.json({
+			isAdmin: req.authorization.isAdmin,
+			userId: req.authentication.userId,
+		});
 	// logger.debug(req.body.testMsg);
 	// const userId = req.body.userId;
 	// db.query(
@@ -70,13 +72,8 @@ router.post("/checkUser",(req,res)=>{
 
 //insert new event into database
 
+router.put("/updateEvent",authorization,authentication, (req, res) => {
 
-
-router.put("/updateEvent", (req, res) => {
-	if (!req.body.authorization.isAdmin) {
-		res.status(req.body.authorization.status).json({ message: req.body.authorization.authMsg });
-		return;
-	}
 	try {
 		const {
 			title,
@@ -87,14 +84,12 @@ router.put("/updateEvent", (req, res) => {
 			email,
 			mobile,
 			location,
-			UID,
 			eventId,
 		} = req.body;
-		logger.debug(eventId);
 		const image = saveEventPictures(req.files, res);
 		logger.debug(endDate && "null");
 		db.query(
-			"UPDATE events SET title = $1, description = $2, image = $3, start_date = $4, end_date = $5, time = $6, location = $7, email = $8, mobile = $9, user_id = $10 WHERE id = $11",
+			"UPDATE events SET title = $1, description = $2, url = $3, date = $4, end_date = $5, time = $6, location = $7, email = $8, mobile = $9, user_id = $10 WHERE id = $11",
 			[
 				title,
 				description,
@@ -105,11 +100,11 @@ router.put("/updateEvent", (req, res) => {
 				location,
 				email,
 				mobile ? mobile : null,
-				UID,
+				req.authentication.userId,
 				eventId,
 			]
 		)
-			.then(() => res.status(200).json({ message: "Event Updated Successfully" }))
+			.then(() => res.status(200).json({ message: "Event Updated Successfully redirecting in 3 sec.." }))
 			.catch((err) => {
 				logger.debug(err);
 				res.status(500).json("An error occurred in the server.");
@@ -120,54 +115,51 @@ router.put("/updateEvent", (req, res) => {
 });
 
 
-router.post("/addNewEvent",(req,res)=>{
+router.post("/addNewEvent",authorization,authentication,(req,res)=>{
 
-	if(!req.body.isAdmin) {
-		res.status(req.body.status).json({ message: req.body.authMsg });
-		return;
-	}
-try{
-	const {
-		title,
-		description,
-		startDate,
-		time,
-		endDate,
-		email,
-		mobile,
-		location,
-		UID,
-	} = req.body;
-logger.debug(req.body.UID);
-	const image = saveEventPictures(req.files, res);
-logger.debug(endDate&&"null");
+	try{
+		const {
+			title,
+			description,
+			startDate,
+			time,
+			endDate,
+			email,
+			mobile,
+			location,
+		} = req.body;
+		const url = saveEventPictures(req.files, res);
 	db.query(
-		"INSERT INTO events (title, description, image, start_date, end_date, time, location, email, mobile, user_id) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)",
+		"INSERT INTO events (title, description, url, date, end_date, time, location, email, mobile, user_id) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)",
 		[
 			title,
 			description,
-			image,
+			url,
 			startDate,
 			endDate ? endDate : null,
 			time,
 			location,
 			email,
 			mobile ? mobile : null,
-			UID,
+			req.authentication.userId,
 		]
 	)
-		.then(() => res.status(200).json({ message: "Event Saved Successfully" }))
+		.then(() =>
+			res
+				.status(200)
+				.json({ message: "Event Saved Successfully redirecting in 3 sec.." })
+		)
 		.catch((err) => {
 			logger.debug(err);
 			res.status(500).json("An error occurred in the server.");
-});
+		});
 
 } catch(err){
 	logger.debug(err);
 }
 });
 
-router.get("/events/search/:term", (req, res) => {
+router.get("/events/search/:term",authorization, (req, res) => {
 	const searchValue = req.params.term;
 
 	db.query("SELECT id, title, description FROM events WHERE id::text like $1 OR LOWER(title) like $1 OR LOWER(description) like $1",[`%${searchValue.toLowerCase()}%`])
@@ -189,18 +181,19 @@ router.post("/adminLogin", (req, res) => {
 	db.query("SELECT * FROM users WHERE email = $1",[email])
 	.then((result) => {
 		if(result.rows.length === 1) {
-			const { id, email,password,isAdmin } = result.rows[0];
+			const { id, email,password_hash,is_admin } = result.rows[0];
 
 			//check for password if user exist
-			bcrypt.compare(pass, password,(err,isMatch)=>{
+			bcrypt.compare(pass, password_hash,(err,isMatch)=>{
+
 				if(err) {
-					res.status(422).json({ msg: "Invalid password please try again" });
+					res.status(422).json({ msg: "Invalid password please try again "+err });
 					return;
 				}
 
 				//check users role
 				if(isMatch) {
-					if(!isAdmin) {
+					if(!is_admin) {
 
 						res.status(401).json({ msg:"Unauthorized Access" });
 						return;
@@ -210,7 +203,7 @@ router.post("/adminLogin", (req, res) => {
 				{
 					userId: id,
 					username: email,
-					isAdmin:isAdmin,
+					isAdmin:is_admin,
 				},
 				process.env.JWT_SECRET || "ThisIsMySecretKey",
 				{
@@ -254,11 +247,11 @@ const saveEventPictures = (file, res) => {
 		__dirname +
 		"/Event-Pictures/" +fileName;
 	// Use the mv() method to place the file somewhere on the server
-	eventPic.mv(uploadPath, function (err) {
-		if (err) {
-			return res.status(500).send(err);
-		}
-	});
+	// eventPic.mv(uploadPath, function (err) {
+	// 	if (err) {
+	// 		return res.status(500).send(err);
+	// 	}
+	// });
 	return fileName;
 };
 

@@ -32,7 +32,7 @@ const AnimRoutes = () => {
 				<Route path="/tutors" element={<TutorDetails />} />
 				<Route path="/login" element={<LoginPage />} />
 				<Route path="/Adminlogin" element={<AdminLogin />} />
-				<Route path="/events/AdminDashboard" element={<AdminPortal />} />
+				<Route path="/AdminDashboard" element={<AdminPortal />} />
 				<Route path="/register" element={<RegistrationForm />} />
 			</Routes>
 		</AnimatePresence>
