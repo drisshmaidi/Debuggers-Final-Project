@@ -114,7 +114,7 @@ const LoginPage = ()=> {
 	};
 
 	return (
-		<div className="container">
+		<div>
 			<div className="row justify-content-center mt-5">
 				<div className="col-sm-6 col-md-4">
 					<h3 className="mb-3">Admin Login</h3>
