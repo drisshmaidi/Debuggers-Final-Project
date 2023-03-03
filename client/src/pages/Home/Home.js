@@ -11,7 +11,16 @@ function Home() {
 		<div className="home">
 			<div className="text-container">
 				<h1>The Language Exchange Programme</h1>
-				<p>Connect With Code Your Future</p>
+				<p>
+					Develop Your Language Skills by Joining Language Education{" "}
+					<span>
+						<Link to="/events" className="link">Events</Link>
+					</span>{" "}
+					and Partnering with{" "}
+					<span>
+						<Link to="/tutors" className="link">Language Buddies.</Link>
+					</span>
+				</p>
 			</div>
 			<div className="image-container">
 				<img src={image} alt="Language Exchange Programme" />
