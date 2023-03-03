@@ -44,14 +44,14 @@ function EventsPage({ setEventId }) {
 			{/* <h1 className="allEvents">All Events</h1> */}
 			<div className="home-event">
 				<div className="text-containerEvent ">
-					<h1>All Upcoming Events</h1>
+					<h1 className="title-event">All Upcoming Events</h1>
 				</div>
 				<div>
 					<img
 						src={event}
 						alt=""
-						width="550px"
-						height="300px"
+						// width="550px"
+						// height="300px"
 						className="eventsImage"
 					/>
 				</div>
@@ -75,26 +75,18 @@ function EventsPage({ setEventId }) {
 					{filteredEvents.map((event, index) => (
 						<div className="card" key={event.id}>
 							<img
-								width="270px"
-								heigh="240px"
+								// width="270px"
+								// heigh="240px"
 								src={event.img}
 								title="Event Title"
+								className="imageEventCard"
 							/>
 							<div className="card-content2">
 								<h2 className="eventTitle">{event.title}</h2>
 								<span className="locationEvents">🌎 {event.location}</span>
 								<span className="dataEvents"> 🗓️ {formatDate(event.date)}</span>
 								<p className="descriptionEvent">{event.description}</p>
-								{/* <p>
-									<a
-										href={event.url}
-										target="_blank"
-										rel="noopener noreferrer"
-										className="see-details-button"
-									>
-										See details
-									</a>
-								</p> */}
+						
 								<Link
 									to="/booking"
 									onClick={() => setEventId(event.id)}
@@ -112,3 +104,5 @@ function EventsPage({ setEventId }) {
 }
 
 export default EventsPage;
+
+

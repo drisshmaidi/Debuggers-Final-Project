@@ -17,12 +17,12 @@ function SignIn() {
 					Sign In To Connect With Language Tutors
 				</p>
 				<div className="button-group">
-					<button className="button">
-						<Link to="/login">Trainee Login</Link>
-					</button>
-					<button className="button">
-						<Link to="/AdminLogin">Admin Login</Link>
-					</button>
+					<Link to="/login">
+						<button className="button">Trainee Login</button>
+					</Link>
+					<Link to="/AdminLogin">
+						<button className="button">Admin Login</button>
+					</Link>
 					<Link to="/register">
 						<button className="button">Create Account</button>
 					</Link>

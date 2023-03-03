@@ -4,6 +4,7 @@ import "./RegistrationForm.css";
 
 const RegistrationForm = () => {
 	const [formData, setFormData] = useState([]);
+	const [isSuccess, setIsSuccess] = useState(false);
 
 	// const fetchRegister = () => {
 	//      console.log("test");
@@ -37,7 +38,8 @@ const RegistrationForm = () => {
 			.then((res) => res.json())
 			.then((data) => {
 				console.log(data.message);
-				alert(data.message);
+				setIsSuccess(true);
+				// alert(data.message);
 				// window.location.href = "/login";
 			})
 			.catch((err) => {
@@ -45,8 +47,20 @@ const RegistrationForm = () => {
 			});
 	};
 
+	useEffect(()=> {
+		if (isSuccess) {
+			setTimeout(() => {
+				window.location.href = "/login";
+			}, 2000);
+		}
+	}, [isSuccess]);
+
 	return (
 		<div className="form-container">
+			{isSuccess ? (
+				<p className="success-message">You signed up successfully!</p>
+			) : (
+				<div>
 			<h1 className="titleRegister">Create Account</h1>
 
 			<form onSubmit={handleSubmit}>
@@ -180,6 +194,8 @@ const RegistrationForm = () => {
 				</button>
 			</form>
 		</div>
+			)}
+			</div>
 	);
 };
 

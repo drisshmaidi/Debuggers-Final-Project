@@ -4,7 +4,7 @@
 	align-items: center;
 	/* margin: 5rem 5rem 5rem 5rem; */
 
-	padding: 7rem;
+	padding: 4rem;
 	border: 1px sold #ccc;
 	border-radius: 0.5rem;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -55,7 +55,7 @@ label {
 }
 
 .titleRegister {
-	font-size: 100px;
+	font-size: 70px;
 	font-weight: bold;
 	font-family: "primary";
 	/* line-height: 120%; */
