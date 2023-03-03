@@ -16,6 +16,7 @@
 form {
 	width: 100%;
 	max-width: 400px;
+	
 }
 
 input[type="text"],
@@ -55,7 +56,8 @@ label {
 }
 
 .titleRegister {
-	font-size: 70px;
+	font-size: 55px;
+
 	font-weight: bold;
 	font-family: "primary";
 	/* line-height: 120%; */

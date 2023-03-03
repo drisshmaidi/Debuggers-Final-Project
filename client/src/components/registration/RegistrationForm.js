@@ -61,7 +61,6 @@ const RegistrationForm = () => {
 				<p className="success-message">You signed up successfully!</p>
 			) : (
 				<div>
-			<h1 className="titleRegister">Create Account</h1>
 
 			<form onSubmit={handleSubmit}>
 				<div style={{ marginBottom: "10px" }}>
