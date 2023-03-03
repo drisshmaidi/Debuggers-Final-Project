@@ -20,11 +20,10 @@ import { AnimatePresence } from "framer-motion";
 const AnimRoutes = () => {
 	const [eventId, setEventId] = useState();
 	const location = useLocation();
-
 	return (
 		<AnimatePresence initial={true} mode="wait">
 			<Routes key={location.pathname} location={location}>
-				<Route path="/" element={<Home />} />
+				<Route path="about" element={<Home />} />
 				<Route path="/about/this/site" element={<About />} />
 				<Route path="/events" element={<Events setEventId={setEventId} />} />
 				<Route path="/booking" element={<Booking eventId={eventId} />} />
@@ -32,9 +31,9 @@ const AnimRoutes = () => {
 				<Route path="/tutors" element={<TutorDetails />} />
 				<Route path="/login" element={<LoginPage />} />
 				<Route path="/Adminlogin" element={<AdminLogin />} />
-				<Route path="/events/AdminDashboard" element={<AdminPortal />} />
+				<Route path="/AdminDashboard" element={<AdminPortal />} />
 				<Route path="/register" element={<RegistrationForm />} />
-				<Route path="/video" element={<HomeVideo />} />
+				<Route path="/" element={<HomeVideo />} />
 				<Route path="/user" element={<User />} />
 			</Routes>
 		</AnimatePresence>

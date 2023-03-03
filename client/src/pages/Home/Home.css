@@ -25,8 +25,7 @@
 
 .text-container p {
   margin: 0;
-  font-size: 1.5rem;
-  font-size: 40px;
+  font-size: 25px;
 margin-bottom: 4px;
 font-family: "primary";
 color: black;
@@ -46,4 +45,16 @@ text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 fff, 1px 1px 0 fff;
   height: 700px;
   border-radius: 10px;
 }
+
+.link {
+  color: red;
+  text-decoration: none;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.link:hover {
+  color: #333;
+}
+
 

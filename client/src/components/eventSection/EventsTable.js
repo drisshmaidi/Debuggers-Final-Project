@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 const EventsTable = ({ event }) => {
 	const [events, setEvents] = useState(null);
 
+	const token = localStorage.getItem("Token");
+
 
 	useEffect(() => {
 		fetch("/api/events")
@@ -18,19 +20,27 @@ const EventsTable = ({ event }) => {
 			handleSearch();
 		};
 
-	const handleSearch = (e) => {
-		let searchValue = e.target.value;
-
-		const url = !searchValue
+	const handleSearch = (value) => {
+		const url = !value
 			? "/api/events"
-			: `/api/events/search/${searchValue}`;
-		fetch(url)
+			: `/api/events/search/${value}`;
+		fetch(url, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		})
 			.then((res) => res.json())
 			.then((data) => setEvents(data));
 	};
 	return (
 		<div>
-			<div><input type="text" onInput={handleSearch} placeholder="Search...." /></div>
+			<div>
+				<input
+					type="text"
+					onInput={(e) => handleSearch(e.target.value)}
+					placeholder="Search...."
+				/>
+			</div>
 			<table className="table">
 				<thead className="thead-dark">
 					<tr>
@@ -45,7 +55,9 @@ const EventsTable = ({ event }) => {
 					{events?.map((e, k) => {
 						return (
 							<tr key={k}>
-								<th scope="row" key={k}>{e.id}</th>
+								<th scope="row" key={k}>
+									{e.id}
+								</th>
 								<td>{e.title}</td>
 								<td>{e.description}</td>
 								<td>
