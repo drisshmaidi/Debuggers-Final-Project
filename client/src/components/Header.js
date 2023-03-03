@@ -15,7 +15,7 @@ function Header() {
 			<nav className="nav">
 				<ul>
 					<li>
-						<Link to="/">Home</Link>
+						<Link to="about">Explore</Link>
 					</li>
 					<li>
 						<Link to="/tutors">Connect</Link>
@@ -24,10 +24,10 @@ function Header() {
 						<Link to="/events">Events</Link>
 					</li>
 					<li>
-						<Link to="/signin">Sign In / Register</Link>
+						<Link to="/signin">Sign In</Link>
 					</li>
 					<li>
-						<Link to="/video">Video</Link>
+						<Link to="/">Admin</Link>
 					</li>
 				</ul>
 			</nav>

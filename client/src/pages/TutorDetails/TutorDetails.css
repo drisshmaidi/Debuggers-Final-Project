@@ -1,86 +1,132 @@
-.card {
-   display: flex;
-  align-items: center;
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+body {
+  display: flex;
   justify-content: center;
-  padding-bottom: 5px;
+  align-items: center;
+  min-height: 100vh;
+}
+
+
+
+.container {
   position: relative;
-
+  width: 1280px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 
 }
 
-.tutor-image {
-  width: 200px;
-  height: 200px;
+.container .cards {
+  position: relative;
+  width: 300px;
+  height: 400px;
+  background: linear-gradient(#333, #333 30%, red 30%, red);
+  margin: 10px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.container .cards .imgBx {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: 0.5s;
+  z-index: 100000;
+  border-radius: 20px;
+  overflow: hidden;
+  transform-origin: top;
+}
+
+.container .cards:hover .imgBx {
+  transform: translateY(30px) scale(0.5);
+}
+
+.container .cards .imgBx img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border-radius: 100px;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10px;
 }
 
-.card-content {
+.container .cards .content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 30px;
+  transform: translateY(100%);
+  transition: 0.5s;
+}
+
+.container .cards:hover .content {
+  transform: translateY(0);
+}
+
+.container .cards .content .details {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
+}
+
+.container .cards .content .details h2 {
+  color: #fff;
+  font-size: 0.9em;
+  font-weight: 500;
+}
+
+.container .cards .content .details h2 span {
+  font-size: 0.8em;
+  font-weight: 400;
 
 }
 
-.tutor-name {
-  font-size: 20px;
-  font-weight: bold;
-  margin-top: 10px;
-
- 
-  
+.social_icons {
+  position: relative;
+  display: flex;
+  margin-top: 5px;
 }
 
-.tutor-details {
-  margin-bottom: 10px;
+.social_icons li {
+  list-style: none;
+  margin: 4px;
 }
 
-.tutor-origin, .tutor-language {
-  font-size: 16px;
-  margin-right: 10px;
-  font-style: italic;
-}
-
-.book-trial-button {
-  background-color: red;
-  color: #ffffff;
-  border: none;
-  border-radius: 5px;
-  padding: 10px;
-  cursor: pointer;
-  margin-bottom: 10px;
-  font-size: 18px;
+.social_icons li a {
+  width: 45px;
+  height: 45px;
   display: flex;
   justify-content: center;
   align-items: center;
-
-
- 
+  background: red;
+  border-radius: 50%;
+  font-size: 1.5em;
+  color: white;
+  text-decoration: none;
+  transition: 0.5s;
 }
 
-.tutor-list {
- display: flex;
- margin-top: 50px;
- gap: 20px;
-justify-content: center;
- text-align: center;
-position: relative;
-
-
-
-
-
- 
-
-
-  }
-
-.tutor-intro, .tutor-interests {
-  font-size: 18px;
+.social_icons li a:hover {
+  transform: rotate(360deg);
+  background: white;
+  color: red;
 }
-
-
