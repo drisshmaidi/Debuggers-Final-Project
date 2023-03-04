@@ -3,7 +3,6 @@
 	flex-direction: column;
 	align-items: center;
 	/* margin: 5rem 5rem 5rem 5rem; */
-
 	padding: 4rem;
 	border: 1px sold #ccc;
 	border-radius: 0.5rem;
@@ -13,13 +12,13 @@
     background-color:rgb(223, 223, 223) ; */
 }
 
-form {
+.registerForm {
 	width: 100%;
 	max-width: 400px;
 	
 }
 
-input[type="text"],
+/* input[type="text"],
 input[type="email"],
 input[type="password"] {
 	width: 100%;
@@ -40,6 +39,18 @@ label {
 	font-size: 1rem;
 	font-weight: bold;
 	margin-bottom: 0.5rem;
+} */
+
+
+.form-input {
+	width: 100%;
+	padding: 0.5rem;
+	margin-bottom: 1rem;
+	border: 1px solid #ccc;
+	border-radius: 0.5rem;
+	font-size: 1rem;
+	outline: none;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .RegisterButton {
@@ -56,7 +67,7 @@ label {
 }
 
 .titleRegister {
-	font-size: 55px;
+	font-size: 50px;
 
 	font-weight: bold;
 	font-family: "primary";
