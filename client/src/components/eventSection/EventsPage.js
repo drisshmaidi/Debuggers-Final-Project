@@ -44,7 +44,7 @@ function EventsPage({ setEventId }) {
 			<div className="home-event">
 				<div className="text-containerEvent ">
 
-					<h1 className="title-event">All Upcoming Events</h1>
+					<h1 className="title-event">Upcoming Events</h1>
 
 				</div>
 				<div>

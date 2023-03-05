@@ -39,8 +39,9 @@ const RegistrationForm = () => {
 			.then((res) => res.json())
 			.then((data) => {
 				console.log(data.message);
-				setIsSuccess(true);
-				// alert(data.message);
+				// setIsSuccess(true);
+				// console.log(data.message);
+				alert(data.message)
 				// window.location.href = "/login";
 			})
 			.catch((err) => {
@@ -48,13 +49,13 @@ const RegistrationForm = () => {
 			});
 	};
 
-	useEffect(()=> {
-		if (isSuccess) {
-			setTimeout(() => {
-				window.location.href = "/login";
-			}, 2000);
-		}
-	}, [isSuccess]);
+	// useEffect(() => {
+	// 	if (isSuccess) {
+	// 		setTimeout(() => {
+	// 			window.location.href = "/login";
+	// 		}, 2000);
+	// 	}
+	// }, [isSuccess]);
 
 	return (
 		<div>
@@ -206,3 +207,9 @@ const RegistrationForm = () => {
 };
 
 export default RegistrationForm;
+
+
+
+
+
+
