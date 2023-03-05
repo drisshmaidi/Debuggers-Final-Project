@@ -66,7 +66,7 @@ useEffect(() => {
 						</tr>
 					</thead>
 					<tbody>
-						{events?.map((e, k) => {
+						{events?.sort((x,y)=>x.id < y.id?1:-1).map((e, k) => {
 							return (
 								<tr key={k}>
 									<th scope="row" key={k}>
