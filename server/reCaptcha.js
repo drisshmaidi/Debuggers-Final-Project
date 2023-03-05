@@ -15,7 +15,7 @@ const reCaptcha = (req, res, next) => {
 		.then((response) => response.json())
 		.then((google_response) => {
 			if (!google_response.success) {
-				res.status(200).json({ msg: "Captcha not verified, try again." });
+				res.status(401).json({ msg: "Captcha not verified, try again." });
 			}
 		});
     }catch(err) {

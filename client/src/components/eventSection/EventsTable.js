@@ -8,16 +8,16 @@ const [countSearchResult, setCountSearchResult] = useState(0);
 
 const token = localStorage.getItem("Token");
 
-useEffect(() => {
-	fetch("/api/events")
-		.then((res) => res.json())
-		.then((data) => {
-			const countEvents = data.length;
-			setEvents(data);
-			setTotalEvent(countEvents);
-			setCountSearchResult(countEvents);
-		});
-}, []);
+	useEffect(() => {
+		fetch("/api/events")
+			.then((res) => res.json())
+			.then((data) => {
+				const countEvents = data.length;
+				setEvents(data);
+				setTotalEvent(countEvents);
+				setCountSearchResult(countEvents);
+			});
+	}, []);
 
 
 	const handleUpdate = (e) =>{

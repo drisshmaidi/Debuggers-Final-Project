@@ -54,7 +54,10 @@ margin: auto;
     /* display: flex; */
     width: 100%;
 }
-
+.add-event-label
+{
+    display: contents;
+}
 @media screen and (max-width: 600px) {
     body {
         width: 90%;
