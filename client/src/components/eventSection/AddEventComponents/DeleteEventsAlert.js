@@ -91,7 +91,7 @@ export default function AlertDialogModal({ eventId, title  }) {
 							<Button
 								variant="plain"
 								color="neutral"
-								onClick={() => setOpen(false)}
+								onClick={() => window.location.reload()}
 							>
 								Ok
 							</Button>

@@ -26,7 +26,6 @@ const token = localStorage.getItem("Token");
 		fetch(`/api/events/${eventId}`)
 			.then((res) => res.json())
 			.then((data) => event(data));
-			handleSearch();
 		};
 
 	const handleSearch = (value) => {
