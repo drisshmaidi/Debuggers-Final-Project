@@ -62,7 +62,7 @@ const RegistrationForm = () => {
 				<p className="success-message">You signed up successfully!</p>
 			) : (
 				<div>
-					<h1 className="titleRegister">Create an account</h1>
+					<h1 className="titleRegister">Register Your Account</h1>
 					<form className="registerForm" onSubmit={handleSubmit}>
 						<div style={{ marginBottom: "10px" }}>
 							<label className="form-label" htmlFor="firstName">

@@ -36,7 +36,7 @@ function EmployeeCard(props) {
 						</li>
 						<li>
 							<a href="#">
-								<i class="fas fa-envelope"></i>
+								<i className="fas fa-envelope"></i>
 							</a>
 						</li>
 					</ul>

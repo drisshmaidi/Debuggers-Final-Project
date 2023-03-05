@@ -65,11 +65,10 @@ label {
 }
 
 .titleRegister {
-	font-size: 50px;
+	    font-size: 70px;
 
 	font-weight: bold;
 	font-family: "primary";
-
 	margin-bottom: 30px;
 	color: red;
 	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
@@ -77,6 +76,13 @@ label {
 	justify-content: center;
 	align-items: center;
 }
+
+
+
+ 
+
+
+
 
 
 
