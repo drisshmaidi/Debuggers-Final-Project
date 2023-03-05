@@ -14,12 +14,17 @@ function Home() {
 				<p>
 					Develop Your Language Skills by Joining Language Education{" "}
 					<span>
-						<Link to="/events" className="link">Events</Link>
+						<Link to="/events" className="link">
+							Events
+						</Link>
 					</span>{" "}
-					and Partnering with{" "}
+					and{" "}
 					<span>
-						<Link to="/tutors" className="link">Language Buddies.</Link>
-					</span>
+						<Link to="/tutors" className="link">
+							Connect
+						</Link>
+					</span>{" "}
+					with Language Buddies
 				</p>
 			</div>
 			<div className="image-container">
