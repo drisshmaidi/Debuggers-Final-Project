@@ -147,6 +147,7 @@ function LoginPage() {
 										placeholder="Enter email"
 										value={email}
 										onChange={handleEmailChange}
+										style={{ boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)" }}
 									/>
 								</Form.Group>
 
@@ -157,6 +158,7 @@ function LoginPage() {
 										placeholder="Password"
 										value={password}
 										onChange={handlePasswordChange}
+										style={{ boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)" }}
 									/>
 								</Form.Group>
 

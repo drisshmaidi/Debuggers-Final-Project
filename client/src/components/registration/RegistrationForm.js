@@ -39,9 +39,8 @@ const RegistrationForm = () => {
 			.then((data) => {
 				console.log(data.message);
 				// setIsSuccess(true);
-				console.log(data.message);
-				alert(data.message);
-				// alert(data.message);
+				// console.log(data.message);
+				alert(data.message)
 				// window.location.href = "/login";
 			})
 			.catch((err) => {
@@ -49,13 +48,13 @@ const RegistrationForm = () => {
 			});
 	};
 
-	useEffect(() => {
-		if (isSuccess) {
-			setTimeout(() => {
-				window.location.href = "/login";
-			}, 2000);
-		}
-	}, [isSuccess]);
+	// useEffect(() => {
+	// 	if (isSuccess) {
+	// 		setTimeout(() => {
+	// 			window.location.href = "/login";
+	// 		}, 2000);
+	// 	}
+	// }, [isSuccess]);
 
 	return (
 		<div className="form-container">
@@ -134,7 +133,7 @@ const RegistrationForm = () => {
 									<label
 										className="form-label"
 										htmlFor="english"
-										className="checkbox-label"
+										
 									>
 										🇬🇧 English
 									</label>
@@ -150,7 +149,7 @@ const RegistrationForm = () => {
 									<label
 										className="form-label"
 										htmlFor="spanish"
-										className="checkbox-label"
+										
 									>
 										🇪🇸 Spanish
 									</label>
@@ -166,7 +165,7 @@ const RegistrationForm = () => {
 									<label
 										className="form-label"
 										htmlFor="german"
-										className="checkbox-label"
+										
 									>
 										🇩🇪 German
 									</label>
@@ -182,7 +181,7 @@ const RegistrationForm = () => {
 									<label
 										className="form-label"
 										htmlFor="italian"
-										className="checkbox-label"
+										
 									>
 										🇮🇹 Italian
 									</label>
@@ -198,7 +197,7 @@ const RegistrationForm = () => {
 									<label
 										className="form-label"
 										htmlFor="indian"
-										className="checkbox-label"
+										
 									>
 										🇮🇳 Indian
 									</label>
@@ -214,7 +213,7 @@ const RegistrationForm = () => {
 									<label
 										className="form-label"
 										htmlFor="chinese"
-										className="checkbox-label"
+										
 									>
 										🇨🇳 Chinese
 									</label>
@@ -222,7 +221,7 @@ const RegistrationForm = () => {
 							</div>
 						</div>
 
-						<div style={{ marginBottom: "10px" }}>
+						<div style={{ marginBottom: "10px"}}>
 							<label className="form-label" htmlFor="isAdmin">
 								Admin:{" "}
 							</label>
@@ -244,3 +243,9 @@ const RegistrationForm = () => {
 };
 
 export default RegistrationForm;
+
+
+
+
+
+

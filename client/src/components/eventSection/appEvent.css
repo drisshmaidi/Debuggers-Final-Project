@@ -37,7 +37,7 @@
 }
 
 .eventTitle {
-	font-size: 1rem;
+	font-size: 1.2rem;
 	margin-bottom: 1rem;
 	margin-top: 1rem;
 	text-align: center;
@@ -48,12 +48,12 @@
 	/* line-height: 1.2; */
 }
 
-.eventLocation {
+/* .eventLocation {
 	font-size: 1rem;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-}
+} */
 
 .eventButton:hover {
 	background-color: white;
@@ -128,9 +128,9 @@
 	margin-right: 10px;
 	font-style: italic;
 	margin-top: 0.5rem;
-	white-space: nowrap;
+	/* white-space: nowrap;
 	overflow: hidden;
-	text-overflow: ellipsis;
+	text-overflow: ellipsis; */
 	/* line-height: 1.2; */
 }
 
@@ -244,8 +244,8 @@
 	.imageEventCard {
 		max-width: 100%;
 		height: auto;
-		width: 270px;
-		height: 130px;
+		width: 370px;
+		height: 200px;
 		display: block;
 		margin: 0 auto;
 	}
