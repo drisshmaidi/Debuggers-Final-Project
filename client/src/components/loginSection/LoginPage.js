@@ -123,7 +123,7 @@ function LoginPage() {
 		if (response.ok) {
 			// If the response is successful, store the token and isAdmin from the response in local storage
 			const data = await response.json();
-			localStorage.setItem("userLoginToken", data.token);
+			localStorage.setItem("Token", data.token);
 			// localStorage.setItem("isAdmin", data.isAdmin);
 			// Navigate to the main page
 			navigate("/user");

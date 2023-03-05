@@ -9,16 +9,12 @@ import Header from "./components/Header";
 const App = () => {
 const { cursorVariants, cursorBG } = useContext(CursorContext);
 	return (
-
 		<>
-		{/* <Header /> */}
 			<AnimRoutes />
-			<motion.div
-				variants={cursorVariants}
-				animate={cursorBG}
-			></motion.div>
+			<div className="frame">
+				<motion.div variants={cursorVariants} animate={cursorBG}></motion.div>
+			</div>
 		</>
-
 	);
 };
 
