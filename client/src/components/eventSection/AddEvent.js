@@ -1,8 +1,7 @@
-
-
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import moment from "moment";
+
 
 import "./css/style.css";
 
@@ -51,8 +50,6 @@ const eventId = eventData[0]?.id;
 				});
 		}
 		setTimeout(() => window.location.reload(), 3000);
-
-
 	};
 	return (
 		<div className="event">

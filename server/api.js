@@ -164,6 +164,25 @@ router.get("/events/search/:term",authorization, (req, res) => {
 		});
 });
 
+//DELETE EVENT
+
+router.delete("/deleteEvent",authentication,authorization,(req,res)=>{
+
+	const { eventId } = req.body;
+
+	db.query("DELETE FROM events WHERE id = $1", [eventId])
+		.then(() =>
+			res
+				.status(200)
+				.json({  msg: "Event deleted Successfully!" })
+		)
+		.catch((err) => {
+			logger.debug(err);
+			res.status(500).json({ msg: "Unable to delete this event." });
+		});
+});
+
+
 //login user as Admin
 
 router.post("/adminLogin",reCaptcha, (req, res) => {
@@ -180,7 +199,7 @@ router.post("/adminLogin",reCaptcha, (req, res) => {
 			bcrypt.compare(pass, password_hash,(err,isMatch)=>{
 
 				if(err) {
-					res.status(422).json({ msg: "Invalid password please try again "+err });
+					res.status(422).json({ msg: "Invalid password please try again " });
 					return;
 				}
 

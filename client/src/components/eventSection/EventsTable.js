@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Delete from "./AddEventComponents/DeleteEventsAlert";
 
 const EventsTable = ({ event }) => {
 	const [events, setEvents] = useState(null);
@@ -43,6 +44,7 @@ const token = localStorage.getItem("Token");
 				setCountSearchResult(data.length);
 			});
 	};
+
 	return (
 		<div>
 			<div>
@@ -84,9 +86,7 @@ const token = localStorage.getItem("Token");
 										</button>
 									</td>
 									<td>
-										<button name={e.id} className="btn btn-danger">
-											Delete
-										</button>
+										<Delete eventId={e.id } title={e.title} />
 									</td>
 								</tr>
 							);
