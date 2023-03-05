@@ -33,7 +33,7 @@ const eventId = eventData[0]?.id;
 		formData.append("email", data.email);
 		formData.append("mobile", data.mobile);
 
-		formData.append("eventPic", data.eventPic[0]);
+		formData.append("img", data.img);
 		formData.append("location", data.location);
 
 		if (eventId) {
@@ -72,7 +72,7 @@ const eventId = eventData[0]?.id;
 				</div>
 
 				<div className="form-control">
-					<lable> Event Description*</lable>
+					<label> Event Description*</label>
 					<textarea
 						defaultValue={eventData["0"]?.description || ""}
 						placeholder="Event Description"
@@ -162,20 +162,16 @@ const eventId = eventData[0]?.id;
 				</div>
 
 				<div className="form-control">
-					<label>Upload event poster*</label>
+					<label>Image URL*</label>
 					<input
-						type="file"
-						accept="image/png, image/jpeg"
-						{...register("eventPic", {
-							validate: {
-								lessThan10MB: (files) =>
-									files[0]?.size < 1000000 || "Max size  1mb",
-							},
+						defaultValue={eventData["0"]?.img || ""}
+						type="text"
+						placeholder="Enter image URL"
+						{...register("img", {
+							required: "img is required.",
 						})}
 					/>
-					{errors.eventPic && (
-						<p className="errorMsg">{errors.eventPic.message}</p>
-					)}
+					{errors.img && <p className="errorMsg">{errors.img.message}</p>}
 				</div>
 
 				<div className="form-control">

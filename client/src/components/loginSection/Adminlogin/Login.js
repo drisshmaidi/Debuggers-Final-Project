@@ -144,7 +144,7 @@ const LoginPage = ()=> {
 						<Button
 							// variant="danger"
 							type="submit"
-							block
+							block='true'
 							style={{
 								marginTop: "20px",
 								marginRight: "20px",

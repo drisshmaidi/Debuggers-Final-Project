@@ -168,7 +168,7 @@ function LoginPage() {
 
 								<Button
 									type="submit"
-									block
+									block="true"
 									style={{
 										marginTop: "20px",
 										boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)",
