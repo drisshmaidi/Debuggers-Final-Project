@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
+import Header from "../../Header";
 
 import ReCaptcha from "../../captcha/ReCaptcha";
 
@@ -71,6 +72,7 @@ const LoginPage = ()=> {
 
 	return (
 		<div>
+			<Header />
 			<div className="row justify-content-center mt-5">
 				<div className="col-sm-6 col-md-4">
 					<h3 className="mb-3">Admin Login</h3>

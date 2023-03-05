@@ -4,6 +4,7 @@ import Image1 from "../TutorDetails/Image1.jpg";
 import Image2 from "../TutorDetails/Image2.jpg";
 import Image3 from "../TutorDetails/Image3.png";
 import Image4 from "../TutorDetails/Image4.jpg";
+import Header from "../../components/Header";
 
 
 function EmployeeCard(props) {
@@ -36,7 +37,7 @@ function EmployeeCard(props) {
 						</li>
 						<li>
 							<a href="#">
-								<i class="fas fa-envelope"></i>
+								<i className="fas fa-envelope"></i>
 							</a>
 						</li>
 					</ul>
@@ -49,6 +50,7 @@ function EmployeeCard(props) {
 function App() {
 	return (
 		<>
+		<Header />
 			<link
 				rel="stylesheet"
 				href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"

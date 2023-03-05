@@ -64,6 +64,7 @@ const BookingModal = ({ eventId }) => {
 					setErrorMessage(
 						<p style={{ color: "green" }}>You have successfully booked!</p>
 					);
+						setBookedEvent(true);
 					// Handle booking event
 					console.log("Booking event...");
 				})

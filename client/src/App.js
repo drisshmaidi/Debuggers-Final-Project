@@ -11,7 +11,7 @@ const { cursorVariants, cursorBG } = useContext(CursorContext);
 	return (
 
 		<>
-		<Header />
+		{/* <Header /> */}
 			<AnimRoutes />
 			<motion.div
 				variants={cursorVariants}
