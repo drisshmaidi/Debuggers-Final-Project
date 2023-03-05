@@ -12,9 +12,9 @@ import  Jwt  from "jsonwebtoken";
 
 import registrationRouter from "./registration";
 
-
 import authorization from "./authorization";
 import authentication from "./authentication";
+import reCaptcha from "./reCaptcha";
 
 
 const router = Router();
@@ -77,17 +77,17 @@ router.put("/updateEvent",authorization,authentication, (req, res) => {
 			endDate,
 			email,
 			mobile,
+			img,
 			location,
 			eventId,
 		} = req.body;
-		const image = saveEventPictures(req.files, res);
 		logger.debug(endDate && "null");
 		db.query(
-			"UPDATE events SET title = $1, description = $2, url = $3, date = $4, end_date = $5, time = $6, location = $7, email = $8, mobile = $9, user_id = $10 WHERE id = $11",
+			"UPDATE events SET title = $1, description = $2, img = $3, date = $4, end_date = $5, time = $6, location = $7, email = $8, mobile = $9, user_id = $10 WHERE id = $11",
 			[
 				title,
 				description,
-				image,
+				img,
 				startDate,
 				endDate ? endDate : null,
 				time,
@@ -120,15 +120,15 @@ router.post("/addNewEvent",authorization,authentication,(req,res)=>{
 			endDate,
 			email,
 			mobile,
+			img,
 			location,
 		} = req.body;
-		const url = saveEventPictures(req.files, res);
 	db.query(
-		"INSERT INTO events (title, description, url, date, end_date, time, location, email, mobile, user_id) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)",
+		"INSERT INTO events (title, description, img, date, end_date, time, location, email, mobile, user_id) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)",
 		[
 			title,
 			description,
-			url,
+			img,
 			startDate,
 			endDate ? endDate : null,
 			time,
@@ -164,12 +164,30 @@ router.get("/events/search/:term",authorization, (req, res) => {
 		});
 });
 
+//DELETE EVENT
+
+router.delete("/deleteEvent",authentication,authorization,(req,res)=>{
+
+	const { eventId } = req.body;
+
+	db.query("DELETE FROM events WHERE id = $1", [eventId])
+		.then(() =>
+			res
+				.status(200)
+				.json({  msg: "Event deleted Successfully!" })
+		)
+		.catch((err) => {
+			logger.debug(err);
+			res.status(500).json({ msg: "Unable to delete this event." });
+		});
+});
+
+
 //login user as Admin
 
-router.post("/adminLogin", (req, res) => {
+router.post("/adminLogin",reCaptcha, (req, res) => {
 	const email = req.body.email;
 	const pass = req.body.password;
-
 	//check email exist
 
 	db.query("SELECT * FROM users WHERE email = $1",[email])
@@ -181,7 +199,7 @@ router.post("/adminLogin", (req, res) => {
 			bcrypt.compare(pass, password_hash,(err,isMatch)=>{
 
 				if(err) {
-					res.status(422).json({ msg: "Invalid password please try again "+err });
+					res.status(422).json({ msg: "Invalid password please try again " });
 					return;
 				}
 
@@ -201,7 +219,7 @@ router.post("/adminLogin", (req, res) => {
 				},
 				process.env.JWT_SECRET || "ThisIsMySecretKey",
 				{
-					expiresIn: "7d",
+					expiresIn: "12h",
 				}
 				);
 					res.status(200).json({ token: token });
@@ -224,30 +242,6 @@ router.post("/adminLogin", (req, res) => {
 });
 
 
-//save picture function
-
-const saveEventPictures = (file, res) => {
-	if (!file || Object.keys(file).length === 0) {
-		return res.status(400).send("No files were uploaded.");
-	}
-	// The name of the eventPic is used to retrieve the uploaded file
-	const eventPic = file.eventPic;
-	const fileName =
-		Math.floor(Math.random() * 10000000000) +
-		"." +
-		eventPic.name.split(".").pop();
-		logger.debug(__dirname+"../");
-	const uploadPath =
-		__dirname +
-		"/Event-Pictures/" +fileName;
-	// Use the mv() method to place the file somewhere on the server
-	// eventPic.mv(uploadPath, function (err) {
-	// 	if (err) {
-	// 		return res.status(500).send(err);
-	// 	}
-	// });
-	return fileName;
-};
 
 
 export default router;

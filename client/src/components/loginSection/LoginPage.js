@@ -97,6 +97,7 @@
 import React, { useState } from "react";
 import { Form, Button, Card } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
+import Header from "../Header";
 
 function LoginPage() {
 	const [email, setEmail] = useState("");
@@ -122,7 +123,7 @@ function LoginPage() {
 		if (response.ok) {
 			// If the response is successful, store the token and isAdmin from the response in local storage
 			const data = await response.json();
-			localStorage.setItem("userLoginToken", data.token);
+			localStorage.setItem("Token", data.token);
 			// localStorage.setItem("isAdmin", data.isAdmin);
 			// Navigate to the main page
 			navigate("/user");
@@ -133,7 +134,8 @@ function LoginPage() {
 	};
 
 	return (
-		<div>
+		<>
+			<Header />
 			<div className="row justify-content-center mt-5">
 				<div className="col-sm-6 col-md-4">
 					<Card style={{ boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)" }}>
@@ -170,7 +172,7 @@ function LoginPage() {
 
 								<Button
 									type="submit"
-									block
+									block="true"
 									style={{
 										marginTop: "20px",
 										boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)",
@@ -189,7 +191,7 @@ function LoginPage() {
 					</Card>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 }
 

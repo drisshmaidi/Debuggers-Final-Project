@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import logger from "./utils/logger";
+
 
 //Authorization Middleware
 const authentication = (req, res, next) => {
@@ -16,7 +16,6 @@ const authentication = (req, res, next) => {
 				username: username,
 				userId: userId,
 			};
-			logger.debug("userid"+userId);
 		} else {
 			res.status(401).json({ message: "Token not found" });
 			return;
@@ -24,7 +23,6 @@ const authentication = (req, res, next) => {
 		}
 	} catch (err) {
 		//return error if token or secret key is invalid
-		// req.body.authentication = { status: 498, authMsg: "Invalid token" };
 		res.status(401).json({ message: "Invalid token" });
 		return;
 	}

@@ -4,7 +4,39 @@ import Logo from "../pages/Home/logo.png";
 import { Link } from "react-router-dom";
 import "../components/Header.css";
 
+import { useEffect,useState } from "react";
+
+import Logout from "./logout/Logout";
+
 function Header() {
+
+
+
+
+	const [loggedIn, setLoggedIn] = useState(false);
+
+	const token = localStorage.getItem("Token");
+
+	// checking the user's role from token
+	useEffect(() => {
+		fetch("/api/checkUser", {
+			method: "POST",
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		})
+			.then((res) => {
+				if (!res.ok) {
+					setLoggedIn(false);
+				} else {
+					setLoggedIn(true);
+				}
+			})
+			.catch((err) => {
+				console.error(err);
+			});
+	}, []);
+
 	return (
 		<div className="header">
 			<div className="logo">
@@ -15,7 +47,7 @@ function Header() {
 			<nav className="nav">
 				<ul>
 					<li>
-						<Link to="about">Explore</Link>
+						<Link to="/about">Explore</Link>
 					</li>
 					<li>
 						<Link to="/tutors">Connect</Link>
@@ -26,6 +58,7 @@ function Header() {
 					<li>
 						<Link to="/signin">Sign In</Link>
 					</li>
+						{loggedIn ? <li><Logout /></li>: ""}
 				</ul>
 			</nav>
 		</div>

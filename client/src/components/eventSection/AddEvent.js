@@ -1,8 +1,8 @@
-
-
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import moment from "moment";
+import Header from "../Header";
+
 
 import "./css/style.css";
 
@@ -12,7 +12,6 @@ const AddEvent = ({ eventData }) => {
 		register,
 		handleSubmit,
 		formState: { errors },
-		reset,
 	} = useForm();
 
 const eventId = eventData[0]?.id;
@@ -33,7 +32,7 @@ const eventId = eventData[0]?.id;
 		formData.append("email", data.email);
 		formData.append("mobile", data.mobile);
 
-		formData.append("eventPic", data.eventPic[0]);
+		formData.append("img", data.img);
 		formData.append("location", data.location);
 
 		if (eventId) {
@@ -52,144 +51,160 @@ const eventId = eventData[0]?.id;
 				});
 		}
 		setTimeout(() => window.location.reload(), 3000);
-
-
 	};
 	return (
 		<div className="event">
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<div className="form-control">
-					<label>Event Title*</label>
-					<input
-						defaultValue={eventData["0"]?.title || ""}
-						type="text"
-						placeholder="Event Title"
-						{...register("title", {
-							required: "Event Title is required.",
-						})}
-					/>
-					{errors.title && <p className="errorMsg">{errors.title.message}</p>}
+					<label className="add-event-label">
+						Event Title*
+						<input
+							defaultValue={eventData["0"]?.title || ""}
+							type="text"
+							placeholder="Event Title"
+							{...register("title", {
+								required: "Event Title is required.",
+							})}
+						/>
+						{errors.title && <p className="errorMsg">{errors.title.message}</p>}
+					</label>
+				</div>
+				<div className="form-control">
+					<label className="add-event-label">
+						Image URL*
+						<input
+							defaultValue={eventData["0"]?.img || ""}
+							type="text"
+							placeholder="Enter image URL"
+							{...register("img", {
+								required: "img is required.",
+							})}
+						/>
+						{errors.img && <p className="errorMsg">{errors.img.message}</p>}
+					</label>
 				</div>
 
 				<div className="form-control">
-					<lable> Event Description*</lable>
-					<textarea
-						defaultValue={eventData["0"]?.description || ""}
-						placeholder="Event Description"
-						{...register("desc", {
-							required: "Event description is required",
-						})}
-					/>
-					{errors.desc && <p className="errorMsg">{errors.desc.message}</p>}
+					<label className="add-event-label">
+						{" "}
+						Event Description*
+						<textarea
+							defaultValue={eventData["0"]?.description || ""}
+							placeholder="Event Description"
+							{...register("desc", {
+								required: "Event description is required",
+							})}
+						/>
+						{errors.desc && <p className="errorMsg">{errors.desc.message}</p>}
+					</label>
 				</div>
 
 				<div className="form-control">
-					<label>Event Start Date*</label>
-					<input
-						defaultValue={
-							eventData["0"]?.end_date
-								? moment(eventData["0"].start_date).format("YYYY-MM-DD")
-								: ""
-						}
-						type="date"
-						{...register("startDate", {
-							required: "Events start date is required.",
-						})}
-					/>
-					{errors.startDate && (
-						<p className="errorMsg">{errors.startDate.message}</p>
-					)}
+					<label className="add-event-label">
+						Event Start Date*
+						<input
+							defaultValue={
+								eventData["0"]?.date
+									? moment(eventData["0"].date).format("YYYY-MM-DD")
+									: ""
+							}
+							type="date"
+							min={!eventId ? new Date().toISOString().split("T")[0] : ""}
+							{...register("startDate", {
+								required: "Events start date is required.",
+							})}
+						/>
+						{errors.startDate && (
+							<p className="errorMsg">{errors.startDate.message}</p>
+						)}
+					</label>
 				</div>
 
 				<div className="form-control">
-					<label>Event Time*</label>
-					<input
-						defaultValue={
-							moment(eventData[0]?.time, "HH:mm:ss").format("HH:mm") || ""
-						}
-						type="time"
-						{...register("time", {
-							required: "Events start time is required.",
-						})}
-					/>
-					{errors.time && <p className="errorMsg">{errors.time.message}</p>}
+					<label className="add-event-label">
+						Event Time*
+						<input
+							defaultValue={
+								moment(eventData[0]?.time, "HH:mm:ss").format("HH:mm") || ""
+							}
+							type="time"
+							{...register("time", {
+								required: "Events start time is required.",
+							})}
+						/>
+						{errors.time && <p className="errorMsg">{errors.time.message}</p>}
+					</label>
 				</div>
 
 				<div className="form-control">
-					<label>Event end date</label>
-					<input
-						defaultValue={
-							eventData["0"]?.end_date
-								? moment(eventData["0"].end_date).format("YYYY-MM-DD")
-								: ""
-						}
-						type="date"
-						{...register("endDate")}
-					/>
+					<label className="add-event-label">
+						Event end date
+						<input
+							defaultValue={
+								eventData["0"]?.end_date
+									? moment(eventData["0"].end_date).format("YYYY-MM-DD")
+									: ""
+							}
+							min={!eventId ? new Date().toISOString().split("T")[0] : ""}
+							type="date"
+							{...register("endDate")}
+						/>
+					</label>
 				</div>
 
 				<div className="form-control">
-					<label>Email*</label>
-					<input
-						defaultValue={eventData["0"]?.email || ""}
-						type="text"
-						placeholder="Email"
-						{...register("email", {
-							required: "Email is required.",
-							pattern: {
-								value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/, ///regex for validating email address
-								message: "Email is not valid.",
-							},
-						})}
-					/>
-					{errors.email && <p className="errorMsg">{errors.email.message}</p>}
+					<label className="add-event-label">
+						Email*
+						<input
+							defaultValue={eventData["0"]?.email || ""}
+							type="text"
+							placeholder="Email"
+							{...register("email", {
+								required: "Email is required.",
+								pattern: {
+									value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/, ///regex for validating email address
+									message: "Email is not valid.",
+								},
+							})}
+						/>
+						{errors.email && <p className="errorMsg">{errors.email.message}</p>}
+					</label>
 				</div>
 
 				<div className="form-control">
-					<label>Mobile</label>
-					<input
-						defaultValue={eventData["0"]?.mobile || ""}
-						type="tel"
-						placeholder="Mobile"
-						{...register("mobile", {
-							pattern: {
-								value: /^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/, ///regex for validating mobile
-								message: "Mobile is not valid.",
-							},
-						})}
-					/>
-					{errors.mobile && <p className="errorMsg">{errors.mobile.message}</p>}
+					<label className="add-event-label">
+						Mobile
+						<input
+							defaultValue={eventData["0"]?.mobile || ""}
+							type="tel"
+							placeholder="Mobile"
+							{...register("mobile", {
+								pattern: {
+									value: /^([0|+[0-9]{1,5})?([7-9][0-9]{9})$/, ///regex for validating mobile
+									message: "Mobile is not valid.",
+								},
+							})}
+						/>
+						{errors.mobile && (
+							<p className="errorMsg">{errors.mobile.message}</p>
+						)}
+					</label>
 				</div>
 
 				<div className="form-control">
-					<label>Upload event poster*</label>
-					<input
-						type="file"
-						accept="image/png, image/jpeg"
-						{...register("eventPic", {
-							validate: {
-								lessThan10MB: (files) =>
-									files[0]?.size < 1000000 || "Max size  1mb",
-							},
-						})}
-					/>
-					{errors.eventPic && (
-						<p className="errorMsg">{errors.eventPic.message}</p>
-					)}
-				</div>
-
-				<div className="form-control">
-					<label>Event's location*</label>
-					<textarea
-						defaultValue={eventData["0"]?.location || ""}
-						placeholder="Enter event location"
-						{...register("location", {
-							required: "Event location is required",
-						})}
-					/>
-					{errors.location && (
-						<p className="errorMsg">{errors.location.message}</p>
-					)}
+					<label className="add-event-label">
+						Events location*
+						<textarea
+							defaultValue={eventData["0"]?.location || ""}
+							placeholder="Enter event location"
+							{...register("location", {
+								required: "Event location is required",
+							})}
+						/>
+						{errors.location && (
+							<p className="errorMsg">{errors.location.message}</p>
+						)}
+					</label>
 				</div>
 
 				<div className="form-control">

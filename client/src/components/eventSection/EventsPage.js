@@ -5,6 +5,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect } from "react";
 import "./appEvent.css";
+import Header from "../Header";
 
 import event from "../eventSection/event2.jpg";
 
@@ -18,7 +19,6 @@ function EventsPage({ setEventId }) {
 		fetch("/api/events")
 			.then((res) => res.json())
 			.then((data) => {
-				// const currentDate = new Date();
 				const futureEvents = data.sort((x, y) => (x.data > y.data ? 1 : -1));
 				setEvents(futureEvents);
 			});
@@ -39,6 +39,7 @@ function EventsPage({ setEventId }) {
 
 	return (
 		<>
+			<Header />
 			{/* <h1 className="allEvents">All Events</h1> */}
 			<div className="home-event">
 				<div className="text-containerEvent ">
@@ -86,7 +87,6 @@ function EventsPage({ setEventId }) {
 								<span className="locationEvents">🌎 {event.location}</span>
 								<span className="dataEvents"> 🗓️ {formatDate(event.date)}</span>
 								<p className="descriptionEvent">{event.description}</p>
-						
 								<Link
 									to="/booking"
 									onClick={() => setEventId(event.id)}

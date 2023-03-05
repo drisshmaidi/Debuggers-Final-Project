@@ -15,7 +15,7 @@ router.post("/login", async (req, res) => {
 
 	try {
 		const result = await db.query(
-			"SELECT id, email, password_hash FROM users WHERE email = $1",
+			"SELECT id, email, password_hash FROM users WHERE email = $1 AND is_admin = false",
 			[email]
 		);
 		const user = result.rows[0];
