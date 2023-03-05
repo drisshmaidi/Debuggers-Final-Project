@@ -19,10 +19,7 @@ function EventsPage({ setEventId }) {
 		fetch("/api/events")
 			.then((res) => res.json())
 			.then((data) => {
-				const currentDate = new Date();
-				const futureEvents = data.filter(
-					(event) => new Date(event.date) >= currentDate
-				);
+				const futureEvents = data.sort((x, y) => (x.data > y.data ? 1 : -1));
 				setEvents(futureEvents);
 			});
 	};

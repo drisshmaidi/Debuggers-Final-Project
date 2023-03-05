@@ -47,7 +47,7 @@ function Header() {
 			<nav className="nav">
 				<ul>
 					<li>
-						<Link to="about">Explore</Link>
+						<Link to="/about">Explore</Link>
 					</li>
 					<li>
 						<Link to="/tutors">Connect</Link>
