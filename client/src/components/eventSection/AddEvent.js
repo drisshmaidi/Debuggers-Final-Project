@@ -87,11 +87,12 @@ const eventId = eventData[0]?.id;
 					<label>Event Start Date*</label>
 					<input
 						defaultValue={
-							eventData["0"]?.end_date
-								? moment(eventData["0"].start_date).format("YYYY-MM-DD")
+							eventData["0"]?.date
+								? moment(eventData["0"].date).format("YYYY-MM-DD")
 								: ""
 						}
 						type="date"
+						min={!eventId ? new Date().toISOString().split("T")[0] : ""}
 						{...register("startDate", {
 							required: "Events start date is required.",
 						})}
@@ -123,6 +124,7 @@ const eventId = eventData[0]?.id;
 								? moment(eventData["0"].end_date).format("YYYY-MM-DD")
 								: ""
 						}
+						min={!eventId ? new Date().toISOString().split("T")[0] : ""}
 						type="date"
 						{...register("endDate")}
 					/>
