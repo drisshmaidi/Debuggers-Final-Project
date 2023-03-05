@@ -58,6 +58,7 @@ const eventId = eventData[0]?.id;
 	return (
 		<div className="event">
 			<form onSubmit={handleSubmit(onSubmit)}>
+				<div>
 				<div className="form-control">
 					<label>Event Title*</label>
 					<input
@@ -69,6 +70,19 @@ const eventId = eventData[0]?.id;
 						})}
 					/>
 					{errors.title && <p className="errorMsg">{errors.title.message}</p>}
+				</div>
+				<div className="form-control">
+					<label>Image URL*</label>
+					<input
+						defaultValue={eventData["0"]?.img || ""}
+						type="text"
+						placeholder="Enter image URL"
+						{...register("img", {
+							required: "img is required.",
+						})}
+					/>
+					{errors.img && <p className="errorMsg">{errors.img.message}</p>}
+				</div>
 				</div>
 
 				<div className="form-control">
@@ -161,19 +175,6 @@ const eventId = eventData[0]?.id;
 						})}
 					/>
 					{errors.mobile && <p className="errorMsg">{errors.mobile.message}</p>}
-				</div>
-
-				<div className="form-control">
-					<label>Image URL*</label>
-					<input
-						defaultValue={eventData["0"]?.img || ""}
-						type="text"
-						placeholder="Enter image URL"
-						{...register("img", {
-							required: "img is required.",
-						})}
-					/>
-					{errors.img && <p className="errorMsg">{errors.img.message}</p>}
 				</div>
 
 				<div className="form-control">

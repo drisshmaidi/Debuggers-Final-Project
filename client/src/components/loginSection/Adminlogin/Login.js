@@ -3,17 +3,18 @@ import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 
+import ReCaptcha from "../../captcha/ReCaptcha";
+
+
+
+
 const LoginPage = ()=> {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [logMsg,setLogMsg] = useState(null);
 	const navigate = useNavigate();
+	const [captcha,setCaptcha] =useState(null);
 
-
-        //  localStorage.setItem(
-		// 				"Token",
-		// 				"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImluZm9AZ21haWwuY29tIiwiaXNBZG1pbiI6dHJ1ZSwidXNlcklkIjoiMSIsImlhdCI6MTY3NzE4NzI0MCwiZXhwIjoxNjc3NzkyMDQwfQ.mhh9rmwJ68FpztWm8nIhb-yrUG_LndLqbxPdKqfjo1Q"
-		// 			);
     const token = localStorage.getItem("Token");
 
 		// checking the user's role from token
@@ -33,50 +34,14 @@ const LoginPage = ()=> {
 				.catch((err) => {
 					console.error(err);
 				});
-
-			// 	try {
-			// 	const res = fetch("/api/checkUser", {
-			// 		method: "POST",
-			// 			headers: {
-			// 				Authorization: `Bearer ${token}`,
-			// 			},
-			// 	});
-			// 	if (!res.ok) {
-			// 		throw new Error("Invalid token");
-			// 	}
-			// 	const data =  res.json();
-			// 	const { isAdmin, userId }=data;
-			// 	if(isAdmin && userId) {
-			// 		navigate("/events/AdminDashBoard");
-			// 	}
-			// } catch (error) {
-			// 	console.log(error);
-			// }
 		}, []);
-
-
-				// .then((res) => {
-				// 	if (!res.ok) {
-				// 		throw new Error(res.statusText);
-				// 	}
-				// 	return res.json();
-				// })
-				// .then((data) => {
-				// 	data.isAdmin && data.userId
-				// 		? navigate("/events/AdminDashBoard")
-				// 		: navigate("/AdminLogin");
-				// 	//alert(data.userId);
-				// })
-				// .catch((err) => {
-				// 	console.error(err);
-				// });
-
-
-
-
 
 	const handleEmailChange = (event) => setEmail(event.target.value);
 	const handlePasswordChange = (event) => setPassword(event.target.value);
+
+
+	//store generated reCaptcha token
+
 
 	const handleLogin =  (event) => {
 		event.preventDefault();
@@ -87,30 +52,19 @@ const LoginPage = ()=> {
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({ email, password }),
+			body: JSON.stringify({ email, password,captcha }),
 		}).then((res)=>res.json())
 		.then((data)=>{
 			const token = data.token;
 			if(token) {
 				localStorage.setItem("Token",token);
+				setLogMsg("Redirecting to Admin Dashboard...");
 				navigate("/AdminDashboard");
 			} else {
 				setLogMsg(data.msg);
 			}
 
 		}).catch((er)=>console.log(er));
-
-		// if (response.ok) {
-		// 	// If the response is successful, store the token and isAdmin from the response in local storage
-		// 	const data = await response.json();
-		// 	localStorage.setItem("token", data.token);
-		// 	// localStorage.setItem("isAdmin", data.isAdmin);
-		// 	// Navigate to the main page
-		// 	navigate("/");
-		// } else {
-		// 	// If the response is unsuccessful, show an error message
-		// 	alert("Invalid email or password");
-		// }
 	};
 
 	return (
@@ -129,7 +83,6 @@ const LoginPage = ()=> {
 								style={{ boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)" }}
 							/>
 						</Form.Group>
-
 						<Form.Group controlId="formBasicPassword">
 							<Form.Label>Password*</Form.Label>
 							<Form.Control
@@ -140,11 +93,11 @@ const LoginPage = ()=> {
 								style={{ boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)" }}
 							/>
 						</Form.Group>
-
+						<ReCaptcha setCaptcha={setCaptcha} />
 						<Button
 							// variant="danger"
 							type="submit"
-							block='true'
+							block="true"
 							style={{
 								marginTop: "20px",
 								marginRight: "20px",
@@ -155,7 +108,6 @@ const LoginPage = ()=> {
 							Log in
 						</Button>
 						<p>{logMsg}</p>
-
 						<div className="mt-2 text-center">
 							<span className="text-muted">Don't have an account? </span>
 							<Link to="/signup">Sign up</Link>

@@ -42,7 +42,7 @@ const token = localStorage.getItem("Token");
 		},[]);
     return (
 			<div>
-				<button className={`btn ${!eventData?"btn-primary":"btn-danger"}`} onClick={()=>setEventData(!eventData)} >{!eventData?"Add Event":"Close Form"}</button>
+				<button className={`m-2 btn ${!eventData?"btn-primary":"btn-danger"}`} onClick={()=>setEventData(!eventData)} >{!eventData?"Add Event":"Close Form"}</button>
 				{isAdmin ? (
 					<div>
 						{eventData ? <AddEvent eventData={eventData} /> : ""}

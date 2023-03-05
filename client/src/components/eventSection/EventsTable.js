@@ -49,7 +49,7 @@ useEffect(() => {
 				<input
 					type="text"
 					onInput={(e) => handleSearch(e.target.value)}
-					placeholder="Search...."
+					placeholder="Search by event id, title, and description"
 				/>
 				<p>{`${countSearchResult} / ${totalEvent} Results found`}</p>
 			</div>

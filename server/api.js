@@ -12,9 +12,9 @@ import  Jwt  from "jsonwebtoken";
 
 import registrationRouter from "./registration";
 
-
 import authorization from "./authorization";
 import authentication from "./authentication";
+import reCaptcha from "./reCaptcha";
 
 
 const router = Router();
@@ -166,10 +166,9 @@ router.get("/events/search/:term",authorization, (req, res) => {
 
 //login user as Admin
 
-router.post("/adminLogin", (req, res) => {
+router.post("/adminLogin",reCaptcha, (req, res) => {
 	const email = req.body.email;
 	const pass = req.body.password;
-
 	//check email exist
 
 	db.query("SELECT * FROM users WHERE email = $1",[email])
@@ -201,7 +200,7 @@ router.post("/adminLogin", (req, res) => {
 				},
 				process.env.JWT_SECRET || "ThisIsMySecretKey",
 				{
-					expiresIn: "7d",
+					expiresIn: "12h",
 				}
 				);
 					res.status(200).json({ token: token });

@@ -45,6 +45,16 @@ button {
     padding: 5px 10px;
 }
 
+.event > form{
+margin: auto;
+}
+
+.input-container
+{
+    /* display: flex; */
+    width: 100%;
+}
+
 @media screen and (max-width: 600px) {
     body {
         width: 90%;
