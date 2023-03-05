@@ -38,7 +38,10 @@ useEffect(() => {
 			},
 		})
 			.then((res) => res.json())
-			.then((data) => setEvents(data));
+			.then((data) => {
+				setEvents(data);
+				setCountSearchResult(data.length);
+			});
 	};
 	return (
 		<div>
