@@ -134,7 +134,7 @@ function LoginPage() {
 	};
 
 	return (
-		<div>
+		<>
 			<Header />
 			<div className="row justify-content-center mt-5">
 				<div className="col-sm-6 col-md-4">
@@ -189,7 +189,7 @@ function LoginPage() {
 					</Card>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 }
 

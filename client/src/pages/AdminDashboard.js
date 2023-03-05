@@ -52,7 +52,6 @@ const AdminDashboard = ()=>{
 				) : (
 					<div>Unauthorized Access</div>
 				)}
-				<Logout />
 			</div>
 		);
 };
