@@ -73,12 +73,14 @@ const LoginPage = ()=> {
 
 		if(!captcha) {
 			captchaRef.current.reset();
+			setSeverity("warning");
+			setLogMsg("Redirecting to Admin Dashboard...");
+			setOpen(true);
 			return;
 		}
 
 		// Send login details
 
-		console.log(captcha);
 
 		fetch("/api/adminLogin", {
 			method: "POST",
@@ -95,7 +97,6 @@ const LoginPage = ()=> {
 			return res.json();
 		})
 		.then((data)=>{
-			console.log(data.token);
 			const token = data.token;
 			if(token) {
 				localStorage.setItem("Token",token);
