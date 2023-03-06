@@ -19,6 +19,8 @@ import { AnimatePresence } from "framer-motion";
 
 const AnimRoutes = () => {
 	const [eventId, setEventId] = useState();
+	const [email, setEmail] = useState("");
+
 	const location = useLocation();
 	return (
 		<AnimatePresence initial={true} mode="wait">
@@ -29,12 +31,12 @@ const AnimRoutes = () => {
 				<Route path="/booking" element={<Booking eventId={eventId} />} />
 				<Route path="/signin" element={<SignIn />} />
 				<Route path="/tutors" element={<TutorDetails />} />
-				<Route path="/login" element={<LoginPage />} />
+				<Route path="/login" element={<LoginPage email={email} setEmail={setEmail} />} />
 				<Route path="/Adminlogin" element={<AdminLogin />} />
 				<Route path="/AdminDashboard" element={<AdminPortal />} />
 				<Route path="/register" element={<RegistrationForm />} />
 				<Route path="/" element={<HomeVideo />} />
-				<Route path="/user" element={<User />} />
+				<Route path="/user" element={<User email={email} />} />
 			</Routes>
 		</AnimatePresence>
 	);

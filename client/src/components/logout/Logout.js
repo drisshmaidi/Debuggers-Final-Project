@@ -6,10 +6,10 @@ const Logout = () =>{
 
     const handleLogout = ()=>{
         localStorage.setItem("Token","");
-        navigate("/AdminLogin");
+        navigate("/signin");
     };
 
-    return(<button onClick={handleLogout} className="btn btn-primary">Logout</button>);
+    return(<button onClick={handleLogout} className="btn btn-danger">Logout</button>);
 
 };
 

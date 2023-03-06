@@ -9,7 +9,7 @@ const BookingModal = ({ eventId }) => {
 	// 	"token",
 	// 	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoiYWRtaW5AY3lmLnVrIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjc3NzkyMjU3LCJleHAiOjE2NzgzOTcwNTd9.Y5w3W6YQifAZaztpJX1yfPUc_YR5QF_OFxfgClBv3pQ"
 	// );
-	const token = localStorage.getItem("userLoginToken");
+	const token = localStorage.getItem("Token");
 	const header = { Authorization: `Bearer ${token}` };
 	console.log(eventId);
 	useEffect(() => {
@@ -64,6 +64,7 @@ const BookingModal = ({ eventId }) => {
 					setErrorMessage(
 						<p style={{ color: "green" }}>You have successfully booked!</p>
 					);
+						setBookedEvent(true);
 					// Handle booking event
 					console.log("Booking event...");
 				})

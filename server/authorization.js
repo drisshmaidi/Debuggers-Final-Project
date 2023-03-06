@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import logger from "./utils/logger";
+
 
 //Authorization Middleware
 const authorization = (req, res, next) => {
@@ -22,8 +22,6 @@ const authorization = (req, res, next) => {
 		}
 	} catch (err) {
 		//return error if token or secret key is invalid
-		// req.body.authentication = { status: 498, authMsg: "Invalid token" };
-		logger.debug(err);
 		res.status(401).json({ message: "Invalid token" });
 		return;
 	}

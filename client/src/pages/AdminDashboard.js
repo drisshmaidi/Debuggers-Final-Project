@@ -2,22 +2,25 @@ import AddEvent from "../components/eventSection/AddEvent.js";
 import { useState,useEffect } from "react";
 import EventsTable from "../components/eventSection/EventsTable.js";
 import { useNavigate } from "react-router-dom";
-import Logout from "../components/logout/Logout";
+import Header from "../components/Header.js";
+import Button from "@mui/joy/Button";
+import Add from "@mui/icons-material/Add";
+
+
 
 
 //import "bootstrap/dist/css/bootstrap.min.css";
 
-//admin token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjEiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2NzcwMTI0NzIsImV4cCI6MTY3NzYxNzI3Mn0.S5Ekh2yYqI-qSb0uEt_KFJJoyMBgYG2FQLE26h8n3D4
 
 const AdminDashboard = ()=>{
 
-	//store userid and it's role
-const [isAdmin, setIsAdmin] = useState(false);
-const [eventData, setEventData] = useState(null);
-const navigate = useNavigate();
+	//store userId and it's role
+	const [isAdmin, setIsAdmin] = useState(false);
+	const [eventData, setEventData] = useState(null);
+	const navigate = useNavigate();
 
-//get token from local storage
-const token = localStorage.getItem("Token");
+	//get token from local storage
+	const token = localStorage.getItem("Token");
 
 // checking the user's role from token
 		useEffect(() => {
@@ -39,10 +42,19 @@ const token = localStorage.getItem("Token");
 				.catch((err) => {
 					console.error(err);
 				});
-		},[]);
+		});
     return (
 			<div>
-				<button className={`btn ${!eventData?"btn-primary":"btn-danger"}`} onClick={()=>setEventData(!eventData)} >{!eventData?"Add Event":"Close Form"}</button>
+				<Header />
+				<Button
+					className="m-3"
+					variant="outlined"
+					color="neutral"
+					startDecorator={<Add />}
+					onClick={() => setEventData(!eventData)}
+				>
+					{!eventData ? "Add Event" : "Close Form"}
+				</Button>
 				{isAdmin ? (
 					<div>
 						{eventData ? <AddEvent eventData={eventData} /> : ""}
@@ -51,7 +63,6 @@ const token = localStorage.getItem("Token");
 				) : (
 					<div>Unauthorized Access</div>
 				)}
-				<Logout />
 			</div>
 		);
 };

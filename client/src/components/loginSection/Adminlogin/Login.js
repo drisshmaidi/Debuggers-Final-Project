@@ -1,20 +1,38 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
+import Header from "../../Header";
+
+//import ReCaptcha from "../../captcha/ReCaptcha";
+
+import Stack from "@mui/material/Stack";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+
+import ReCAPTCHA from "react-google-recaptcha";
+
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+	return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+
 
 const LoginPage = ()=> {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [logMsg,setLogMsg] = useState(null);
 	const navigate = useNavigate();
-
-
-        //  localStorage.setItem(
-		// 				"Token",
-		// 				"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImluZm9AZ21haWwuY29tIiwiaXNBZG1pbiI6dHJ1ZSwidXNlcklkIjoiMSIsImlhdCI6MTY3NzE4NzI0MCwiZXhwIjoxNjc3NzkyMDQwfQ.mhh9rmwJ68FpztWm8nIhb-yrUG_LndLqbxPdKqfjo1Q"
-		// 			);
+	const [captcha,setCaptcha] =useState(null);
+	const [open, setOpen] = React.useState(false);
     const token = localStorage.getItem("Token");
+	const [severity, setSeverity] = useState(null);
+
+	const captchaRef = useRef(null);
+
+
+
 
 		// checking the user's role from token
 		useEffect( () => {
@@ -33,88 +51,90 @@ const LoginPage = ()=> {
 				.catch((err) => {
 					console.error(err);
 				});
+		});
 
-			// 	try {
-			// 	const res = fetch("/api/checkUser", {
-			// 		method: "POST",
-			// 			headers: {
-			// 				Authorization: `Bearer ${token}`,
-			// 			},
-			// 	});
-			// 	if (!res.ok) {
-			// 		throw new Error("Invalid token");
-			// 	}
-			// 	const data =  res.json();
-			// 	const { isAdmin, userId }=data;
-			// 	if(isAdmin && userId) {
-			// 		navigate("/events/AdminDashBoard");
-			// 	}
-			// } catch (error) {
-			// 	console.log(error);
-			// }
-		}, []);
+	const handleEmailChange = (event) => {
+		setEmail(event.target.value);
+				captchaRef.current.reset();
+
+	};
+	const handlePasswordChange = (event) => {
+			setPassword(event.target.value);
+				captchaRef.current.reset();
+
+};
 
 
-				// .then((res) => {
-				// 	if (!res.ok) {
-				// 		throw new Error(res.statusText);
-				// 	}
-				// 	return res.json();
-				// })
-				// .then((data) => {
-				// 	data.isAdmin && data.userId
-				// 		? navigate("/events/AdminDashBoard")
-				// 		: navigate("/AdminLogin");
-				// 	//alert(data.userId);
-				// })
-				// .catch((err) => {
-				// 	console.error(err);
-				// });
+	//store generated reCaptcha token
 
-
-
-
-
-	const handleEmailChange = (event) => setEmail(event.target.value);
-	const handlePasswordChange = (event) => setPassword(event.target.value);
 
 	const handleLogin =  (event) => {
 		event.preventDefault();
 
+		if(!captcha) {
+			captchaRef.current.reset();
+			setSeverity("warning");
+			setLogMsg("Redirecting to Admin Dashboard...");
+			setOpen(true);
+			return;
+		}
+
 		// Send login details
+
+
 		fetch("/api/adminLogin", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({ email, password }),
-		}).then((res)=>res.json())
+			body: JSON.stringify({ email, password, captcha }),
+		}).then((res)=>{
+			if (res.ok) {
+				setSeverity("success");
+			} else {
+				setSeverity("warning");
+			}
+			return res.json();
+		})
 		.then((data)=>{
 			const token = data.token;
 			if(token) {
 				localStorage.setItem("Token",token);
+				setLogMsg("Redirecting to Admin Dashboard...");
+				setOpen(true);
 				navigate("/AdminDashboard");
 			} else {
 				setLogMsg(data.msg);
+				setOpen(true);
 			}
 
 		}).catch((er)=>console.log(er));
 
-		// if (response.ok) {
-		// 	// If the response is successful, store the token and isAdmin from the response in local storage
-		// 	const data = await response.json();
-		// 	localStorage.setItem("token", data.token);
-		// 	// localStorage.setItem("isAdmin", data.isAdmin);
-		// 	// Navigate to the main page
-		// 	navigate("/");
-		// } else {
-		// 	// If the response is unsuccessful, show an error message
-		// 	alert("Invalid email or password");
-		// }
+
+
+	};
+
+	const handleClose = (reason) => {
+		if (reason === "clickaway") {
+			return;
+		}
+		setOpen(false);
 	};
 
 	return (
 		<div>
+			<Header />
+			<Stack spacing={2} sx={{ width: "100%" }}>
+				<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+					<Alert
+						onClose={handleClose}
+						severity={severity}
+						sx={{ width: "100%" }}
+					>
+						{logMsg}
+					</Alert>
+				</Snackbar>
+			</Stack>
 			<div className="row justify-content-center mt-5">
 				<div className="col-sm-6 col-md-4">
 					<h3 className="mb-3">Admin Login</h3>
@@ -129,7 +149,6 @@ const LoginPage = ()=> {
 								style={{ boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)" }}
 							/>
 						</Form.Group>
-
 						<Form.Group controlId="formBasicPassword">
 							<Form.Label>Password*</Form.Label>
 							<Form.Control
@@ -140,11 +159,16 @@ const LoginPage = ()=> {
 								style={{ boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)" }}
 							/>
 						</Form.Group>
-
+						{/* <ReCaptcha setCaptcha={setCaptcha} /> */}
+						<ReCAPTCHA
+							ref={captchaRef}
+							sitekey="6Lc2jdQkAAAAAIF76dQJd4l45yXSFWal4eNZgmKr"
+							onChange={(token)=>setCaptcha(token)}
+						/>
 						<Button
 							// variant="danger"
 							type="submit"
-							block
+							block="true"
 							style={{
 								marginTop: "20px",
 								marginRight: "20px",
@@ -154,8 +178,6 @@ const LoginPage = ()=> {
 						>
 							Log in
 						</Button>
-						<p>{logMsg}</p>
-
 						<div className="mt-2 text-center">
 							<span className="text-muted">Don't have an account? </span>
 							<Link to="/signup">Sign up</Link>

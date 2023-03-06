@@ -5,8 +5,14 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 const router = Router();
-router.get("/api/login", (req, res) => {
-	res.json({ message: "Hi" });
+router.get("/login", async (req, res) => {
+	// res.json({ message: "Hi" });
+	try {
+		const result = await db.query("SELECT * FROM users");
+		res.status(200).json(result.rows);
+	} catch (error) {
+		logger.error(error);
+	}
 });
 
 router.post("/login", async (req, res) => {
@@ -15,7 +21,7 @@ router.post("/login", async (req, res) => {
 
 	try {
 		const result = await db.query(
-			"SELECT id, email, password_hash FROM users WHERE email = $1",
+			"SELECT id, email, password_hash FROM users WHERE email = $1 AND is_admin = false",
 			[email]
 		);
 		const user = result.rows[0];

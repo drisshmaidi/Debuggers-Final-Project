@@ -5,10 +5,17 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
         Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     font-size: 20px;
-    width: 60%;
-    margin: 10px auto;
+    width: 80%;
+    margin: auto;
 }
-
+.search-field
+{
+    float: right;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1rem 0;
+}
 .errorMsg {
     max-width: 350px;
     color: #f21e08;
@@ -23,10 +30,11 @@ body {
 }
 
 .form-control {
-    display: flex;
+display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
+    
     border: none;
+    width: 70%;
 }
 
 .form-control label {
@@ -35,16 +43,24 @@ body {
     margin-bottom: 5px;
 }
 
-.form-control input[type="text"] {
-    width: 40%;
-    padding: 5px;
-}
-
 button {
     max-width: 150px;
     padding: 5px 10px;
 }
 
+.event > form{
+margin: auto;
+}
+
+.input-container
+{
+    /* display: flex; */
+    width: 100%;
+}
+.add-event-label
+{
+    display: contents;
+}
 @media screen and (max-width: 600px) {
     body {
         width: 90%;

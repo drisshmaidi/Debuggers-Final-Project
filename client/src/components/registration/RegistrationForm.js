@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Header from "../Header";
 
 import "./RegistrationForm.css";
 
@@ -26,7 +27,7 @@ const RegistrationForm = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-
+		console.log(formData);
 		//send form data to backend
 		fetch("/api/register", {
 			method: "POST",
@@ -58,187 +59,150 @@ const RegistrationForm = () => {
 	//update code
 
 	return (
-		<div className="form-container">
-			{isSuccess ? (
-				<p className="success-message">You signed up successfully!</p>
-			) : (
-				<div>
-					<h1 className="titleRegister">Create an account</h1>
-					<form className="registerForm" onSubmit={handleSubmit}>
-						<div style={{ marginBottom: "10px" }}>
-							<label className="form-label" htmlFor="firstName">
-								First Name:
-							</label>
-							<input
-								className="form-input"
-								type="text"
-								placeholder="First Name"
-								name="firstName"
-								onChange={handleInputChange}
-								required
-							/>
-						</div>
-						<div style={{ marginBottom: "10px" }}>
-							<label className="form-label" htmlFor="lastName">
-								Last Name:
-							</label>
-							<input
-								className="form-input"
-								type="text"
-								placeholder="Last Name"
-								name="lastName"
-								onChange={handleInputChange}
-								required
-							/>
-						</div>
-						<div style={{ marginBottom: "10px" }}>
-							<label className="form-label" htmlFor="email">
-								Email:
-							</label>
-							<input
-								className="form-input"
-								type="email"
-								placeholder="Enter email"
-								name="email"
-								onChange={handleInputChange}
-								required
-							/>
-						</div>
-						<div style={{ marginBottom: "10px" }}>
-							<label className="form-label" htmlFor="password">
-								Password:
-							</label>
-							<input
-								className="form-input"
-								type="password"
-								placeholder="Password"
-								name="password"
-								onChange={handleInputChange}
-								required
-							/>
-						</div>
+		<div>
+			<Header />
+			<div className="form-container">
+				{isSuccess ? (
+					<p className="success-message">You signed up successfully!</p>
+				) : (
+					<div>
+						<form onSubmit={handleSubmit}>
+							<div style={{ marginBottom: "10px" }}>
+								<label htmlFor="firstName">First Name:</label>
+								<input
+									type="text"
+									placeholder="First Name"
+									name="firstName"
+									onChange={handleInputChange}
+									required
+								/>
+							</div>
+							<div style={{ marginBottom: "10px" }}>
+								<label htmlFor="lastName">Last Name:</label>
+								<input
+									type="text"
+									placeholder="Last Name"
+									name="lastName"
+									onChange={handleInputChange}
+									required
+								/>
+							</div>
+							<div style={{ marginBottom: "10px" }}>
+								<label htmlFor="email">Email:</label>
+								<input
+									type="email"
+									placeholder="Enter email"
+									name="email"
+									onChange={handleInputChange}
+									required
+								/>
+							</div>
+							<div style={{ marginBottom: "10px" }}>
+								<label htmlFor="password">Password:</label>
+								<input
+									type="password"
+									placeholder="Password"
+									name="password"
+									onChange={handleInputChange}
+									required
+								/>
+							</div>
 
-						<div style={{ marginBottom: "10px" }}>
-							<label className="form-label" htmlFor="languages">
-								What languages would you like to learn?
-							</label>
-							<div className="languages-container">
-								<div>
-									<input
-									
-										type="checkbox"
-										id="english"
-										name="english"
-										className="checkBox"
-									/>
-									<label
-										className="form-label"
-										htmlFor="english"
-										
-									>
-										🇬🇧 English
-									</label>
-								</div>
+							<div style={{ marginBottom: "10px" }}>
+								<label htmlFor="languages">
+									What languages would you like to learn?
+								</label>
+								<div className="languages-container">
+									<div>
+										<input
+											type="checkbox"
+											id="english"
+											name="english"
+											className="checkBox"
+										/>
+										<label htmlFor="english" className="checkbox-label">
+											🇬🇧 English
+										</label>
+									</div>
 
-								<div>
-									<input
-										type="checkbox"
-										id="spanish"
-										name="spanish"
-										className="checkBox"
-									/>
-									<label
-										className="form-label"
-										htmlFor="spanish"
-										
-									>
-										🇪🇸 Spanish
-									</label>
-								</div>
+									<div>
+										<input
+											type="checkbox"
+											id="spanish"
+											name="spanish"
+											className="checkBox"
+										/>
+										<label htmlFor="spanish" className="checkbox-label">
+											🇪🇸 Spanish
+										</label>
+									</div>
 
-								<div>
-									<input
-										type="checkbox"
-										id="german"
-										name="german"
-										className="checkBox"
-									/>
-									<label
-										className="form-label"
-										htmlFor="german"
-										
-									>
-										🇩🇪 German
-									</label>
-								</div>
+									<div>
+										<input
+											type="checkbox"
+											id="german"
+											name="german"
+											className="checkBox"
+										/>
+										<label htmlFor="german" className="checkbox-label">
+											🇩🇪 German
+										</label>
+									</div>
 
-								<div>
-									<input
-										type="checkbox"
-										id="italian"
-										name="italian"
-										className="checkBox"
-									/>
-									<label
-										className="form-label"
-										htmlFor="italian"
-										
-									>
-										🇮🇹 Italian
-									</label>
-								</div>
+									<div>
+										<input
+											type="checkbox"
+											id="italian"
+											name="italian"
+											className="checkBox"
+										/>
+										<label htmlFor="italian" className="checkbox-label">
+											🇮🇹 Italian
+										</label>
+									</div>
 
-								<div>
-									<input
-										type="checkbox"
-										id="indian"
-										name="indian"
-										className="checkBox"
-									/>
-									<label
-										className="form-label"
-										htmlFor="indian"
-										
-									>
-										🇮🇳 Indian
-									</label>
-								</div>
+									<div>
+										<input
+											type="checkbox"
+											id="indian"
+											name="indian"
+											className="checkBox"
+										/>
+										<label htmlFor="indian" className="checkbox-label">
+											🇮🇳 Indian
+										</label>
+									</div>
 
-								<div>
-									<input
-										type="checkbox"
-										id="chinese"
-										name="chinese"
-										className="checkBox"
-									/>
-									<label
-										className="form-label"
-										htmlFor="chinese"
-										
-									>
-										🇨🇳 Chinese
-									</label>
+									<div>
+										<input
+											type="checkbox"
+											id="chinese"
+											name="chinese"
+											className="checkBox"
+										/>
+										<label htmlFor="chinese" className="checkbox-label">
+											🇨🇳 Chinese
+										</label>
+									</div>
 								</div>
 							</div>
-						</div>
 
-						<div style={{ marginBottom: "10px"}}>
-							<label className="form-label" htmlFor="isAdmin">
-								Admin:{" "}
-							</label>
-							<input
-								type="checkbox"
-								name="isAdmin"
-								onChange={handleInputChange}
-							/>
-						</div>
+							<div style={{ marginBottom: "10px" }}>
+								<label htmlFor="isAdmin">Admin: </label>
+								<input
+									type="checkbox"
+									name="isAdmin"
+									onChange={handleInputChange}
+								/>
+							</div>
 
-						<button className="RegisterButton" type="submit">
-							Register
-						</button>
-					</form>
-				</div>
-			)}
+							<button className="RegisterButton" type="submit">
+								Register
+							</button>
+						</form>
+					</div>
+				)}
+			</div>
 		</div>
 	);
 };
