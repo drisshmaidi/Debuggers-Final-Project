@@ -220,7 +220,7 @@ router.post("/adminLogin",reCaptcha, (req, res) => {
 					username: email,
 					isAdmin:is_admin,
 				},
-				process.env.JWT_SECRET || "ThisIsMySecretKey",
+				process.env.JWT_SECRET,
 				{
 					expiresIn: "12h",
 				}
