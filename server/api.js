@@ -181,7 +181,7 @@ router.delete("/deleteEvent",authentication,authorization,(req,res)=>{
 		)
 		.catch((err) => {
 			logger.debug(err);
-			res.status(500).json({ msg: "Unable to delete this event." });
+			res.status(500).json({ msg: "Unable to delete this event, please try again later." });
 		});
 });
 
