@@ -41,7 +41,7 @@ const RegistrationForm = () => {
 				console.log(data.message);
 				// setIsSuccess(true);
 				// console.log(data.message);
-				alert(data.message)
+				alert(data.message);
 				// window.location.href = "/login";
 			})
 			.catch((err) => {
@@ -66,10 +66,14 @@ const RegistrationForm = () => {
 					<p className="success-message">You signed up successfully!</p>
 				) : (
 					<div>
-						<form onSubmit={handleSubmit}>
+						<h1 className="titleRegister">Register Your Account</h1>
+						<form className="registerForm" onSubmit={handleSubmit}>
 							<div style={{ marginBottom: "10px" }}>
-								<label htmlFor="firstName">First Name:</label>
+								<label className="form-label" htmlFor="firstName">
+									First Name:
+								</label>
 								<input
+									className="form-input"
 									type="text"
 									placeholder="First Name"
 									name="firstName"
@@ -78,8 +82,11 @@ const RegistrationForm = () => {
 								/>
 							</div>
 							<div style={{ marginBottom: "10px" }}>
-								<label htmlFor="lastName">Last Name:</label>
+								<label className="form-label" htmlFor="lastName">
+									Last Name:
+								</label>
 								<input
+									className="form-input"
 									type="text"
 									placeholder="Last Name"
 									name="lastName"
@@ -88,8 +95,11 @@ const RegistrationForm = () => {
 								/>
 							</div>
 							<div style={{ marginBottom: "10px" }}>
-								<label htmlFor="email">Email:</label>
+								<label className="form-label" htmlFor="email">
+									Email:
+								</label>
 								<input
+									className="form-input"
 									type="email"
 									placeholder="Enter email"
 									name="email"
@@ -98,8 +108,11 @@ const RegistrationForm = () => {
 								/>
 							</div>
 							<div style={{ marginBottom: "10px" }}>
-								<label htmlFor="password">Password:</label>
+								<label className="form-label" htmlFor="password">
+									Password:
+								</label>
 								<input
+									className="form-input"
 									type="password"
 									placeholder="Password"
 									name="password"
@@ -109,7 +122,7 @@ const RegistrationForm = () => {
 							</div>
 
 							<div style={{ marginBottom: "10px" }}>
-								<label htmlFor="languages">
+								<label className="form-label" htmlFor="languages">
 									What languages would you like to learn?
 								</label>
 								<div className="languages-container">
@@ -120,7 +133,7 @@ const RegistrationForm = () => {
 											name="english"
 											className="checkBox"
 										/>
-										<label htmlFor="english" className="checkbox-label">
+										<label className="form-label" htmlFor="english">
 											🇬🇧 English
 										</label>
 									</div>
@@ -132,7 +145,7 @@ const RegistrationForm = () => {
 											name="spanish"
 											className="checkBox"
 										/>
-										<label htmlFor="spanish" className="checkbox-label">
+										<label className="form-label" htmlFor="spanish">
 											🇪🇸 Spanish
 										</label>
 									</div>
@@ -144,7 +157,7 @@ const RegistrationForm = () => {
 											name="german"
 											className="checkBox"
 										/>
-										<label htmlFor="german" className="checkbox-label">
+										<label className="form-label" htmlFor="german">
 											🇩🇪 German
 										</label>
 									</div>
@@ -156,7 +169,7 @@ const RegistrationForm = () => {
 											name="italian"
 											className="checkBox"
 										/>
-										<label htmlFor="italian" className="checkbox-label">
+										<label className="form-label" htmlFor="italian">
 											🇮🇹 Italian
 										</label>
 									</div>
@@ -168,7 +181,7 @@ const RegistrationForm = () => {
 											name="indian"
 											className="checkBox"
 										/>
-										<label htmlFor="indian" className="checkbox-label">
+										<label className="form-label" htmlFor="indian">
 											🇮🇳 Indian
 										</label>
 									</div>
@@ -180,7 +193,7 @@ const RegistrationForm = () => {
 											name="chinese"
 											className="checkBox"
 										/>
-										<label htmlFor="chinese" className="checkbox-label">
+										<label className="form-label" htmlFor="chinese">
 											🇨🇳 Chinese
 										</label>
 									</div>
@@ -188,7 +201,9 @@ const RegistrationForm = () => {
 							</div>
 
 							<div style={{ marginBottom: "10px" }}>
-								<label htmlFor="isAdmin">Admin: </label>
+								<label className="form-label" htmlFor="isAdmin">
+									Admin:{" "}
+								</label>
 								<input
 									type="checkbox"
 									name="isAdmin"

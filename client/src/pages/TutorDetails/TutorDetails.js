@@ -55,7 +55,7 @@ function App() {
 				rel="stylesheet"
 				href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
 			/>
-			<body>
+			<div>
 				<div className="container">
 					<EmployeeCard
 						name="Hi All, I'm Michelle Louise"
@@ -78,7 +78,7 @@ function App() {
 						imageSrc={Image3}
 					/>
 				</div>
-			</body>
+			</div>
 		</>
 	);
 }
