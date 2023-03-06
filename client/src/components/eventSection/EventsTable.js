@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import Delete from "./AddEventComponents/DeleteEventsAlert";
+import * as React from "react";
+
+import { StyledEngineProvider, CssVarsProvider } from "@mui/joy/styles";
 
 const EventsTable = ({ event }) => {
 	const [events, setEvents] = useState(null);
@@ -85,7 +88,13 @@ const token = localStorage.getItem("Token");
 										</button>
 									</td>
 									<td>
-										<Delete eventId={e.id } title={e.title} />
+										<React.StrictMode>
+											<StyledEngineProvider injectFirst>
+												<CssVarsProvider>
+													<Delete eventId={e.id} title={e.title} />
+												</CssVarsProvider>
+											</StyledEngineProvider>
+										</React.StrictMode>
 									</td>
 								</tr>
 							);
