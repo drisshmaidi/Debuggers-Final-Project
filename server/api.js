@@ -98,13 +98,14 @@ router.put("/updateEvent",authorization,authentication, (req, res) => {
 				eventId,
 			]
 		)
-			.then(() => res.status(200).json({ message: "Event Updated Successfully redirecting in 3 sec.." }))
+			.then(() => res.status(200).json({ message: "Event Updated Successfully reloading page in 3 sec.." }))
 			.catch((err) => {
 				logger.debug(err);
-				res.status(500).json("An error occurred in the server.");
+				res.status(500).json({ message: "Unable to process your request an error occurred." });
 			});
 	} catch (err) {
 		logger.debug(err);
+		res.status(500).json({ message: "An error occurred in the server." });
 	}
 });
 
@@ -141,11 +142,13 @@ router.post("/addNewEvent",authorization,authentication,(req,res)=>{
 		.then(() =>
 			res
 				.status(200)
-				.json({ message: "Event Saved Successfully redirecting in 3 sec.." })
+				.json({
+					message: "Event saved successfully reloading page in 3 sec..",
+				})
 		)
 		.catch((err) => {
 			logger.debug(err);
-			res.status(500).json("An error occurred in the server.");
+			res.status(500).json({ message: "Unable to process your request an error occurred." });
 		});
 
 } catch(err){
@@ -178,7 +181,7 @@ router.delete("/deleteEvent",authentication,authorization,(req,res)=>{
 		)
 		.catch((err) => {
 			logger.debug(err);
-			res.status(500).json({ msg: "Unable to delete this event." });
+			res.status(500).json({ msg: "Unable to delete this event, please try again later." });
 		});
 });
 
@@ -217,7 +220,7 @@ router.post("/adminLogin",reCaptcha, (req, res) => {
 					username: email,
 					isAdmin:is_admin,
 				},
-				process.env.JWT_SECRET || "ThisIsMySecretKey",
+				process.env.JWT_SECRET,
 				{
 					expiresIn: "12h",
 				}

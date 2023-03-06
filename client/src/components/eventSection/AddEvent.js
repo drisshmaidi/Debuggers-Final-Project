@@ -1,20 +1,38 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import moment from "moment";
-import Header from "../Header";
+import { TextField } from "@mui/material";
+import * as React from "react";
+import Stack from "@mui/material/Stack";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
-
+const Alert = React.forwardRef(function Alert(props, ref) {
+	return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 import "./css/style.css";
 
 const AddEvent = ({ eventData }) => {
 	const [successMsg, setSuccessMsg] = useState("");
+	const [severity,setSeverity] = useState(null);
+
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
 
-const eventId = eventData[0]?.id;
+	const eventId = eventData[0]?.id;
+
+
+	const [open, setOpen] = React.useState(false);
+
+	const handleClose = (reason) => {
+		if (reason === "clickaway") {
+			return;
+		}
+		setOpen(false);
+	};
 
 	const onSubmit = (data) => {
 		//Sends form field values to server via fetch.
@@ -38,66 +56,90 @@ const eventId = eventData[0]?.id;
 		if (eventId) {
 			formData.append("eventId", eventId);
 			fetch("/api/updateEvent", { method: "PUT",headers:header, body: formData })
-				.then((res) => res.json())
+				.then((res) => {
+					if(res.ok) {
+						setSeverity("success");
+						setTimeout(() => window.location.reload(), 3000);
+					} else{
+						setSeverity("warning");
+					}
+					return res.json();
+				})
 				.then((data) => {
-					console.log(data.message);
 					setSuccessMsg(data.message);
+					setOpen(true);
+
 				});
 		} else {
 			fetch("/api/addNewEvent", { method: "POST",headers:header, body: formData })
-				.then((res) => res.json())
+				.then((res) => {
+					if (res.ok) {
+						setSeverity("success");
+						setTimeout(() => window.location.reload(), 3000);
+					} else {
+						setSeverity("warning");
+					}
+					return res.json();
+				})
 				.then((data) => {
 					setSuccessMsg(data.message);
+					setOpen(true);
 				});
 		}
-		setTimeout(() => window.location.reload(), 3000);
+
 	};
 	return (
 		<div className="event">
+			<Stack spacing={2} sx={{ width: "100%" }}>
+				<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+					<Alert
+						onClose={handleClose}
+						severity={severity}
+						sx={{ width: "100%" }}
+					>{successMsg}
+					</Alert>
+				</Snackbar>
+			</Stack>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<div className="form-control">
-					<label className="add-event-label">
-						Event Title*
-						<input
-							defaultValue={eventData["0"]?.title || ""}
-							type="text"
-							placeholder="Event Title"
-							{...register("title", {
-								required: "Event Title is required.",
-							})}
-						/>
-						{errors.title && <p className="errorMsg">{errors.title.message}</p>}
-					</label>
+					<TextField
+						id="outlined-basic"
+						label="Event Title*"
+						variant="outlined"
+						defaultValue={eventData["0"]?.title || ""}
+						{...register("title", {
+							required: "Event Title is required.",
+						})}
+					/>
+					{errors.title && <p className="errorMsg">{errors.title.message}</p>}
 				</div>
 				<div className="form-control">
-					<label className="add-event-label">
-						Image URL*
-						<input
-							defaultValue={eventData["0"]?.img || ""}
-							type="text"
-							placeholder="Enter image URL"
-							{...register("img", {
-								required: "img is required.",
-							})}
-						/>
-						{errors.img && <p className="errorMsg">{errors.img.message}</p>}
-					</label>
+					<TextField
+						id="outlined-basic"
+						label="Image URL*"
+						variant="outlined"
+						defaultValue={eventData["0"]?.img || ""}
+						{...register("img", {
+							required: "img is required.",
+						})}
+					/>
+					{errors.img && <p className="errorMsg">{errors.img.message}</p>}
 				</div>
 
 				<div className="form-control">
-					<label className="add-event-label">
-						{" "}
-						Event Description*
-						<textarea
-							defaultValue={eventData["0"]?.description || ""}
-							placeholder="Event Description"
-							{...register("desc", {
-								required: "Event description is required",
-							})}
-						/>
-						{errors.desc && <p className="errorMsg">{errors.desc.message}</p>}
-					</label>
+					<TextField
+						id="outlined-multiline-static"
+						label="Event Description*"
+						multiline
+						rows={4}
+						defaultValue={eventData["0"]?.description || ""}
+						{...register("desc", {
+							required: "Event description is required",
+						})}
+					/>
+					{errors.desc && <p className="errorMsg">{errors.desc.message}</p>}
 				</div>
+				<div className="form-control"></div>
 
 				<div className="form-control">
 					<label className="add-event-label">
@@ -122,22 +164,6 @@ const eventId = eventData[0]?.id;
 
 				<div className="form-control">
 					<label className="add-event-label">
-						Event Time*
-						<input
-							defaultValue={
-								moment(eventData[0]?.time, "HH:mm:ss").format("HH:mm") || ""
-							}
-							type="time"
-							{...register("time", {
-								required: "Events start time is required.",
-							})}
-						/>
-						{errors.time && <p className="errorMsg">{errors.time.message}</p>}
-					</label>
-				</div>
-
-				<div className="form-control">
-					<label className="add-event-label">
 						Event end date
 						<input
 							defaultValue={
@@ -154,66 +180,73 @@ const eventId = eventData[0]?.id;
 
 				<div className="form-control">
 					<label className="add-event-label">
-						Email*
+						Event Time*
 						<input
-							defaultValue={eventData["0"]?.email || ""}
-							type="text"
-							placeholder="Email"
-							{...register("email", {
-								required: "Email is required.",
-								pattern: {
-									value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/, ///regex for validating email address
-									message: "Email is not valid.",
-								},
+							defaultValue={
+								moment(eventData[0]?.time, "HH:mm:ss").format("HH:mm") || ""
+							}
+							type="time"
+							{...register("time", {
+								required: "Events start time is required.",
 							})}
 						/>
-						{errors.email && <p className="errorMsg">{errors.email.message}</p>}
+						{errors.time && <p className="errorMsg">{errors.time.message}</p>}
 					</label>
 				</div>
 
 				<div className="form-control">
-					<label className="add-event-label">
-						Mobile
-						<input
-							defaultValue={eventData["0"]?.mobile || ""}
-							type="tel"
-							placeholder="Mobile"
-							{...register("mobile", {
-								pattern: {
-									value: /^([0|+[0-9]{1,5})?([7-9][0-9]{9})$/, ///regex for validating mobile
-									message: "Mobile is not valid.",
-								},
-							})}
-						/>
-						{errors.mobile && (
-							<p className="errorMsg">{errors.mobile.message}</p>
-						)}
-					</label>
+					<TextField
+						id="outlined-basic"
+						label="Email*"
+						variant="outlined"
+						defaultValue={eventData["0"]?.email || ""}
+						{...register("email", {
+							required: "Email is required.",
+							pattern: {
+								value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/, ///regex for validating email address
+								message: "Email is not valid.",
+							},
+						})}
+					/>
+					{errors.email && <p className="errorMsg">{errors.email.message}</p>}
 				</div>
 
 				<div className="form-control">
-					<label className="add-event-label">
-						Events location*
-						<textarea
-							defaultValue={eventData["0"]?.location || ""}
-							placeholder="Enter event location"
-							{...register("location", {
-								required: "Event location is required",
-							})}
-						/>
-						{errors.location && (
-							<p className="errorMsg">{errors.location.message}</p>
-						)}
-					</label>
+					<TextField
+						id="outlined-basic"
+						label="Mobile"
+						variant="outlined"
+						defaultValue={eventData["0"]?.mobile || ""}
+						{...register("mobile", {
+							pattern: {
+								value: /^([0|+[0-9]{1,5})?([7-9][0-9]{9})$/, ///regex for validating mobile
+								message: "Mobile is not valid.",
+							},
+						})}
+					/>
+					{errors.mobile && <p className="errorMsg">{errors.mobile.message}</p>}
 				</div>
-
+				<div className="form-control">
+					<TextField
+						id="outlined-multiline-static"
+						label="Events location*"
+						multiline
+						rows={4}
+						defaultValue={eventData["0"]?.location || ""}
+						{...register("location", {
+							required: "Event location is required",
+						})}
+					/>
+					{errors.location && (
+						<p className="errorMsg">{errors.location.message}</p>
+					)}
+				</div>
 				<div className="form-control">
 					<input
 						type="submit"
 						className="btn btn-info"
 						value={eventId ? "Update" : "Submit"}
 					/>
-					{successMsg && <p className="success-msg">{successMsg}</p>}
 				</div>
 			</form>
 		</div>

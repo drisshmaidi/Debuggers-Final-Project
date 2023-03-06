@@ -1,5 +1,6 @@
 const { default: logger } = require("./utils/logger");
 
+
 //reCaptcha Middleware
 const reCaptcha = (req, res, next) => {
 	//get token
@@ -8,6 +9,7 @@ const reCaptcha = (req, res, next) => {
 	const sec_key = process.env.SECRET_KEY;
 
 	const url = `https://www.google.com/recaptcha/api/siteverify?secret=${sec_key}&response=${captcha}`;
+
     try{
         fetch(url, {
 			method: "post",
