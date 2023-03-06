@@ -2,7 +2,6 @@ import AddEvent from "../components/eventSection/AddEvent.js";
 import { useState,useEffect } from "react";
 import EventsTable from "../components/eventSection/EventsTable.js";
 import { useNavigate } from "react-router-dom";
-import Logout from "../components/logout/Logout";
 import Header from "../components/Header.js";
 
 
