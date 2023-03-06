@@ -48,7 +48,7 @@ export default function AlertDialogModal({ eventId, title  }) {
 				endDecorator={<DeleteForever />}
 				onClick={() => setOpen(true)}
 			>
-				Discard
+				Delete
 			</Button>
 			<Modal open={open} onClose={() => setOpen(false)}>
 				<ModalDialog

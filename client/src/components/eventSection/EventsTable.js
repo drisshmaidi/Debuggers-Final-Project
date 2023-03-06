@@ -7,13 +7,19 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Typography from "@mui/material/Typography";
 
 
+
 import { StyledEngineProvider, CssVarsProvider } from "@mui/joy/styles";
+
+
 
 const EventsTable = ({ event }) => {
 	const [events, setEvents] = useState(null);
+	
 
-const [totalEvent, setTotalEvent] = useState(0);
-const [countSearchResult, setCountSearchResult] = useState(0);
+	const [totalEvent, setTotalEvent] = useState(0);
+	const [countSearchResult, setCountSearchResult] = useState(0);
+
+
 
 const token = localStorage.getItem("Token");
 

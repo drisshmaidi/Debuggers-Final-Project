@@ -1,21 +1,20 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import moment from "moment";
-import { Box,TextField } from "@mui/material";
+import { TextField } from "@mui/material";
+import * as React from "react";
+import Stack from "@mui/material/Stack";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-
-
-
-
-
-
+const Alert = React.forwardRef(function Alert(props, ref) {
+	return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 import "./css/style.css";
 
 const AddEvent = ({ eventData }) => {
 	const [successMsg, setSuccessMsg] = useState("");
+	const [severity,setSeverity] = useState(null);
 
 	const {
 		register,
@@ -23,7 +22,17 @@ const AddEvent = ({ eventData }) => {
 		formState: { errors },
 	} = useForm();
 
-const eventId = eventData[0]?.id;
+	const eventId = eventData[0]?.id;
+
+
+	const [open, setOpen] = React.useState(false);
+
+	const handleClose = (reason) => {
+		if (reason === "clickaway") {
+			return;
+		}
+		setOpen(false);
+	};
 
 	const onSubmit = (data) => {
 		//Sends form field values to server via fetch.
@@ -47,22 +56,50 @@ const eventId = eventData[0]?.id;
 		if (eventId) {
 			formData.append("eventId", eventId);
 			fetch("/api/updateEvent", { method: "PUT",headers:header, body: formData })
-				.then((res) => res.json())
+				.then((res) => {
+					if(res.ok) {
+						setSeverity("success");
+						setTimeout(() => window.location.reload(), 3000);
+					} else{
+						setSeverity("warning");
+					}
+					return res.json();
+				})
 				.then((data) => {
-					console.log(data.message);
 					setSuccessMsg(data.message);
+					setOpen(true);
+
 				});
 		} else {
 			fetch("/api/addNewEvent", { method: "POST",headers:header, body: formData })
-				.then((res) => res.json())
+				.then((res) => {
+					if (res.ok) {
+						setSeverity("success");
+						setTimeout(() => window.location.reload(), 3000);
+					} else {
+						setSeverity("warning");
+					}
+					return res.json();
+				})
 				.then((data) => {
 					setSuccessMsg(data.message);
+					setOpen(true);
 				});
 		}
-		setTimeout(() => window.location.reload(), 3000);
+
 	};
 	return (
 		<div className="event">
+			<Stack spacing={2} sx={{ width: "100%" }}>
+				<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+					<Alert
+						onClose={handleClose}
+						severity={severity}
+						sx={{ width: "100%" }}
+					>{successMsg}
+					</Alert>
+				</Snackbar>
+			</Stack>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<div className="form-control">
 					<TextField
@@ -210,7 +247,6 @@ const eventId = eventData[0]?.id;
 						className="btn btn-info"
 						value={eventId ? "Update" : "Submit"}
 					/>
-					{successMsg && <p className="success-msg">{successMsg}</p>}
 				</div>
 			</form>
 		</div>
