@@ -7,13 +7,11 @@
 	border: 1px sold #ccc;
 	border-radius: 0.5rem;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
 }
 
 .registerForm {
 	width: 100%;
 	max-width: 400px;
-	
 }
 
 /* input[type="text"],
@@ -38,7 +36,6 @@ label {
 	font-weight: bold;
 	margin-bottom: 0.5rem;
 } */
-
 
 .form-input {
 	width: 100%;
@@ -66,10 +63,8 @@ label {
 
 .titleRegister {
 	font-size: 50px;
-
 	font-weight: bold;
 	font-family: "primary";
-
 	margin-bottom: 30px;
 	color: red;
 	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
@@ -78,11 +73,7 @@ label {
 	align-items: center;
 }
 
-
-
 .languages-container {
-
-
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	grid-gap: 10px;
