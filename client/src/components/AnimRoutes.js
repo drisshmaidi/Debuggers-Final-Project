@@ -23,7 +23,7 @@ const AnimRoutes = () => {
 	return (
 		<AnimatePresence initial={true} mode="wait">
 			<Routes key={location.pathname} location={location}>
-				<Route path="about" element={<Home />} />
+				<Route path="/about" element={<Home />} />
 				<Route path="/about/this/site" element={<About />} />
 				<Route path="/events" element={<Events setEventId={setEventId} />} />
 				<Route path="/booking" element={<Booking eventId={eventId} />} />
