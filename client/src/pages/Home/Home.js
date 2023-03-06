@@ -2,14 +2,20 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import image from "../../pages/Home/home.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Header from "../../components/Header";
 import "../Home/Home.css";
 
+
+
 function Home() {
+	const location = useLocation();
+
+
 	return (
 		<div>
-			<Header />
+			{location.pathname !== "/user" && <Header />}
+
 			<div className="home">
 				<div className="text-container">
 					<h1>The Language Exchange Programme</h1>

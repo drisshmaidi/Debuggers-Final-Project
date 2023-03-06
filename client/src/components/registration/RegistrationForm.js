@@ -27,7 +27,7 @@ const RegistrationForm = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-
+		console.log(formData);
 		//send form data to backend
 		fetch("/api/register", {
 			method: "POST",
