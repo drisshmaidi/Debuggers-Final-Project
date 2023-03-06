@@ -55,6 +55,7 @@ const RegistrationForm = () => {
 	// 		}, 2000);
 	// 	}
 	// }, [isSuccess]);
+	//update code
 
 	return (
 		<div className="form-container">
