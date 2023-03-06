@@ -30,10 +30,11 @@ body {
 }
 
 .form-control {
-    display: flex;
+display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
+    
     border: none;
+    width: 70%;
 }
 
 .form-control label {

@@ -3,6 +3,10 @@ import { useState,useEffect } from "react";
 import EventsTable from "../components/eventSection/EventsTable.js";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header.js";
+import Button from "@mui/joy/Button";
+import Add from "@mui/icons-material/Add";
+
+
 
 
 //import "bootstrap/dist/css/bootstrap.min.css";
@@ -42,7 +46,15 @@ const AdminDashboard = ()=>{
     return (
 			<div>
 				<Header />
-				<button className={`m-2 btn ${!eventData?"btn-primary":"btn-danger"}`} onClick={()=>setEventData(!eventData)} >{!eventData?"Add Event":"Close Form"}</button>
+				<Button
+					className="m-3"
+					variant="outlined"
+					color="neutral"
+					startDecorator={<Add />}
+					onClick={() => setEventData(!eventData)}
+				>
+					{!eventData ? "Add Event" : "Close Form"}
+				</Button>
 				{isAdmin ? (
 					<div>
 						{eventData ? <AddEvent eventData={eventData} /> : ""}
