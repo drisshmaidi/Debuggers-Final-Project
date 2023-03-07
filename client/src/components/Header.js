@@ -35,7 +35,7 @@ function Header() {
 			.catch((err) => {
 				console.error(err);
 			});
-	}, []);
+	});
 
 	return (
 		<div className="header">
@@ -55,10 +55,22 @@ function Header() {
 					<li>
 						<Link to="/events">Events</Link>
 					</li>
-					<li>
-						<Link to="/signin">Sign In</Link>
-					</li>
-						{loggedIn ? <li><Logout /></li>: ""}
+
+					{!loggedIn ? (
+						<li>
+							<Link to="/signin">Sign In</Link>
+						</li>
+					) : (
+						""
+					)}
+
+					{loggedIn ? (
+						<li>
+							<Logout />
+						</li>
+					) : (
+						""
+					)}
 				</ul>
 			</nav>
 		</div>
