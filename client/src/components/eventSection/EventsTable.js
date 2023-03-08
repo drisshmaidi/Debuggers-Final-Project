@@ -5,23 +5,15 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Typography from "@mui/material/Typography";
-
-
-
 import { StyledEngineProvider, CssVarsProvider } from "@mui/joy/styles";
+import { LinearProgress } from "@mui/material";
 
-
-
-const EventsTable = ({ event }) => {
+const EventsTable = ({ event,setEventTable }) => {
 	const [events, setEvents] = useState(null);
-	
-
 	const [totalEvent, setTotalEvent] = useState(0);
 	const [countSearchResult, setCountSearchResult] = useState(0);
-
-
-
-const token = localStorage.getItem("Token");
+	const token = localStorage.getItem("Token");
+	const [loading,setLoading] = useState(true);
 
 	useEffect(() => {
 		fetch("/api/events")
@@ -31,6 +23,7 @@ const token = localStorage.getItem("Token");
 				setEvents(data);
 				setTotalEvent(countEvents);
 				setCountSearchResult(countEvents);
+				setLoading(false);
 			});
 	}, []);
 
@@ -39,11 +32,15 @@ const token = localStorage.getItem("Token");
 		const eventId = e.target.name;
 		fetch(`/api/events/${eventId}`)
 			.then((res) => res.json())
-			.then((data) => event(data));
+			.then((data) => {
+				event(data);
+				setEventTable(false);
+			});
 	window["scrollTo"]({ top:0, behavior: "smooth" });
 		};
 
 	const handleSearch = (value) => {
+		setLoading(true);
 		const url = !value
 			? "/api/events"
 			: `/api/events/search/${value}`;
@@ -56,6 +53,7 @@ const token = localStorage.getItem("Token");
 			.then((data) => {
 				setEvents(data);
 				setCountSearchResult(data.length);
+						setLoading(false);
 			});
 	};
 
@@ -67,7 +65,8 @@ const token = localStorage.getItem("Token");
 				</Typography>
 				<Box
 					component="form"
-					sx={{
+					className="float-right"
+					sx={{ float:"right",
 						"& .MuiTextField-root": { m: 1, width: "25ch" },
 					}}
 					noValidate
@@ -117,47 +116,69 @@ const token = localStorage.getItem("Token");
 						</tr>
 					</thead>
 					<tbody>
-						{events
-							?.sort((x, y) => (x.id < y.id ? 1 : -1))
-							.map((e, k) => {
-								return (
-									<tr key={k}>
-										<th scope="row" key={k}>
-											<Typography className="m-3" variant="body1" gutterBottom>
-												{e.id}
-											</Typography>
-										</th>
-										<td>
-											<Typography className="m-3" variant="body1" gutterBottom>
-												{e.title}
-											</Typography>
-										</td>
-										<td>
-											<Typography className="m-3" variant="body1" gutterBottom>
-												{e.description}
-											</Typography>
-										</td>
-										<td>
-											<button
-												name={e.id}
-												onClick={handleUpdate}
-												className="btn btn-warning"
-											>
-												Edit
-											</button>
-										</td>
-										<td>
-											<React.StrictMode>
-												<StyledEngineProvider injectFirst>
-													<CssVarsProvider>
-														<Delete eventId={e.id} title={e.title} />
-													</CssVarsProvider>
-												</StyledEngineProvider>
-											</React.StrictMode>
-										</td>
-									</tr>
-								);
-							})}
+						{!loading ? (
+							events
+								?.sort((x, y) => (x.id < y.id ? 1 : -1))
+								.map((e, k) => {
+									return (
+										<tr key={k}>
+											<th scope="row" key={k}>
+												<Typography
+													className="m-3"
+													variant="body1"
+													gutterBottom
+												>
+													{e.id}
+												</Typography>
+											</th>
+											<td>
+												<Typography
+													className="m-3"
+													variant="body1"
+													gutterBottom
+												>
+													{e.title}
+												</Typography>
+											</td>
+											<td>
+												<Typography
+													className="m-3"
+													variant="body1"
+													gutterBottom
+												>
+													{e.description}
+												</Typography>
+											</td>
+											<td>
+												<button
+													name={e.id}
+													onClick={handleUpdate}
+													className="btn btn-warning"
+												>
+													Edit
+												</button>
+											</td>
+											<td>
+												<React.StrictMode>
+													<StyledEngineProvider injectFirst>
+														<CssVarsProvider>
+															<Delete eventId={e.id} title={e.title} />
+														</CssVarsProvider>
+													</StyledEngineProvider>
+												</React.StrictMode>
+											</td>
+										</tr>
+									);
+								})
+						) : (
+							<tr>
+								<td colSpan="5">
+									<Box sx={{ width: "50%", margin: "4rem auto" }}>
+										<LinearProgress />
+									</Box>
+								</td>
+							</tr>
+						)}
 					</tbody>
 				</table>
 			</div>
