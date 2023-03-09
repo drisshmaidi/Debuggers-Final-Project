@@ -80,6 +80,7 @@
 		"@hookform/error-message": "^2.0.1",
 		"@mui/icons-material": "^5.11.11",
 		"@mui/joy": "^5.0.0-alpha.69",
+		"@mui/lab": "^5.0.0-alpha.122",
 		"@mui/material": "^5.11.11",
 		"axios": "^1.3.3",
 		"bcrypt": "^5.1.0",

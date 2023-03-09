@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Delete from "./AddEventComponents/DeleteEventsAlert";
+import Delete from "./deleteEvent/DeleteEventsAlert";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -27,7 +27,6 @@ const EventsTable = ({ event,setEventTable }) => {
 			});
 	}, []);
 
-
 	const handleUpdate = (e) =>{
 		const eventId = e.target.name;
 		fetch(`/api/events/${eventId}`)
@@ -36,7 +35,8 @@ const EventsTable = ({ event,setEventTable }) => {
 				event(data);
 				setEventTable(false);
 			});
-	window["scrollTo"]({ top:0, behavior: "smooth" });
+			//scroll to the top of the page
+			window["scrollTo"]({ top:0, behavior: "smooth" });
 		};
 
 	const handleSearch = (value) => {
@@ -53,14 +53,14 @@ const EventsTable = ({ event,setEventTable }) => {
 			.then((data) => {
 				setEvents(data);
 				setCountSearchResult(data.length);
-						setLoading(false);
+				setLoading(false);
 			});
 	};
 
 	return (
 		<div>
 			<div className="search-field">
-				<Typography className="m-3" variant="h5" gutterBottom>
+				<Typography className="m-4" variant="h4" gutterBottom>
 					List of Events
 				</Typography>
 				<Box

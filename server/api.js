@@ -9,9 +9,7 @@ import traineesRouter from "./trainees";
 import loginRouter from "./login";
 import bcrypt from "bcrypt";
 import  Jwt  from "jsonwebtoken";
-
 import registrationRouter from "./registration";
-
 import authorization from "./authorization";
 import authentication from "./authentication";
 import reCaptcha from "./reCaptcha";
@@ -21,7 +19,6 @@ const router = Router();
 router.use(fileUpload());
 
 //Authorization middleware
-//checks for token
 //return status codes and messages (200 token is valid,401 token is invalid)
 // to access authorization middleware output
 //-----------------------------------------------------
@@ -33,17 +30,13 @@ router.use(fileUpload());
 // -- req.authentication.userId  - to access the user's id
 //----------------------------------------------------------
 
-//you can access above data call middleware functions in your requests.
-
 router.use(bookingsRouter);
 router.use(eventsRouter);
 router.use(traineesRouter);
 router.use(loginRouter);
 router.use(registrationRouter);
 
-
 router.post("/checkUser",authentication,authorization,(req,res)=>{
-
 	res
 		.status(200)
 		.json({
@@ -52,7 +45,7 @@ router.post("/checkUser",authentication,authorization,(req,res)=>{
 		});
 });
 
-//insert new event into database
+//update exists event into database
 
 router.put("/updateEvent",authorization,authentication, (req, res) => {
 		const {
@@ -84,8 +77,9 @@ router.put("/updateEvent",authorization,authentication, (req, res) => {
 		save(query,inputs,res);
 });
 
-router.post("/addNewEvent",authorization,authentication,(req,res)=>{
+//insert new event into database
 
+router.post("/addNewEvent",authorization,authentication,(req,res)=>{
 		const {
 			title,
 			description,
@@ -113,11 +107,11 @@ router.post("/addNewEvent",authorization,authentication,(req,res)=>{
 		save(query,inputs,res);
 });
 
-
-
+//search for events
 router.get("/events/search/:term",authorization, (req, res) => {
 	const searchValue = req.params.term;
 
+	//search events by id, title, description
 	db.query("SELECT id, title, description FROM events WHERE id::text like $1 OR LOWER(title) like $1 OR LOWER(description) like $1",[`%${searchValue.toLowerCase()}%`])
 		.then((result) => res.status(200).json(result.rows))
 		.catch((error) => {
@@ -126,8 +120,7 @@ router.get("/events/search/:term",authorization, (req, res) => {
 		});
 });
 
-//DELETE EVENT
-
+//DELETE an EVENT
 router.delete("/deleteEvent",authentication,authorization,(req,res)=>{
 
 	const { eventId } = req.body;
@@ -157,7 +150,7 @@ router.post("/adminLogin",reCaptcha, (req, res) => {
 		if(result.rows.length === 1) {
 			const { id, email,password_hash,is_admin } = result.rows[0];
 
-			//check for password if user exist
+			//check for password if the user exist
 			bcrypt.compare(pass, password_hash,(err,isMatch)=>{
 
 				if(err) {
@@ -165,10 +158,9 @@ router.post("/adminLogin",reCaptcha, (req, res) => {
 					return;
 				}
 
-				//check users role
+				//check for users role
 				if(isMatch) {
 					if(!is_admin) {
-
 						res.status(401).json({ msg:"Unauthorized Access" });
 						return;
 					}
@@ -190,8 +182,6 @@ router.post("/adminLogin",reCaptcha, (req, res) => {
 				}
 
 			});
-
-
 		} else {
 			res.status(422).json({ msg:"Invalid email please try again" });
 		}
@@ -226,6 +216,4 @@ const save = (query, inputs, res) => {
 		res.status(500).json({ message: "An error occurred in the server." });
 	}
 };
-
-
 export default router;

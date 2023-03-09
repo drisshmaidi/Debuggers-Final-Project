@@ -20,7 +20,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 const AddEvent = ({ eventData }) => {
 	const [successMsg, setSuccessMsg] = useState("");
 	const [severity,setSeverity] = useState(null);
-	 const [loading, setLoading] = React.useState(false);
+	const [loading, setLoading] = React.useState(false);
 
 
 	const {
@@ -128,7 +128,7 @@ const AddEvent = ({ eventData }) => {
 								})}
 							/>
 							{errors.title && (
-								<p className="errorMsg">{errors.title.message}</p>
+								<Typography className="text-danger">{errors.title.message}</Typography>
 							)}
 						</div>
 						<div className="form-control">
@@ -139,10 +139,10 @@ const AddEvent = ({ eventData }) => {
 								variant="outlined"
 								defaultValue={eventData["0"]?.img || ""}
 								{...register("img", {
-									required: "img is required.",
+									required: "Image link is required.",
 								})}
 							/>
-							{errors.img && <p className="errorMsg">{errors.img.message}</p>}
+							{errors.img && <Typography className="text-danger">{errors.img.message}</Typography>}
 						</div>
 
 						<div className="form-control">
@@ -157,12 +157,11 @@ const AddEvent = ({ eventData }) => {
 									required: "Event description is required",
 								})}
 							/>
-							{errors.desc && <p className="errorMsg">{errors.desc.message}</p>}
+							{errors.desc && <Typography className="text-danger">{errors.desc.message}</Typography>}
 						</div>
 						<div className="form-control">
 							<TextField
 								label="Event Start Date"
-								required
 								inputVariant="outlined"
 								size="small"
 								InputLabelProps={{ shrink: true }}
@@ -172,13 +171,12 @@ const AddEvent = ({ eventData }) => {
 										: ""
 								}
 								type="date"
-								minDate={!eventId ? new Date().toISOString().split("T")[0] : ""}
 								{...register("startDate", {
 									required: "Events start date is required.",
 								})}
 							/>
 							{errors.startDate && (
-								<p className="errorMsg">{errors.startDate.message}</p>
+								<Typography className="text-danger">{errors.startDate.message}</Typography>
 							)}
 						</div>
 
@@ -193,7 +191,6 @@ const AddEvent = ({ eventData }) => {
 										? moment(eventData["0"].end_date).format("YYYY-MM-DD")
 										: ""
 								}
-								min={!eventId ? new Date().toISOString().split("T")[0] : ""}
 								type="date"
 								{...register("endDate")}
 							/>
@@ -213,7 +210,7 @@ const AddEvent = ({ eventData }) => {
 									required: "Events start time is required.",
 								})}
 							/>
-							{errors.time && <p className="errorMsg">{errors.time.message}</p>}
+							{errors.time && <Typography className="text-danger">{errors.time.message}</Typography>}
 						</div>
 
 						<div className="form-control">
@@ -232,7 +229,7 @@ const AddEvent = ({ eventData }) => {
 								})}
 							/>
 							{errors.email && (
-								<p className="errorMsg">{errors.email.message}</p>
+								<Typography className="text-danger">{errors.email.message}</Typography>
 							)}
 						</div>
 
@@ -251,7 +248,7 @@ const AddEvent = ({ eventData }) => {
 								})}
 							/>
 							{errors.mobile && (
-								<p className="errorMsg">{errors.mobile.message}</p>
+								<Typography className="text-danger">{errors.mobile.message}</Typography>
 							)}
 						</div>
 						<div className="form-control">
@@ -267,7 +264,7 @@ const AddEvent = ({ eventData }) => {
 								})}
 							/>
 							{errors.location && (
-								<p className="errorMsg">{errors.location.message}</p>
+								<Typography className="text-danger">{errors.location.message}</Typography>
 							)}
 						</div>
 						<div className="form-control">

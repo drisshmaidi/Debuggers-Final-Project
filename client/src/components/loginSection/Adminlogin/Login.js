@@ -1,20 +1,14 @@
-/* eslint-disable react/no-unescaped-entities */
 import React, { useEffect, useState, useRef } from "react";
-import { Form, Button } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Form } from "react-bootstrap";
+import {  useNavigate } from "react-router-dom";
 import Header from "../../Header";
 import LoadingButton from "@mui/lab/LoadingButton";
 import LoginIcon from "@mui/icons-material/Login";
-
-//import ReCaptcha from "../../captcha/ReCaptcha";
-
 import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
-
 import ReCAPTCHA from "react-google-recaptcha";
 import { FormControl, TextField, Typography } from "@mui/material";
-
 
 const Alert = React.forwardRef(function Alert(props, ref) {
 	return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -35,7 +29,7 @@ const LoginPage = ()=> {
 
 	const captchaRef = useRef(null);
 
-		// checking the user's role from token
+		// check the Admin is already logged in or not
 		useEffect( () => {
 			fetch("/api/checkUser", {
 				method: "POST",
@@ -46,7 +40,7 @@ const LoginPage = ()=> {
 				.then((res) => res.json())
 				.then((data) => {
 					if(data.isAdmin && data.userId) {
-						navigate("/AdminDashBoard");
+						navigate("/AdminDashBoard"); // not need for login if the token is valid
 					}
 				})
 				.catch((err) => {
@@ -54,6 +48,8 @@ const LoginPage = ()=> {
 				});
 		});
 
+
+		//reset captcha if email or/and password changed
 	const handleEmailChange = (event) => {
 		setEmail(event.target.value);
 				captchaRef.current.reset();
@@ -62,8 +58,6 @@ const LoginPage = ()=> {
 			setPassword(event.target.value);
 				captchaRef.current.reset();
 	};
-
-	//store generated reCaptcha token
 
 	const handleLogin =  (event) => {
 		event.preventDefault();
@@ -76,7 +70,6 @@ const LoginPage = ()=> {
 			return;
 		}
 
-		// Send login details
 		setLoading(true);
 
 		fetch("/api/adminLogin", {
@@ -132,11 +125,10 @@ const LoginPage = ()=> {
 				</Snackbar>
 			</Stack>
 			<div className="row justify-content-center mt-5">
-				<div className="col-sm-6 col-md-5">
-					<Typography variant="h4" component="h2" className="mt-5 mb-5">
+				<div className="col-sm-6 col-md-3">
+					<Typography variant="h4" component="h2" className="mt-5 mb-3">
 						Admin Login
 					</Typography>
-
 					<Form onSubmit={handleLogin}>
 						<div className="d-grid">
 							<FormControl>
@@ -148,6 +140,7 @@ const LoginPage = ()=> {
 									defaultValue={email}
 									onChange={handleEmailChange}
 									required
+									autoComplete="username"
 								/>
 							</FormControl>
 							<FormControl>
@@ -159,9 +152,9 @@ const LoginPage = ()=> {
 									defaultValue={password}
 									onChange={handlePasswordChange}
 									required
+									autoComplete="current-password"
 								/>
 							</FormControl>
-							{/* <ReCaptcha setCaptcha={setCaptcha} /> */}
 							<ReCAPTCHA
 								ref={captchaRef}
 								sitekey="6Lc2jdQkAAAAAIF76dQJd4l45yXSFWal4eNZgmKr"
