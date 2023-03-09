@@ -8,8 +8,9 @@ import "../components/Header.css";
 import Logout from "../components/logout/Logout.js";
 import Button from "@mui/joy/Button";
 import Add from "@mui/icons-material/Add";
-import Dashboard from "@mui/icons-material/Dashboard";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 import EventIcon from "@mui/icons-material/Event";
+import Dashboard from "../components/dashboard/Dashboard";
 
 //import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -94,7 +95,7 @@ const AdminDashboard = () => {
 								{[
 									{
 										name: "Dashboard",
-										icon: <Dashboard />,
+										icon: <DashboardIcon />,
 										clickEvent: handleDashboard,
 									},
 									{
@@ -131,6 +132,7 @@ const AdminDashboard = () => {
 							</ul>
 						</nav>
 					</div>
+					{dashboard ? <Dashboard />:""}
 					{eventForm ? <AddEvent eventData={eventForm} /> : ""}
 					{eventTable ? (
 						<EventsTable event={setEventForm} setEventTable={setEventTable} />

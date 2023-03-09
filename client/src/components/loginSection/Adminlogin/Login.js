@@ -71,7 +71,7 @@ const LoginPage = ()=> {
 		if(!captcha) {
 			captchaRef.current.reset();
 			setSeverity("warning");
-			setLogMsg("Please verify you not a robot");
+			setLogMsg("Please verify you are not a robot");
 			setOpen(true);
 			return;
 		}

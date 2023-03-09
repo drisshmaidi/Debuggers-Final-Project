@@ -41,10 +41,6 @@ router.use(traineesRouter);
 router.use(loginRouter);
 router.use(registrationRouter);
 
-// router.post("/auth",(req,res)=>{
-// 	logger.debug(req.body.testMsg);
-// 	res.status(200).send("Ok");
-// });
 
 router.post("/checkUser",authentication,authorization,(req,res)=>{
 
@@ -54,21 +50,11 @@ router.post("/checkUser",authentication,authorization,(req,res)=>{
 			isAdmin: req.authorization.isAdmin,
 			userId: req.authentication.userId,
 		});
-	// logger.debug(req.body.testMsg);
-	// const userId = req.body.userId;
-	// db.query(
-	// 	"SELECT ut.type FROM users u JOIN users_type ut ON u.type_id = ut.id WHERE u.id = $1",[userId])
-	// .then((result) => res.status(200).json(result.rows))
-	// .catch((err)=> {
-	// 	logger.debug(err);
-	// });
 });
 
 //insert new event into database
 
 router.put("/updateEvent",authorization,authentication, (req, res) => {
-
-	try {
 		const {
 			title,
 			description,
@@ -81,10 +67,8 @@ router.put("/updateEvent",authorization,authentication, (req, res) => {
 			location,
 			eventId,
 		} = req.body;
-		logger.debug(endDate && "null");
-		db.query(
-			"UPDATE events SET title = $1, description = $2, img = $3, date = $4, end_date = $5, time = $6, location = $7, email = $8, mobile = $9, user_id = $10 WHERE id = $11",
-			[
+		const query="UPDATE events SET title = $1, description = $2, img = $3, date = $4, end_date = $5, time = $6, location = $7, email = $8, mobile = $9, user_id = $10 WHERE id = $11";
+		const inputs = [
 				title,
 				description,
 				img,
@@ -96,23 +80,12 @@ router.put("/updateEvent",authorization,authentication, (req, res) => {
 				mobile ? mobile : null,
 				req.authentication.userId,
 				eventId,
-			]
-		)
-			.then(() => res.status(200).json({ message: "Event Updated Successfully reloading page in 3 sec.." }))
-			.catch((err) => {
-				logger.debug(err);
-				res.status(500).json({ message: "Unable to process your request an error occurred." });
-			});
-	} catch (err) {
-		logger.debug(err);
-		res.status(500).json({ message: "An error occurred in the server." });
-	}
+			];
+		save(query,inputs,res);
 });
-
 
 router.post("/addNewEvent",authorization,authentication,(req,res)=>{
 
-	try{
 		const {
 			title,
 			description,
@@ -124,9 +97,8 @@ router.post("/addNewEvent",authorization,authentication,(req,res)=>{
 			img,
 			location,
 		} = req.body;
-	db.query(
-		"INSERT INTO events (title, description, img, date, end_date, time, location, email, mobile, user_id) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)",
-		[
+		const query = "INSERT INTO events (title, description, img, date, end_date, time, location, email, mobile, user_id) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)";
+		const inputs = [
 			title,
 			description,
 			img,
@@ -137,24 +109,11 @@ router.post("/addNewEvent",authorization,authentication,(req,res)=>{
 			email,
 			mobile ? mobile : null,
 			req.authentication.userId,
-		]
-	)
-		.then(() =>
-			res
-				.status(200)
-				.json({
-					message: "Event saved successfully reloading page in 3 sec..",
-				})
-		)
-		.catch((err) => {
-			logger.debug(err);
-			res.status(500).json({ message: "Unable to process your request an error occurred." });
-		});
-
-} catch(err){
-	logger.debug(err);
-}
+		];
+		save(query,inputs,res);
 });
+
+
 
 router.get("/events/search/:term",authorization, (req, res) => {
 	const searchValue = req.params.term;
@@ -244,7 +203,29 @@ router.post("/adminLogin",reCaptcha, (req, res) => {
 
 });
 
-
+const save = (query, inputs, res) => {
+	try {
+		db.query(query, inputs)
+			.then(() =>
+				res
+					.status(200)
+					.json({
+						message: "Event saved successfully reloading page in 3 sec...",
+					})
+			)
+			.catch((err) => {
+				logger.debug(err);
+				res
+					.status(500)
+					.json({
+						message: "Unable to process your request an error occurred.",
+					});
+			});
+	} catch (err) {
+		logger.debug(err);
+		res.status(500).json({ message: "An error occurred in the server." });
+	}
+};
 
 
 export default router;
