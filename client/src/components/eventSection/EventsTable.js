@@ -49,12 +49,12 @@ const EventsTable = ({ event,setEventTable }) => {
 				Authorization: `Bearer ${token}`,
 			},
 		})
-			.then((res) => res.json())
-			.then((data) => {
-				setEvents(data);
-				setCountSearchResult(data.length);
-				setLoading(false);
-			});
+		.then((res) => res.json())
+		.then((data) => {
+			setEvents(data);
+			setCountSearchResult(data.length);
+			setLoading(false);
+		});
 	};
 
 	return (
@@ -66,7 +66,8 @@ const EventsTable = ({ event,setEventTable }) => {
 				<Box
 					component="form"
 					className="float-right"
-					sx={{ float:"right",
+					sx={{
+						float: "right",
 						"& .MuiTextField-root": { m: 1, width: "25ch" },
 					}}
 					noValidate

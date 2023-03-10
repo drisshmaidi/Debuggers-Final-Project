@@ -14,8 +14,6 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 	return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-
-
 const LoginPage = ()=> {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -23,33 +21,32 @@ const LoginPage = ()=> {
 	const navigate = useNavigate();
 	const [captcha,setCaptcha] =useState(null);
 	const [open, setOpen] = React.useState(false);
-    const token = localStorage.getItem("Token");
 	const [severity, setSeverity] = useState(null);
 	const [loading, setLoading] = React.useState(false);
-
 	const captchaRef = useRef(null);
 
-		// check the Admin is already logged in or not
-		useEffect( () => {
-			fetch("/api/checkUser", {
-				method: "POST",
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			})
-				.then((res) => res.json())
-				.then((data) => {
-					if(data.isAdmin && data.userId) {
-						navigate("/AdminDashBoard"); // not need for login if the token is valid
-					}
-				})
-				.catch((err) => {
-					console.error(err);
-				});
+	// check the Admin is already logged in or not
+	const token = localStorage.getItem("Token");
+	useEffect( () => {
+		fetch("/api/checkUser", {
+			method: "POST",
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		})
+		.then((res) => res.json())
+		.then((data) => {
+			if(data.isAdmin && data.userId) {
+				navigate("/AdminDashBoard"); // not need for login if the token is valid
+			}
+		})
+		.catch((err) => {
+			console.error(err);
 		});
+	});
 
+	//reset captcha if email or/and password changed
 
-		//reset captcha if email or/and password changed
 	const handleEmailChange = (event) => {
 		setEmail(event.target.value);
 				captchaRef.current.reset();
@@ -67,40 +64,40 @@ const LoginPage = ()=> {
 			setSeverity("warning");
 			setLogMsg("Please verify you are not a robot");
 			setOpen(true);
-			return;
+			// return;
+		} else{
+			setLoading(true);
+
+			fetch("/api/adminLogin", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ email, password, captcha }),
+			})
+				.then((res) => {
+					if (res.ok) {
+						setSeverity("success");
+					} else {
+						setSeverity("warning");
+					}
+					return res.json();
+				})
+				.then((data) => {
+					const token = data.token;
+					if (token) {
+						localStorage.setItem("Token", token);
+						setLogMsg("Redirecting to Admin Dashboard...");
+						setOpen(true);
+						navigate("/AdminDashboard");
+					} else {
+						setLogMsg(data.msg);
+						setOpen(true);
+					}
+					setLoading(false);
+				})
+				.catch((er) => console.log(er));
 		}
-
-		setLoading(true);
-
-		fetch("/api/adminLogin", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ email, password, captcha }),
-		}).then((res)=>{
-			if (res.ok) {
-
-				setSeverity("success");
-			} else {
-				setSeverity("warning");
-			}
-			return res.json();
-		})
-		.then((data)=>{
-			const token = data.token;
-			if(token) {
-				localStorage.setItem("Token",token);
-				setLogMsg("Redirecting to Admin Dashboard...");
-				setOpen(true);
-				navigate("/AdminDashboard");
-			} else {
-				setLogMsg(data.msg);
-				setOpen(true);
-			}
-			setLoading(false);
-
-		}).catch((er)=>console.log(er));
 	};
 
 	const handleClose = (reason) => {
@@ -173,6 +170,11 @@ const LoginPage = ()=> {
 							</LoadingButton>
 						</div>
 					</Form>
+				</div>
+				<div className="mt-3 mb-5 text-center ">
+					<Typography>
+						Don{"'"}t have an account? <a href="/register">Sign up</a>
+					</Typography>
 				</div>
 			</div>
 		</div>

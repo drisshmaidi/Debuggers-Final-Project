@@ -8,31 +8,23 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
-
 import "./css/style.css";
-
 
 const Alert = React.forwardRef(function Alert(props, ref) {
 	return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-
 const AddEvent = ({ eventData }) => {
 	const [successMsg, setSuccessMsg] = useState("");
 	const [severity,setSeverity] = useState(null);
 	const [loading, setLoading] = React.useState(false);
-
-
+	const [open, setOpen] = React.useState(false);
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
-
 	const eventId = eventData[0]?.id;
-
-
-	const [open, setOpen] = React.useState(false);
 
 	const handleClose = (reason) => {
 		if (reason === "clickaway") {
@@ -58,42 +50,34 @@ const AddEvent = ({ eventData }) => {
 
 		formData.append("img", data.img);
 		formData.append("location", data.location);
+
+		let api = { url:"addNewEvent",reqMethod:"POST" };
+
 		if (eventId) {
 			formData.append("eventId", eventId);
-			fetch("/api/updateEvent", { method: "PUT",headers:header, body: formData })
-				.then((res) => {
-					if(res.ok) {
-						setSeverity("success");
-						setLoading(true);
-						setTimeout(() => window.location.reload(), 3000);
-
-					} else{
-						setSeverity("warning");
-					}
-					return res.json();
-				})
-				.then((data) => {
-					setSuccessMsg(data.message);
-					setOpen(true);
-
-				});
-		} else {
-			fetch("/api/addNewEvent", { method: "POST",headers:header, body: formData })
-				.then((res) => {
-					if (res.ok) {
-						setSeverity("success");
-						setLoading(true);
-						setTimeout(() => window.location.reload(), 3000);
-					} else {
-						setSeverity("warning");
-					}
-					return res.json();
-				})
-				.then((data) => {
-					setSuccessMsg(data.message);
-					setOpen(true);
-				});
+			api.url = "updateEvent";
+			api.reqMethod="PUT";
 		}
+
+		fetch(`/api/${api.url}`, {
+			method: api.reqMethod,
+			headers: header,
+			body: formData,
+		})
+			.then((res) => {
+				if (res.ok) {
+					setSeverity("success");
+					setLoading(true);
+					setTimeout(() => window.location.reload(), 3000);
+				} else {
+					setSeverity("warning");
+				}
+				return res.json();
+			})
+			.then((data) => {
+				setSuccessMsg(data.message);
+				setOpen(true);
+			});
 	};
 	return (
 		<div className="event">
@@ -128,7 +112,9 @@ const AddEvent = ({ eventData }) => {
 								})}
 							/>
 							{errors.title && (
-								<Typography className="text-danger">{errors.title.message}</Typography>
+								<Typography variant="caption" className="text-danger">
+									{errors.title.message}
+								</Typography>
 							)}
 						</div>
 						<div className="form-control">
@@ -142,7 +128,11 @@ const AddEvent = ({ eventData }) => {
 									required: "Image link is required.",
 								})}
 							/>
-							{errors.img && <Typography className="text-danger">{errors.img.message}</Typography>}
+							{errors.img && (
+								<Typography variant="caption" className="text-danger">
+									{errors.img.message}
+								</Typography>
+							)}
 						</div>
 
 						<div className="form-control">
@@ -157,12 +147,16 @@ const AddEvent = ({ eventData }) => {
 									required: "Event description is required",
 								})}
 							/>
-							{errors.desc && <Typography className="text-danger">{errors.desc.message}</Typography>}
+							{errors.desc && (
+								<Typography variant="caption" className="text-danger">
+									{errors.desc.message}
+								</Typography>
+							)}
 						</div>
 						<div className="form-control">
 							<TextField
 								label="Event Start Date"
-								inputVariant="outlined"
+								variant="outlined"
 								size="small"
 								InputLabelProps={{ shrink: true }}
 								defaultValue={
@@ -176,14 +170,16 @@ const AddEvent = ({ eventData }) => {
 								})}
 							/>
 							{errors.startDate && (
-								<Typography className="text-danger">{errors.startDate.message}</Typography>
+								<Typography variant="caption" className="text-danger">
+									{errors.startDate.message}
+								</Typography>
 							)}
 						</div>
 
 						<div className="form-control">
 							<TextField
 								label="Event End Date"
-								inputVariant="outlined"
+								variant="outlined"
 								size="small"
 								InputLabelProps={{ shrink: true }}
 								defaultValue={
@@ -199,7 +195,7 @@ const AddEvent = ({ eventData }) => {
 						<div className="form-control">
 							<TextField
 								label="Event Time"
-								inputVariant="outlined"
+								variant="outlined"
 								size="small"
 								InputLabelProps={{ shrink: true }}
 								defaultValue={
@@ -207,10 +203,14 @@ const AddEvent = ({ eventData }) => {
 								}
 								type="time"
 								{...register("time", {
-									required: "Events start time is required.",
+									required: "Events time is required.",
 								})}
 							/>
-							{errors.time && <Typography className="text-danger">{errors.time.message}</Typography>}
+							{errors.time && (
+								<Typography variant="caption" className="text-danger">
+									{errors.time.message}
+								</Typography>
+							)}
 						</div>
 
 						<div className="form-control">
@@ -229,7 +229,9 @@ const AddEvent = ({ eventData }) => {
 								})}
 							/>
 							{errors.email && (
-								<Typography className="text-danger">{errors.email.message}</Typography>
+								<Typography variant="caption" className="text-danger">
+									{errors.email.message}
+								</Typography>
 							)}
 						</div>
 
@@ -248,7 +250,9 @@ const AddEvent = ({ eventData }) => {
 								})}
 							/>
 							{errors.mobile && (
-								<Typography className="text-danger">{errors.mobile.message}</Typography>
+								<Typography variant="caption" className="text-danger">
+									{errors.mobile.message}
+								</Typography>
 							)}
 						</div>
 						<div className="form-control">
@@ -264,7 +268,9 @@ const AddEvent = ({ eventData }) => {
 								})}
 							/>
 							{errors.location && (
-								<Typography className="text-danger">{errors.location.message}</Typography>
+								<Typography variant="caption" className="text-danger">
+									{errors.location.message}
+								</Typography>
 							)}
 						</div>
 						<div className="form-control">

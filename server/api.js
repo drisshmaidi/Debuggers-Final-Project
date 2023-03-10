@@ -44,8 +44,7 @@ router.post("/checkUser",authentication,authorization,(req,res)=>{
 			userId: req.authentication.userId,
 		});
 });
-
-//update exists event into database
+//update exists event
 
 router.put("/updateEvent",authorization,authentication, (req, res) => {
 		const {
@@ -111,7 +110,7 @@ router.post("/addNewEvent",authorization,authentication,(req,res)=>{
 router.get("/events/search/:term",authorization, (req, res) => {
 	const searchValue = req.params.term;
 
-	//search events by id, title, description
+	//search events by id, title, and description
 	db.query("SELECT id, title, description FROM events WHERE id::text like $1 OR LOWER(title) like $1 OR LOWER(description) like $1",[`%${searchValue.toLowerCase()}%`])
 		.then((result) => res.status(200).json(result.rows))
 		.catch((error) => {
@@ -193,6 +192,8 @@ router.post("/adminLogin",reCaptcha, (req, res) => {
 
 });
 
+
+//function for update or insert event into the DB
 const save = (query, inputs, res) => {
 	try {
 		db.query(query, inputs)
