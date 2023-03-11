@@ -35,7 +35,7 @@ function Header() {
 			.catch((err) => {
 				console.error(err);
 			});
-	}, []);
+	});
 
 	return (
 		<div className="header">

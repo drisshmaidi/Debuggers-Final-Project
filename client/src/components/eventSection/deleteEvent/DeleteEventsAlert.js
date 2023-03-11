@@ -23,21 +23,18 @@ export default function AlertDialogModal({ eventId, title  }) {
 		Authorization: `Bearer ${token}`,
 	};
 
-
     const handleDelete = () => {
 
         fetch("/api/deleteEvent", {
-					method: "DELETE",
-					headers: header,
-					body: JSON.stringify({ eventId }),
-				}).then((res) => res.json())
-					.then((data) => {
-						setEventDeleted(true);
-                        setMsg(data.msg);
-
-					});
-
-        //setOpen(false);
+			method: "DELETE",
+			headers: header,
+			body: JSON.stringify({ eventId }),
+		})
+		.then((res) => res.json())
+		.then((data) => {
+			setEventDeleted(true);
+            setMsg(data.msg);
+		});
     };
 
 	return (

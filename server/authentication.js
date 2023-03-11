@@ -19,14 +19,12 @@ const authentication = (req, res, next) => {
 		} else {
 			res.status(401).json({ message: "Token not found" });
 			return;
-			//req.body.authentication = { status: 498, authMsg: "Token not found" };
 		}
 	} catch (err) {
 		//return error if token or secret key is invalid
 		res.status(401).json({ message: "Invalid token" });
 		return;
 	}
-
 	next();
 };
 
