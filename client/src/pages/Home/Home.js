@@ -26,12 +26,13 @@ function Home() {
 								Events
 							</Link>
 						</span>{" "}
-						and Partnering with{" "}
+						and{" "}
 						<span>
 							<Link to="/tutors" className="link">
-								Language Buddies.
+								Connect
 							</Link>
-						</span>
+						</span> {""}
+						with Language Buddies.{" "}
 					</p>
 				</div>
 				<div className="image-container">

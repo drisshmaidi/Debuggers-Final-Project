@@ -57,4 +57,35 @@ text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 fff, 1px 1px 0 fff;
   color: #333;
 }
 
+@media only screen and (max-width: 600px) {
+  .home {
+    flex-direction: column;
+  }
+  
+  .text-container {
+  text-align: center;
+  }
+  
+  .image-container {
+     margin: 0 auto;
+    text-align: center;
+  }
 
+   .image-container img {
+     width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 10px;
+  
+  }
+
+   .text-container h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .text-container p {
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+  }
+} 
