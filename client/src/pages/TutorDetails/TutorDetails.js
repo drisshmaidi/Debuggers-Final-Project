@@ -1,11 +1,9 @@
 import React from "react";
 import "./TutorDetails.css";
 import Image1 from "../TutorDetails/Image1.jpg";
-import Image2 from "../TutorDetails/Image2.jpg";
 import Image3 from "../TutorDetails/Image3.png";
 import Image4 from "../TutorDetails/Image4.jpg";
 import Header from "../../components/Header";
-
 
 function EmployeeCard(props) {
 	return (
@@ -67,11 +65,6 @@ function App() {
 						jobTitle="I Speak Italian and Want to Learn German"
 						imageSrc={Image4}
 					/>
-					{/* <EmployeeCard
-						name="Greetings, I'm George Li"
-						jobTitle="I Speak Korean and Want to Learn English"
-						imageSrc={Image2}
-					/> */}
 					<EmployeeCard
 						name="Hiya, I'm Sara Ahmed"
 						jobTitle="I Speak Arabic and Want to Learn French"

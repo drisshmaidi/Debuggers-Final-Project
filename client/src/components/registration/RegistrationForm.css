@@ -4,9 +4,9 @@
 	align-items: center;
 
 	padding: 4rem;
-	border: 1px sold #ccc;
+
 	border-radius: 0.5rem;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
 }
 
 .registerForm {
@@ -59,6 +59,11 @@ label {
 	font-size: 20px;
 	font-weight: bold;
 	cursor: pointer;
+}
+
+.RegisterButton:hover {
+	background-color: white;
+	color: red;
 }
 
 .titleRegister {

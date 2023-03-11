@@ -1,62 +1,83 @@
 .signin {
-  display: flex;
-  align-items: center;
-}
-
-.contact_paragraph {
-  margin-bottom: 26px;
-  color: rgb(0, 0, 0);
-  font-style: italic;
-  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 fff, 1px 1px 0 fff;
-  font-size: 30px;
-  margin-right: 40px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
 }
 
 .title {
-    font-size: 80px;
-  font-weight: bold;
-  font-family: "primary";
-  line-height: 120%;
-  letter-spacing: -0.05em;
-  margin-bottom: 20px;
-  color: red;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
-    1px 1px 0 #000;
-    justify-content: center;
-    align-items: center;
+	font-size: 90px;
+	margin-bottom: 1rem;
+	text-align: center;
+	color: red;
+	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+		1px 1px 0 #000;
+	letter-spacing: -0.05em;
+	font-weight: bold;
+	font-family: "primary";
+}
+
+.contact_paragraph {
+	font-size: 1.5rem;
+	margin-bottom: 3rem;
+	text-align: center;
 }
 
 .button-group {
-  display: flex;
-  align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 2rem;
 }
 
 .button {
-  margin: 10px;
-  padding: 10px 20px;
-background-color: red;
-  color: #fff;
-  font-size: 1em;
-  cursor: pointer;
-    text-transform: uppercase;
-     font-weight: 600;
-     border-radius: 10px;
-    
+	background-color: red;
+	color: white;
+	font-size: 1.2rem;
+	padding: 0.5rem 1rem;
+	border-radius: 0.3rem;
+	margin-bottom: 1rem;
+	width: 100%;
+  font-weight: bold;
 }
 
-
 .button:hover {
-  background-color: white;
-  color: red;
-
+	background-color: white;
+	color: red;
 }
 
 .image {
-  width: 500px;
-  margin-right: 40px;
-  border-radius: 30px;
-  margin-bottom: 50px;
-  margin-top: 40px;
+	width: 100%;
+	max-width: 500px;
+	height: auto;
+	margin-top: 3rem;
+	border-radius: 30px;
 }
 
- 
+/* media queries */
+@media only screen and (min-width: 768px) {
+	.signin {
+		flex-direction: row;
+	}
+
+	.title {
+		font-size: 90px;
+	}
+
+	.button-group {
+		flex-direction: row;
+		margin-right: 2rem;
+		margin-bottom: 0;
+	}
+
+	.button {
+		margin-right: 1rem;
+		width: auto;
+	}
+
+	.image {
+		margin-top: 0;
+		margin-left: 3rem;
+	}
+}

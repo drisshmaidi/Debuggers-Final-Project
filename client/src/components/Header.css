@@ -1,14 +1,14 @@
 #root{
   position: absolute;
     top: 0;
-    width: 65%;
+    width: 60%;
 }
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  
   
 }
 
@@ -44,3 +44,40 @@
   font-weight: bold;
 }
 
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .img {
+  /* max-width: 100%; */
+  width: 300px;
+  height: auto;
+}
+  
+  .logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  padding-left: 50px;
+  }
+  
+  .nav {
+    width: auto;
+    align-items: center;
+    justify-content: center;
+
+  }
+  
+  ul {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  li {
+    margin: 10px 0;
+  }
+}
