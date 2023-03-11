@@ -50,7 +50,7 @@ function EmployeeCard(props) {
 function App() {
 	return (
 		<>
-		<Header />
+			<Header />
 			<link
 				rel="stylesheet"
 				href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -67,11 +67,11 @@ function App() {
 						jobTitle="I Speak Italian and Want to Learn German"
 						imageSrc={Image4}
 					/>
-					<EmployeeCard
+					{/* <EmployeeCard
 						name="Greetings, I'm George Li"
 						jobTitle="I Speak Korean and Want to Learn English"
 						imageSrc={Image2}
-					/>
+					/> */}
 					<EmployeeCard
 						name="Hiya, I'm Sara Ahmed"
 						jobTitle="I Speak Arabic and Want to Learn French"
