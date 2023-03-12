@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Form, Button, Card } from "react-bootstrap";
+import { Form, Button, Card, Row, Col } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../Header";
+import logo from "../../pages/SignIn/student.png";
 
 function LoginPage({ email, setEmail }) {
 	// const [email, setEmail] = useState("");
@@ -40,9 +41,24 @@ function LoginPage({ email, setEmail }) {
 	return (
 		<>
 			<Header />
-			<div className="row justify-content-center mt-5">
-				<div className="col-sm-6 col-md-4">
-					<Card style={{ boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)" }}>
+			<Row className="justify-content-center mt-3">
+				<Col md={6} lg={4} className="order-md-1 mb-4 mb-md-0">
+					<Card
+						style={{
+							boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+							borderRadius: "12px",
+						}}
+					>
+						<div
+							className="text-center"
+							style={{ margin: "10px", borderRadius: "12px" }}
+						>
+							<img
+								src={logo}
+								alt="Logo"
+								style={{ width: "100%", height: "350px", borderRadius: "12px" }}
+							/>
+						</div>
 						<Card.Body>
 							<h3 className="mb-3">Log in</h3>
 							<Form onSubmit={handleLogin}>
@@ -53,18 +69,27 @@ function LoginPage({ email, setEmail }) {
 										placeholder="Enter email"
 										value={email}
 										onChange={handleEmailChange}
-										style={{ boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)" }}
+										style={{
+											width: "100%",
+											boxShadow: "0px 0px 6px rgba(0, 0, 0, 0.25)",
+										}}
 									/>
 								</Form.Group>
 
-								<Form.Group controlId="formBasicPassword">
+								<Form.Group
+									controlId="formBasicPassword"
+									style={{ marginTop: "5px" }}
+								>
 									<Form.Label>Password</Form.Label>
 									<Form.Control
 										type="password"
 										placeholder="Password"
 										value={password}
 										onChange={handlePasswordChange}
-										style={{ boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)" }}
+										style={{
+											width: "100%",
+											boxShadow: "0px 0px 6px rgba(0, 0, 0, 0.25)",
+										}}
 									/>
 								</Form.Group>
 
@@ -93,10 +118,13 @@ function LoginPage({ email, setEmail }) {
 							</Form>
 						</Card.Body>
 					</Card>
-				</div>
-			</div>
+				</Col>
+			</Row>
 		</>
 	);
 }
 
 export default LoginPage;
+
+
+
