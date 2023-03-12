@@ -5,11 +5,12 @@ import jwt from "jsonwebtoken";
 const authorization = (req, res, next) => {
 	//get token
 	let token = req.headers.authorization;
-	token = token.split(" ")[1];
+
 	try {
 		//if token exist
 		if (token) {
 			//verify token
+			token = token.split(" ")[1];
 			const { isAdmin } = jwt.verify(token, process.env.JWT_SECRET);
 
 			req.authorization = {
@@ -29,3 +30,4 @@ const authorization = (req, res, next) => {
 };
 
 module.exports = authorization;
+``
